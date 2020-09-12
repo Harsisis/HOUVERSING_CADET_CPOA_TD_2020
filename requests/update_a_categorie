@@ -20,3 +20,22 @@ String query = "UPDATE Categorie SET";
 //we only change the title and/or the visual for the selected cat
 query += "WHERE id_categorie = " + num_cat + ";"
 
+
+
+
+
+
+
+
+
+
+
+
+PreparedStatement requete =
+  laConnexion.prepareStatement("delete from
+  etudiant where promo_etudiant=?");
+requete.setInt(1, idPromo);
+
+nbLignes = requete.executeUpdate();
+
+return nbLignes==1;
