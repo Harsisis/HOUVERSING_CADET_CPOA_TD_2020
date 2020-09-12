@@ -9,11 +9,11 @@ String visual_cat;
 String query = "UPDATE Categorie SET";
   
   //if the title wasn't empty, the user want to change it 
-  if (!title_cat == "")
+  if (title_cat <> "")
     query += "titre = '" + title_cat + "'";
   
   //if the visual wasn't empty, the user want to change it
-  if (!visual_cat == "")
+  if (visual_cat <> "")
     query += "visuel = '" + visual_cat + "'";
     
     
