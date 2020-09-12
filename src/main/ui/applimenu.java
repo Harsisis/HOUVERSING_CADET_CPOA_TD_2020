@@ -1,6 +1,5 @@
 package main.ui;
 import java.util.Scanner;
-
 public class applimenu {
     Scanner scan = new Scanner(System.in);
     public applimenu() {
@@ -29,13 +28,13 @@ public class applimenu {
 
     //menu to manage Customers
     private void menuCust() {
-        System.out.println("What do you want to do now ?\n\t1. Add a Customer\n\t2. Edit a Customer\n\t3. Disp all the Customers");
+        System.out.println("What do you want to do now ?\n\t1. Add a Customer\n\t2. Edit a Customer\n\t3. Disp all the Customers\n\t4. Back");
         String choice;
         do {
-            System.out.println("Select a number between 1 and 3 please");
+            System.out.println("Select a number between 1 and 4 please");
             choice = scan.next();
             System.out.println(choice);
-        } while(choice.equals("1") && choice.equals("2") && choice.equals("3"));
+        } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4"));
 
         switch(choice){
             case "1":
@@ -43,39 +42,44 @@ public class applimenu {
             case "2":
                 break;
             case "3":
+                break;
+            case "4": menu1();
                 break;
         }
     }
 
     //menu to manage Products
     private void menuProd() {
-            System.out.println("What do you want to do now ?\n\t1. Add a Product\n\t2. Edit a Product\n\t3. Disp all the Products");
+            System.out.println("What do you want to do now ?\n\t1. Add a Product\n\t2. Edit a Product\n\t3. Disp all the Products\n\t4. Back");
         String choice;
         do {
-            System.out.println("Select a number between 1 and 3 please");
+            System.out.println("Select a number between 1 and 4 please");
             choice = scan.next();
             System.out.println(choice);
-        } while(choice.equals("1") && choice.equals("2") && choice.equals("3"));
+        } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4"));
 
-        switch(choice){
+        switch(choice) {
             case "1":
                 break;
             case "2":
                 break;
             case "3":
+                break;
+            case "4":
+                menu1();
                 break;
         }
     }
 
     //menu to manage Categories
     private void menuCat() {
-        System.out.println("What do you want to do now ?\n\t1. Add a Category\n\t2. Edit a Category\n\t3. Disp all the Categories");
+        System.out.println("What do you want to do now ?\n\t1. Add a Category\n\t2. Edit a Category\n\t3. Disp all the Categories\n\t4. Back");
         String choice;
         do {
-            System.out.println("Select a number between 1 and 3 please");
+            System.out.println("Select a number between 1 and 4 please");
             choice = scan.next();
             System.out.println(choice);
-        } while(choice.equals("1") && choice.equals("2") && choice.equals("3"));
+        } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4"));
 
         switch(choice){
             case "1":
@@ -83,6 +87,8 @@ public class applimenu {
             case "2":
                 break;
             case "3":
+                break;
+            case "4": menu1();
                 break;
         }
     }
