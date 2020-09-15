@@ -49,12 +49,11 @@ public class Category {
         }
     }
 
-
-
 //    public void all_cat(){
 //        try{
-//            java.sql.Connection connection = Connection.connect();
-//            String requete = "SELECT * FROM Categorie";
+//            Statement requete = Connection.getInstance().getConnection().createStatement();
+//            ResultSet res = requete.executeQuery("SELECT * FROM Categorie");
+//
 //            ResultSetMetaData rsmd = res.getMetaData();
 //            int columnsNumber = rsmd.getColumnCount();
 //            while (res.next()) {
