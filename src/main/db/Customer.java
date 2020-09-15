@@ -52,5 +52,29 @@ public class Customer {
 
     public void all_cust(){
 
+        try{
+            Statement requete = Connection.getInstance().getConnection().createStatement();
+            ResultSet res = requete.executeQuery("SELECT * FROM Client");
+
+            ResultSetMetaData rsmd = res.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (res.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
+                    String columnValue = res.getString(i);
+                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }
+            if (res != null)
+                res.close();
+            if (requete != null)
+                requete.close();
+            if (Connection.getInstance() != null)
+                Connection.getInstance().getConnection().close();
+        } catch (SQLException sqle) {
+            System.out.println("Pb select" + sqle.getMessage());
+        }
+
     }
 }
