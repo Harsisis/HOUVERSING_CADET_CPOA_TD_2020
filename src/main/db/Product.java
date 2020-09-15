@@ -71,8 +71,8 @@ public class Product {
         id_prod = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
-            String requete = "DELETE FROM Produit WHERE id_produit = ? ";
-            PreparedStatement ps = connection.prepareStatement(requete);
+            String request = "DELETE FROM Produit WHERE id_produit = ? ";
+            PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, id_prod);
             ps.executeUpdate();
             connection.close();

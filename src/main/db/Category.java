@@ -14,8 +14,8 @@ public class Category {
         visual_cat = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
-            String requete = "INSERT INTO Categorie(titre, visuel) VALUES(?, ?)";
-            PreparedStatement ps = connection.prepareStatement(requete);
+            String request = "INSERT INTO Categorie(titre, visuel) VALUES(?, ?)";
+            PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, title_cat);
             ps.setString(2, visual_cat);
             ps.executeUpdate();
@@ -37,8 +37,8 @@ public class Category {
         visual_cat = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
-            String requete = "UPDATE Categorie SET titre = ?, visuel = ? WHERE id_categorie =  ?";
-            PreparedStatement ps = connection.prepareStatement(requete);
+            String request = "UPDATE Categorie SET titre = ?, visuel = ? WHERE id_categorie =  ?";
+            PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, title_cat);
             ps.setString(2, visual_cat);
             ps.setString(3, id_cat);
@@ -55,8 +55,8 @@ public class Category {
         id_cat = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
-            String requete = "DELETE FROM Categorie WHERE id_categorie = ? ";
-            PreparedStatement ps = connection.prepareStatement(requete);
+            String request = "DELETE FROM Categorie WHERE id_categorie = ? ";
+            PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, id_cat);
             ps.executeUpdate();
             connection.close();
@@ -65,29 +65,29 @@ public class Category {
         }
     }
 
-//    public void all_cat(){
-//        try{
-//            Statement requete = Connection.getInstance().getConnection().createStatement();
-//            ResultSet res = requete.executeQuery("SELECT * FROM Categorie");
-//
-//            ResultSetMetaData rsmd = res.getMetaData();
-//            int columnsNumber = rsmd.getColumnCount();
-//            while (res.next()) {
-//                for (int i = 1; i <= columnsNumber; i++) {
-//                    if (i > 1) System.out.print(",  ");
-//                    String columnValue = res.getString(i);
-//                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
-//                }
-//                System.out.println("");
-//            }
-//            if (res != null)
-//                res.close();
-//            if (requete != null)
-//                requete.close();
-//            if (Connection.getInstance() != null)
-//                Connection.getInstance().getConnection().close();
-//        } catch (SQLException sqle) {
-//            System.out.println("Pb select" + sqle.getMessage());
-//        }
-//    }
+    public void all_cat(){
+        try{
+            String request = Connection.getInstance().getConnection().createStatement();
+            ResultSet res = requete.executeQuery("SELECT * FROM Categorie");
+
+            ResultSetMetaData rsmd = res.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (res.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
+                    String columnValue = res.getString(i);
+                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }
+            if (res != null)
+                res.close();
+            if (requete != null)
+                requete.close();
+            if (Connection.getInstance() != null)
+                Connection.getInstance().getConnection().close();
+        } catch (SQLException sqle) {
+            System.out.println("Pb select" + sqle.getMessage());
+        }
+    }
 }

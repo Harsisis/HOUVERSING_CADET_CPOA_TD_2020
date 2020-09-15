@@ -55,8 +55,8 @@ public class Customer {
         id_cust = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
-            String requete = "DELETE FROM Client WHERE id_client = ? ";
-            PreparedStatement ps = connection.prepareStatement(requete);
+            String request = "DELETE FROM Client WHERE id_client = ? ";
+            PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, id_cust);
             ps.executeUpdate();
             connection.close();
