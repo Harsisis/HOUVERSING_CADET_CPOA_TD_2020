@@ -4,16 +4,17 @@ import java.sql.*;
 public class Connection {
     private static Connection instance;
     private java.sql.Connection connection;
-    private String url = "jdbc:mysql://devbdd.iutmetz.univ-lorraine.fr:3306/cadet25u_CPOA?serverTimezone=Europe/Paris";
+    private String url = "jdbc:mysql://devbdd.iutmetz.univ-lorraine.fr:3306/cadet25u_CPOA";
     private String username = "cadet25u_appli";
     private String password = "Gauthier541609";
 
-    private Connection() throws SQLException{
+    private Connection() {
+        url += "?serverTimezone=Europe/Paris";
         try {
-            Class.forName("org.postgresql.Driver");
             this.connection = DriverManager.getConnection(url, username, password);
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Database Connection Creation Failed : " + ex.getMessage());
+            System.out.println("Database connection succesful");
+        } catch (SQLException sqle) {
+            System.out.println("Database connection creation failed : " + sqle.getMessage());
         }
     }
 
