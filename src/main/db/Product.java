@@ -80,30 +80,25 @@ public class Product {
             System.out.println("Pb select" + sqle.getMessage());
         }
     }
-//
-//    public void all_prod(){
-//        try{
-//            Statement requete = Connection.getInstance().getConnection().createStatement();
-//            ResultSet res = requete.executeQuery("SELECT * FROM Produit");
-//
-//            ResultSetMetaData rsmd = res.getMetaData();
-//            int columnsNumber = rsmd.getColumnCount();
-//            while (res.next()) {
-//                for (int i = 1; i <= columnsNumber; i++) {
-//                    if (i > 1) System.out.print(",  ");
-//                    String columnValue = res.getString(i);
-//                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
-//                }
-//                System.out.println("");
-//            }
-//            if (res != null)
-//                res.close();
-//            if (requete != null)
-//                requete.close();
-//            if (Connection.getInstance() != null)
-//                Connection.getInstance().getConnection().close();
-//        } catch (SQLException sqle) {
-//            System.out.println("Pb select" + sqle.getMessage());
-//        }
-//    }
+
+    public void all_prod() {
+        java.sql.Connection connection = Connection.connect();
+        try {
+            String request = "SELECT * FROM Produit";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(request);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id_produit");
+                String nom = resultSet.getString("nom");
+                String description = resultSet.getString("description");
+                String tarif = resultSet.getString("tarif");
+                String visuel = resultSet.getString("visuel");
+                System.out.format("%s, %s, %s, %s, %s\n", id, nom, description, tarif, visuel);
+            }
+            statement.close();
+        } catch (SQLException sqle) {
+            System.out.println("FAIL" + sqle.getMessage());
+        }
+    }
 }
