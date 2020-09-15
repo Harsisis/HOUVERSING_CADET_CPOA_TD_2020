@@ -1,4 +1,5 @@
 package main.ui;
+import main.db.Category;
 import main.db.Customer;
 import main.db.Product;
 
@@ -11,7 +12,7 @@ public class applimenu {
 
     //menu to manage if the user want a category, a product or a customer
     public void menu1(){
-        System.out.println("Hello, what do you want to do ?\n\t1. Category\n\t2. Product\n\t3. Customer");
+        System.out.println("Hello, what do you want to do ?\n\t1. Category\n\t2. Product\n\t3. Customer\n\t4. Exit");
         String choice;
         do {
             System.out.println("Select a number between 1 and 3 please");
@@ -26,6 +27,7 @@ public class applimenu {
                 break;
             case "3": menuCust();
                 break;
+            case "4": return;
         }
     }
 
@@ -70,7 +72,7 @@ public class applimenu {
                 break;
             case "2": product.edit_prod();
                 break;
-            case "3":
+            case "3": product.all_prod();
                 break;
             case "4":
                 menu1();
@@ -88,12 +90,14 @@ public class applimenu {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4"));
 
+        Category category = new Category();
+
         switch(choice){
-            case "1":
+            case "1": category.add_cat();
                 break;
-            case "2":
+            case "2": category.edit_cat();
                 break;
-            case "3":
+            case "3": category.all_cat();
                 break;
             case "4": menu1();
                 break;
