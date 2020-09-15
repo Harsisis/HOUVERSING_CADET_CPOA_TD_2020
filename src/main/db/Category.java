@@ -29,7 +29,7 @@ public class Category {
         String title_cat = null;
         String visual_cat = null;
         String id_cat = null;
-        System.out.println("Which category would you like change ?\n");
+        System.out.println("Which category would you like to change ?\n");
         id_cat = scan.next();
         System.out.println("Prompt the new category title :\n");
         title_cat = scan.next();
@@ -51,7 +51,7 @@ public class Category {
 
     public void del_cat(){
         String id_cat = null;
-        System.out.println("Wich category would you delete ?\n");
+        System.out.println("Which category would you like to delete ?\n");
         id_cat = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
@@ -61,7 +61,7 @@ public class Category {
             ps.executeUpdate();
             connection.close();
         } catch (SQLException sqle) {
-            System.out.println("Pb select" + sqle.getMessage());
+            System.out.println("FAIL " + sqle.getMessage());
         }
     }
 
@@ -80,7 +80,7 @@ public class Category {
             }
             statement.close();
         } catch (SQLException sqle) {
-            System.out.println("FAIL" + sqle.getMessage());
+            System.out.println("FAIL " + sqle.getMessage());
         }
     }
 }

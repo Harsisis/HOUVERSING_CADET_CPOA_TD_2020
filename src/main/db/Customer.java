@@ -14,14 +14,14 @@ public class Customer {
         surname_cust = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
-            String request = "INSERT INTO Categorie(nom, prenom) VALUES(?, ?)";
+            String request = "INSERT INTO Client(nom, prenom, identifiant) VALUES(?, ?, 0, 0, 0, 0, 0, 0, 0)";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, name_cust);
             ps.setString(2, surname_cust);
             ps.executeUpdate();
             connection.close();
         } catch (SQLException sqle) {
-            System.out.println("Pb select" + sqle.getMessage());
+            System.out.println("FAIL " + sqle.getMessage());
         }
     }
 
@@ -29,7 +29,7 @@ public class Customer {
         String name_cust = null;
         String surname_cust = null;
         String id_cust = null;
-        System.out.println("Wich customer would you change ?\n");
+        System.out.println("Which customer would you like to change ?\n");
         id_cust = scan.next();
         System.out.println("Prompt the customer name :\n");
         name_cust = scan.next();
@@ -45,13 +45,13 @@ public class Customer {
             ps.executeUpdate();
             connection.close();
         } catch (SQLException sqle) {
-            System.out.println("Pb select" + sqle.getMessage());
+            System.out.println("FAIL " + sqle.getMessage());
         }
     }
 
     public void del_cust(){
         String id_cust = null;
-        System.out.println("Wich customer would you delete ?\n");
+        System.out.println("Which customer would you like to delete ?\n");
         id_cust = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
@@ -61,7 +61,7 @@ public class Customer {
             ps.executeUpdate();
             connection.close();
         } catch (SQLException sqle) {
-            System.out.println("Pb select" + sqle.getMessage());
+            System.out.println("FAIL " + sqle.getMessage());
         }
     }
     public void all_cust() {
@@ -75,14 +75,7 @@ public class Customer {
                 int id = resultSet.getInt("id_client");
                 String nom = resultSet.getString("nom");
                 String prenom = resultSet.getString("prenom");
-                String identifiant = resultSet.getString("identifiant");
-                String mdp = resultSet.getString("mot_de_passe");
-                String numero = resultSet.getString("adr_numero");
-                String voie = resultSet.getString("adr_voie");
-                String cp = resultSet.getString("adr_code_postal");
-                String ville = resultSet.getString("adr_ville");
-                String pays = resultSet.getString("adr_pays");
-                System.out.format("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s\n", id, nom, prenom, identifiant, mdp, numero, voie, cp, ville, pays);
+                System.out.format("%s, %s, %s\n", id, nom, prenom);
             }
             statement.close();
         } catch (SQLException sqle) {
