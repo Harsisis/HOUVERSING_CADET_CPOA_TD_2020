@@ -64,28 +64,29 @@ public class Customer {
             System.out.println("Pb select" + sqle.getMessage());
         }
     }
-//
-//    public void all_cust(){
-//
-//        try{
-//            java.sql.Connection connection = Connection.connect();
-//            String requete = "SELECT * FROM Client";
-//            PreparedStatement ps = connection.prepareStatement(requete);
-//
-//            ResultSetMetaData rsmd = ps.getMetaData();
-//            int columnsNumber = rsmd.getColumnCount();
-//            while (.next()) {
-//                for (int i = 1; i <= columnsNumber; i++) {
-//                    if (i > 1) System.out.print(",  ");
-//                    String columnValue = .getString(i);
-//                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
-//                }
-//                System.out.println("");
-//            }
-//            connection.close();
-//        } catch (SQLException sqle) {
-//            System.out.println("Pb select" + sqle.getMessage());
-//        }
-//
-//    }
+    public void all_cust() {
+        java.sql.Connection connection = Connection.connect();
+        try {
+            String request = "SELECT * FROM Client";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(request);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id_client");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String identifiant = resultSet.getString("identifiant");
+                String mdp = resultSet.getString("mot_de_passe");
+                String numero = resultSet.getString("adr_numero");
+                String voie = resultSet.getString("adr_voie");
+                String cp = resultSet.getString("adr_code_postal");
+                String ville = resultSet.getString("adr_ville");
+                String pays = resultSet.getString("adr_pays");
+                System.out.format("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s\n", id, nom, prenom, identifiant, mdp, numero, voie, cp, ville, pays);
+            }
+            statement.close();
+        } catch (SQLException sqle) {
+            System.out.println("FAIL" + sqle.getMessage());
+        }
+    }
 }
