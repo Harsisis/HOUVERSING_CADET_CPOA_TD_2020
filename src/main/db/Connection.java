@@ -4,7 +4,7 @@ import java.sql.*;
 public class Connection {
     private static Connection instance;
     private java.sql.Connection connection;
-    private String url = "jdbc:mysql://devbdd.iutmetz.univ-lorraine.fr:3306/cadet25u_CPOA?serverTimezone=Europe/Paris\"";
+    private String url = "jdbc:mysql://devbdd.iutmetz.univ-lorraine.fr:3306/cadet25u_CPOA?serverTimezone=Europe/Paris";
     private String username = "cadet25u_appli";
     private String password = "Gauthier541609";
 
