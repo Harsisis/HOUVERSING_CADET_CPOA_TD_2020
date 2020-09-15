@@ -64,6 +64,22 @@ public class Product {
             System.out.println("Pb select" + sqle.getMessage());
         }
     }
+
+    public void del_prod(){
+        String id_prod = null;
+        System.out.println("Wich product would you delete ?\n");
+        id_prod = scan.next();
+        java.sql.Connection connection = Connection.connect();
+        try{
+            String requete = "DELETE FROM Produit WHERE id_produit = ? ";
+            PreparedStatement ps = connection.prepareStatement(requete);
+            ps.setString(1, id_prod);
+            ps.executeUpdate();
+            connection.close();
+        } catch (SQLException sqle) {
+            System.out.println("Pb select" + sqle.getMessage());
+        }
+    }
 //
 //    public void all_prod(){
 //        try{
