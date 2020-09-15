@@ -15,7 +15,7 @@ public class applimenu {
         System.out.println("Hello, what do you want to do ?\n\t1. Category\n\t2. Product\n\t3. Customer\n\t4. Exit");
         String choice;
         do {
-            System.out.println("Select a number between 1 and 3 please");
+            System.out.println("Select a number between 1 and 4 please");
             choice = scan.next();
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3"));
