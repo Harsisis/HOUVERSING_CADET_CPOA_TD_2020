@@ -14,7 +14,7 @@ public class Customer {
         surname_cust = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
-            String request = "INSERT INTO Client(nom, prenom, identifiant) VALUES(?, ?, 0, 0, 0, 0, 0, 0, 0)";
+            String request = "INSERT INTO Client(nom, prenom, identifiant, mot_de_passe, adr_numero, adr_voie, adr_code_postal, adr_ville, adr_pays) VALUES(?, ?, 0, 0, 0, 0, 0, 0, 0)";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, name_cust);
             ps.setString(2, surname_cust);
