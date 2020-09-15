@@ -51,7 +51,7 @@ public class Product {
         visual_prod = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
-            String requete = "UPDATE Produit SET nom=?, description=?, tarif=?, visuel=? WHERE id_produit=? ";
+            String requete = "UPDATE Produit SET nom = ?, description = ?, tarif = ?, visuel = ? WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(requete);
             ps.setString(1, name_prod);
             ps.setString(2, description_prod);

@@ -37,7 +37,7 @@ public class Customer {
         surname_cust = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
-            String requete = "UPDATE Client SET nom=?, prenom=? WHERE id_client=? ";
+            String requete = "UPDATE Client SET nom = ?, prenom = ? WHERE id_client = ? ";
             PreparedStatement ps = connection.prepareStatement(requete);
             ps.setString(1, name_cust);
             ps.setString(2, surname_cust);
