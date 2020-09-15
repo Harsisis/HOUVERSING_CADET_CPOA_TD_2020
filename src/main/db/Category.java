@@ -65,29 +65,22 @@ public class Category {
         }
     }
 
-    public void all_cat(){
-        try{
-            String request = Connection.getInstance().getConnection().createStatement();
-            ResultSet res = requete.executeQuery("SELECT * FROM Categorie");
+    public void all_cat() {
+        java.sql.Connection connection = Connection.connect();
+        try {
+            String request = "SELECT * FROM Categorie";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(request);
 
-            ResultSetMetaData rsmd = res.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
-            while (res.next()) {
-                for (int i = 1; i <= columnsNumber; i++) {
-                    if (i > 1) System.out.print(",  ");
-                    String columnValue = res.getString(i);
-                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
-                }
-                System.out.println("");
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id_categorie");
+                String titre = resultSet.getString("titre");
+                String visuel = resultSet.getString("visuel");
+                System.out.format("%s, %s, %s\n", id, titre, visuel);
             }
-            if (res != null)
-                res.close();
-            if (requete != null)
-                requete.close();
-            if (Connection.getInstance() != null)
-                Connection.getInstance().getConnection().close();
+            statement.close();
         } catch (SQLException sqle) {
-            System.out.println("Pb select" + sqle.getMessage());
+            System.out.println("FAIL" + sqle.getMessage());
         }
     }
 }
