@@ -12,6 +12,6 @@ public class Main {
         //create window
         //new applimenu();
         Category category = new Category();
-        category.edit_cat();
+        category.del_cat();
     }
 }

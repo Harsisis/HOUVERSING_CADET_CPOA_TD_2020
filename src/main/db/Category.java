@@ -1,6 +1,8 @@
 package main.db;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
-import java.sql.*;
 
 public class Category {
     Scanner scan = new Scanner(System.in);
@@ -49,29 +51,40 @@ public class Category {
         }
     }
 
-//    public void all_cat(){
-//        try{
-//            Statement requete = Connection.getInstance().getConnection().createStatement();
-//            ResultSet res = requete.executeQuery("SELECT * FROM Categorie");
-//
-//            ResultSetMetaData rsmd = res.getMetaData();
-//            int columnsNumber = rsmd.getColumnCount();
-//            while (res.next()) {
-//                for (int i = 1; i <= columnsNumber; i++) {
-//                    if (i > 1) System.out.print(",  ");
-//                    String columnValue = res.getString(i);
-//                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
-//                }
-//                System.out.println("");
-//            }
-//            if (res != null)
-//                res.close();
-//            if (requete != null)
-//                requete.close();
-//            if (Connection.getInstance() != null)
-//                Connection.getInstance().getConnection().close();
-//        } catch (SQLException sqle) {
-//            System.out.println("Pb select" + sqle.getMessage());
-//        }
-//    }
+    public void del_cat(){
+        String id_cat = null;
+        System.out.println("Which category would you like delete ?\n");
+        id_cat = scan.next();
+        java.sql.Connection connection = Connection.connect();
+        try{
+            String requete = "DELETE FROM Categorie WHERE id_categorie =  ?";
+            PreparedStatement ps = connection.prepareStatement(requete);
+            ps.setString(1, id_cat);
+            ps.executeUpdate();
+            connection.close();
+        } catch (SQLException sqle) {
+            System.out.println("FAIL " + sqle.getMessage());
+        }
+    }
+
+    public void all_cat(){
+        try{
+            String requete = Connection.getInstance().getConnection().createStatement();
+            ResultSet res = requete.executeQuery("SELECT * FROM Categorie");
+
+            ResultSetMetaData rsmd = res.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (res.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
+                    String columnValue = res.getString(i);
+                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println("Pb select" + sqle.getMessage());
+        }
+    }
 }
