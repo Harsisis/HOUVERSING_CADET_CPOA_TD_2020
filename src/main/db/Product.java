@@ -20,8 +20,8 @@ public class Product {
         visual_prod = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
-            String requete = "INSERT INTO Produit(titre, visuel) VALUES(?, ?, ?, ?)";
-            PreparedStatement ps = connection.prepareStatement(requete);
+            String request = "INSERT INTO Produit(titre, visuel) VALUES(?, ?, ?, ?)";
+            PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, name_prod);
             ps.setString(2, description_prod);
             ps.setString(3, price_prod);
@@ -51,8 +51,8 @@ public class Product {
         visual_prod = scan.next();
         java.sql.Connection connection = Connection.connect();
         try{
-            String requete = "UPDATE Produit SET nom = ?, description = ?, tarif = ?, visuel = ? WHERE id_produit = ? ";
-            PreparedStatement ps = connection.prepareStatement(requete);
+            String request = "UPDATE Produit SET nom = ?, description = ?, tarif = ?, visuel = ? WHERE id_produit = ? ";
+            PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, name_prod);
             ps.setString(2, description_prod);
             ps.setString(3, price_prod);
