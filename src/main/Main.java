@@ -1,17 +1,11 @@
 package main;
 
-import main.db.Category;
-//import main.ui.applimenu;
-
-import java.sql.*;
-import java.util.Scanner;
+import main.ui.applimenu;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         //create window
-        //new applimenu();
-        Category category = new Category();
-        category.all_cat();
+        new applimenu();
     }
 }

@@ -39,7 +39,7 @@ public class Product {
         String price_prod = null;
         String visual_prod = null;
         String id_prod = null;
-        System.out.println("Wich product would you change ?\n");
+        System.out.println("Which product would you change ?\n");
         id_prod = scan.next();
         System.out.println("Prompt the product name :\n");
         name_prod = scan.next();

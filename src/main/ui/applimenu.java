@@ -50,8 +50,8 @@ public class applimenu {
                 break;
             case "3": customer.del_cust();
                 break;
-            //case "4": customer.all_cust();
-                //break;
+            case "4": customer.all_cust();
+                break;
             case "5": menu1();
                 break;
         }
@@ -76,8 +76,8 @@ public class applimenu {
                 break;
             case "3": product.del_prod();
                 break;
-            //case "4": product.all_prod();
-                //break;
+            case "4": product.all_prod();
+                break;
             case "5":
                 menu1();
                 break;
@@ -102,8 +102,8 @@ public class applimenu {
                 break;
             case "3": category.del_cat();
                 break;
-            //case "4": category.all_cat();
-                //break;
+            case "4": category.all_cat();
+                break;
             case "5": menu1();
                 break;
         }
