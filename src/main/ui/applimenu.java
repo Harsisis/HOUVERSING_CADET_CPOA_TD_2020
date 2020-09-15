@@ -1,4 +1,7 @@
 package main.ui;
+import main.db.Customer;
+import main.db.Product;
+
 import java.util.Scanner;
 public class applimenu {
     Scanner scan = new Scanner(System.in);
@@ -36,12 +39,14 @@ public class applimenu {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4"));
 
+        Customer customer = new Customer();
+
         switch(choice){
-            case "1":
+            case "1": customer.add_cust();
                 break;
-            case "2":
+            case "2": customer.edit_cust();
                 break;
-            case "3":
+            case "3": customer.all_cust();
                 break;
             case "4": menu1();
                 break;
@@ -58,10 +63,12 @@ public class applimenu {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4"));
 
+        Product product = new Product();
+
         switch(choice) {
-            case "1":
+            case "1": product.add_prod();
                 break;
-            case "2":
+            case "2": product.edit_prod();
                 break;
             case "3":
                 break;

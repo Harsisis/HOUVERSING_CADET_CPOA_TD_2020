@@ -14,7 +14,7 @@ public class Category {
         visual_cat = scan.next();
         try{
             Statement requete = Connection.getInstance().getConnection().createStatement();
-            res = requete.executeUpdate("INSERT INTO `Categorie` (`titre`, `visuel`) VALUES(title_cat, visual_cat)");
+            ResultSet res = requete.executeQuery("INSERT INTO `Categorie` (`titre`, `visuel`) VALUES(title_cat, visual_cat)");
             if (res != null)
                 res.close();
             if (requete != null)
