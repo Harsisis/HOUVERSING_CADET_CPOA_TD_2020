@@ -59,13 +59,13 @@ public class applimenu {
 
     //menu to manage Products
     private void menuProd() {
-            System.out.println("What do you want to do now ?\n\t1. Add a Product\n\t2. Edit a Product\n\t3. Disp all the Products\n\t4. Back");
+            System.out.println("What do you want to do now ?\n\t1. Add a Product\n\t2. Edit a Product\n\t3. Delete a Product\n\t4. Disp all the Products\n\t5. Back");
         String choice;
         do {
-            System.out.println("Select a number between 1 and 4 please");
+            System.out.println("Select a number between 1 and 5 please");
             choice = scan.next();
             System.out.println(choice);
-        } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4"));
+        } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
         Product product = new Product();
 
@@ -74,9 +74,11 @@ public class applimenu {
                 break;
             case "2": product.edit_prod();
                 break;
-            //case "3": product.all_prod();
+            case "3": product.del_prod();
+                break;
+            //case "4": product.all_prod();
                 //break;
-            case "4":
+            case "5":
                 menu1();
                 break;
         }
@@ -84,13 +86,13 @@ public class applimenu {
 
     //menu to manage Categories
     private void menuCat() {
-        System.out.println("What do you want to do now ?\n\t1. Add a Category\n\t2. Edit a Category\n\t3. Disp all the Categories\n\t4. Back");
+        System.out.println("What do you want to do now ?\n\t1. Add a Category\n\t2. Edit a Category\n\t3. Delete a Category\n\t4. Disp all the Categories\n\t5. Back");
         String choice;
         do {
-            System.out.println("Select a number between 1 and 4 please");
+            System.out.println("Select a number between 1 and 5 please");
             choice = scan.next();
             System.out.println(choice);
-        } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4"));
+        } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
         Category category = new Category();
 
         switch(choice){
@@ -98,9 +100,11 @@ public class applimenu {
                 break;
             case "2": category.edit_cat();
                 break;
-            //case "3": category.all_cat();
+            case "3": category.del_cat();
+                break;
+            //case "4": category.all_cat();
                 //break;
-            case "4": menu1();
+            case "5": menu1();
                 break;
         }
     }

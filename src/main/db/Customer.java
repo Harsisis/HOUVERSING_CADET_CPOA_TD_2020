@@ -48,6 +48,22 @@ public class Customer {
             System.out.println("Pb select" + sqle.getMessage());
         }
     }
+
+    public void del_cust(){
+        String id_cust = null;
+        System.out.println("Wich customer would you delete ?\n");
+        id_cust = scan.next();
+        java.sql.Connection connection = Connection.connect();
+        try{
+            String requete = "DELETE FROM Client WHERE id_client = ? ";
+            PreparedStatement ps = connection.prepareStatement(requete);
+            ps.setString(1, id_cust);
+            ps.executeUpdate();
+            connection.close();
+        } catch (SQLException sqle) {
+            System.out.println("Pb select" + sqle.getMessage());
+        }
+    }
 //
 //    public void all_cust(){
 //

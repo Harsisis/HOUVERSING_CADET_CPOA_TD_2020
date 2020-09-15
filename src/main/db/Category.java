@@ -49,6 +49,22 @@ public class Category {
         }
     }
 
+    public void del_cat(){
+        String id_cat = null;
+        System.out.println("Wich category would you delete ?\n");
+        id_cat = scan.next();
+        java.sql.Connection connection = Connection.connect();
+        try{
+            String requete = "DELETE FROM Categorie WHERE id_categorie = ? ";
+            PreparedStatement ps = connection.prepareStatement(requete);
+            ps.setString(1, id_cat);
+            ps.executeUpdate();
+            connection.close();
+        } catch (SQLException sqle) {
+            System.out.println("Pb select" + sqle.getMessage());
+        }
+    }
+
 //    public void all_cat(){
 //        try{
 //            Statement requete = Connection.getInstance().getConnection().createStatement();
