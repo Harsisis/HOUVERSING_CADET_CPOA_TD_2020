@@ -1,4 +1,5 @@
-package main.dao;
+package main.dao.classeDao;
+
 import java.util.Scanner;
 import java.sql.*;
 
@@ -12,7 +13,7 @@ public class CategoryDao {
         title_cat = scan.next();
         System.out.println("Prompt the category visual :\n");
         visual_cat = scan.next();
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "INSERT INTO Categorie(titre, visuel) VALUES(?, ?)";
             PreparedStatement ps = connection.prepareStatement(request);
@@ -35,7 +36,7 @@ public class CategoryDao {
         title_cat = scan.next();
         System.out.println("Prompt the new category visual :\n");
         visual_cat = scan.next();
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "UPDATE Categorie SET titre = ?, visuel = ? WHERE id_categorie =  ?";
             PreparedStatement ps = connection.prepareStatement(request);
@@ -53,7 +54,7 @@ public class CategoryDao {
         String id_cat = null;
         System.out.println("Which category would you like to delete ?\n");
         id_cat = scan.next();
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "DELETE FROM Categorie WHERE id_categorie = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
@@ -66,7 +67,7 @@ public class CategoryDao {
     }
 
     public void all_cat() {
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try {
             String request = "SELECT * FROM Categorie";
             Statement statement = connection.createStatement();

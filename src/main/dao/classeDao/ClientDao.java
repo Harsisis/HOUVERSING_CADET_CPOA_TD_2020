@@ -1,4 +1,4 @@
-package aaa;
+package main.dao.classeDao;
 import java.util.Scanner;
 import java.sql.*;
 
