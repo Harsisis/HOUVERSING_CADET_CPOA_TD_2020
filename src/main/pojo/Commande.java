@@ -56,7 +56,7 @@ public class Commande {
     public Double getMontantTotal(){
         double resultat = 0;
         for (Map.Entry<Produit, Integer> entry : produits.entrySet()){
-            Produit produit = (Produit) entry.getKey();
+            Produit produit = entry.getKey();
             Integer quantite = entry.getValue();
             resultat += (produit.getTarif() * quantite);
         }
