@@ -1,8 +1,8 @@
-package main.db;
+package main.dao;
 import java.util.Scanner;
 import java.sql.*;
 
-public class Product {
+public class ProductDao {
     Scanner scan = new Scanner(System.in);
 
     public void add_prod(){

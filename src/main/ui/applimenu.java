@@ -1,7 +1,7 @@
 package main.ui;
-import main.db.Category;
-import main.db.Customer;
-import main.db.Product;
+import main.dao.CategoryDao;
+import main.dao.ClientDao;
+import main.dao.ProductDao;
 
 import java.util.Scanner;
 public class applimenu {
@@ -10,9 +10,9 @@ public class applimenu {
         menu1();
     }
 
-    //menu to manage if the user want a category, a product or a customer
+    //menu to manage if the user want a category, a product or a client
     public void menu1(){
-        System.out.println("Hello, what do you want to do ?\n\t1. Category\n\t2. Product\n\t3. Customer\n\t4. Exit");
+        System.out.println("Hello, what do you want to do ?\n\t1. Category\n\t2. Product\n\t3. Client\n\t4. Exit");
         String choice;
         do {
             System.out.println("Select a number between 1 and 4 please");
@@ -25,15 +25,15 @@ public class applimenu {
                 break;
             case "2": menuProd();
                 break;
-            case "3": menuCust();
+            case "3": menuClient();
                 break;
             case "4": return;
         }
     }
 
-    //menu to manage Customers
-    private void menuCust() {
-        System.out.println("What do you want to do now ?\n\t1. Add a Customer\n\t2. Edit a Customer\n\t3. Delete a Customer\n\t4. Disp all the Customers\n\t5. Back");
+    //menu to manage Clientomers
+    private void menuClient() {
+        System.out.println("What do you want to do now ?\n\t1. Add a Client\n\t2. Edit a Client\n\t3. Delete a Client\n\t4. Display all the Clients\n\t5. Back");
         String choice;
         do {
             System.out.println("Select a number between 1 and 5 please");
@@ -41,16 +41,16 @@ public class applimenu {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
-        Customer customer = new Customer();
+        ClientDao clientDao = new ClientDao();
 
         switch(choice){
-            case "1": customer.add_cust();
+            case "1": clientDao.add_client();
                 break;
-            case "2": customer.edit_cust();
+            case "2": clientDao.edit_client();
                 break;
-            case "3": customer.del_cust();
+            case "3": clientDao.del_client();
                 break;
-            case "4": customer.all_cust();
+            case "4": clientDao.add_client();
                 break;
             case "5": menu1();
                 break;
@@ -67,16 +67,16 @@ public class applimenu {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
-        Product product = new Product();
+        ProductDao productDao = new ProductDao();
 
         switch(choice) {
-            case "1": product.add_prod();
+            case "1": productDao.add_prod();
                 break;
-            case "2": product.edit_prod();
+            case "2": productDao.edit_prod();
                 break;
-            case "3": product.del_prod();
+            case "3": productDao.del_prod();
                 break;
-            case "4": product.all_prod();
+            case "4": productDao.all_prod();
                 break;
             case "5":
                 menu1();
@@ -93,16 +93,16 @@ public class applimenu {
             choice = scan.next();
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
-        Category category = new Category();
+        CategoryDao categoryDao = new CategoryDao();
 
         switch(choice){
-            case "1": category.add_cat();
+            case "1": categoryDao.add_cat();
                 break;
-            case "2": category.edit_cat();
+            case "2": categoryDao.edit_cat();
                 break;
-            case "3": category.del_cat();
+            case "3": categoryDao.del_cat();
                 break;
-            case "4": category.all_cat();
+            case "4": categoryDao.all_cat();
                 break;
             case "5": menu1();
                 break;
