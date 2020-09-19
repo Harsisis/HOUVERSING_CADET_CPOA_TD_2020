@@ -1,4 +1,4 @@
-package main.dao;
+package main.modele;
 
 import java.sql.*;
 public class Connection{

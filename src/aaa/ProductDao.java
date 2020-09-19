@@ -1,4 +1,4 @@
-package main.dao;
+package aaa;
 import java.util.Scanner;
 import java.sql.*;
 
@@ -21,7 +21,7 @@ public class ProductDao {
         visual_prod = scan.next();
         System.out.println("Prompt the product categorie id :\n");
         categ = scan.nextInt();
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "INSERT INTO Produit(nom, description, tarif, visuel, id_categorie) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(request);
@@ -56,7 +56,7 @@ public class ProductDao {
         visual_prod = scan.next();
         System.out.println("Prompt the product categorie id :\n");
         categ = scan.nextInt();
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "UPDATE Produit SET nom = ?, description = ?, tarif = ?, visuel = ?, id_categorie = ? WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
@@ -77,7 +77,7 @@ public class ProductDao {
         String id_prod = null;
         System.out.println("Which product would you like to delete ?\n");
         id_prod = scan.next();
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "DELETE FROM Produit WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
@@ -90,7 +90,7 @@ public class ProductDao {
     }
 
     public void all_prod() {
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try {
             String request = "SELECT * FROM Produit";
             Statement statement = connection.createStatement();

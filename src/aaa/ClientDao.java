@@ -1,4 +1,4 @@
-package main.dao;
+package aaa;
 import java.util.Scanner;
 import java.sql.*;
 
@@ -12,7 +12,7 @@ public class ClientDao {
         name_client = scan.next();
         System.out.println("Prompt the clientomer surname :\n");
         surname_client = scan.next();
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "INSERT INTO Client(nom, prenom, identifiant, mot_de_passe, adr_numero, adr_voie, adr_code_postal, adr_ville, adr_pays) VALUES(?, ?, 0, 0, 0, 0, 0, 0, 0)";
             PreparedStatement ps = connection.prepareStatement(request);
@@ -35,7 +35,7 @@ public class ClientDao {
         name_client = scan.next();
         System.out.println("Prompt the clientomer surname :\n");
         surname_client = scan.next();
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "UPDATE Client SET nom = ?, prenom = ? WHERE id_client = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
@@ -53,7 +53,7 @@ public class ClientDao {
         String id_client = null;
         System.out.println("Which clientomer would you like to delete ?\n");
         id_client = scan.next();
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "DELETE FROM Client WHERE id_client = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
@@ -65,7 +65,7 @@ public class ClientDao {
         }
     }
     public void all_client() {
-        java.sql.Connection connection = Connection.connect();
+        java.sql.Connection connection = main.modele.Connection.connect();
         try {
             String request = "SELECT * FROM Client";
             Statement statement = connection.createStatement();
