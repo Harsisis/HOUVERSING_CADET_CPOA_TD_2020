@@ -2,6 +2,7 @@ package main.pojo;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Commande {
     private int id;
@@ -48,5 +49,15 @@ public class Commande {
 
     public void setProduits(HashMap<Produit, Integer> produits) {
         this.produits = produits;
+    }
+
+    public Double getMontantTotal() {
+        Double resultat = 0d;
+        for (Map.Entry<Produit, Integer> entry : produits.entrySet()) {
+            Produit produit = entry.getKey();
+            Integer quantite = entry.getValue();
+            resultat += (produit.getTarif() * quantite);
+        }
+        return resultat;
     }
 }

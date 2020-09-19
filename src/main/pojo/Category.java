@@ -8,6 +8,13 @@ public class Category {
     private String visuel;
     private List<Produit> produits;
 
+    public Category(int id, String titre, String visuel) {
+        idCategorie = id;
+        this.titre = titre;
+        this.visuel = visuel;
+
+    }
+
     public int getIdCategorie() {
         return idCategorie;
     }
@@ -38,5 +45,13 @@ public class Category {
 
     public void setProduits(List<Produit> produits) {
         this.produits = produits;
+    }
+
+    public void setId(int id) {
+        idCategorie = id;
+    }
+
+    public int getId() {
+        return idCategorie;
     }
 }
