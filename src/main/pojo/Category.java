@@ -1,6 +1,7 @@
 package main.pojo;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Category {
     private int idCategorie;
@@ -53,5 +54,18 @@ public class Category {
 
     public int getId() {
         return idCategorie;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Category)) return false;
+        Category category = (Category) o;
+        return idCategorie == category.idCategorie;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCategorie);
     }
 }

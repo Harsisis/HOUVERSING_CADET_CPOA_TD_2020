@@ -1,6 +1,7 @@
 package main.pojo;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Client {
     private int id;
@@ -52,5 +53,18 @@ public class Client {
 
     public void setCommandeList(List<Commande> commandeList) {
         this.commandeList = commandeList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Client)) return false;
+        Client client = (Client) o;
+        return id == client.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

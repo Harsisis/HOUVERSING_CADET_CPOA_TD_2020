@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE properties SYSTEM
+        "HTTP://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="bdd">cadet25u_CPOA</entry>
+    <entry key="login">cadet25u_appli</entry>
+    <entry key="pass">Gauthier165409</entry>
+    <entry key="port">3306</entry>
+    <entry key="adresse_ip">dev.iutmetz.univ-lorraine.fr</entry>
+</properties>
