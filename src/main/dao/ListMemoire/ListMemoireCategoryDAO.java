@@ -51,13 +51,13 @@ public class ListMemoireCategoryDAO implements CategoryDAO {
     }
 
     @Override
-    public boolean update(Category object) {
-        int idx = this.donnees.indexOf(object);
+    public boolean update(Category objet) {
+        int idx = this.donnees.indexOf(objet);
         if (idx == -1) {
             throw new IllegalArgumentException("Tentative de modification d'une categorie inexistante");
         } else {
 
-            this.donnees.set(idx, object);
+            this.donnees.set(idx, objet);
         }
         return true;
     }

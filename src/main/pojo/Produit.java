@@ -8,6 +8,15 @@ public class Produit {
     private String visuel;
     private Category category;
 
+    public Produit(int id, String nom, String description, float tarif, String visuel, Category category) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.tarif = tarif;
+        this.visuel = visuel;
+        this.category = category;
+    }
+
     public int getId() {
         return id;
     }

@@ -12,22 +12,54 @@ public class ListMemoireProduitsDAO implements ProduitDAO {
     private List<Produit> donnees;
 
     @Override
+    public boolean delete(Produit objet) {
+        Produit supprime;
+        int idx = this.donnees.indexOf(objet);
+        if (idx == -1) {
+            throw new IllegalArgumentException("Tentative de suppression d'un produit inexistant");
+        } else {
+            supprime = this.donnees.remove(idx);
+        }
+
+        return objet.equals(supprime);
+    }
+
+    @Override
     public Produit getById(int id) {
-        return null;
+        int idx = this.donnees.indexOf(new Produit(id, "test", "test", (float) 0.0, "test.png", new Category(id, "test", "test.png")));
+        if (idx == -1) {
+            throw new IllegalArgumentException("Aucune categorie ne possède cet identifiant");
+        } else {
+            return this.donnees.get(idx);
+        }
     }
 
     @Override
     public ArrayList<Produit> findAll() {
-        return null;
+        return (ArrayList<Produit>) this.donnees;
     }
 
     @Override
     public boolean create(Produit objet) {
-        return false;
+        objet.setId(3);
+        while (this.donnees.contains(objet)) {
+
+            objet.setId(objet.getId() + 1);
+        }
+        boolean ok = this.donnees.add(objet);
+
+        return ok;
     }
 
     @Override
     public boolean update(Produit objet) {
-        return false;
+        int idx = this.donnees.indexOf(objet);
+        if (idx == -1) {
+            throw new IllegalArgumentException("Tentative de modification d'un produit inexistant");
+        } else {
+
+            this.donnees.set(idx, objet);
+        }
+        return true;
     }
 }
