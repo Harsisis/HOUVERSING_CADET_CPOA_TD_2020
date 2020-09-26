@@ -1,5 +1,6 @@
 package main.dao.ListMemoire;
 
+import main.dao.metiersDAO.CategoryDAO;
 import main.pojo.Category;
 
 import java.util.ArrayList;

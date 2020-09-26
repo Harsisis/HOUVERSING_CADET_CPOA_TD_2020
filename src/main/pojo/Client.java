@@ -14,11 +14,17 @@ public class Client {
 //    private String adrVille;
 //    private String adrPays;
 
+
+    public Client(int id, String nom, String prenom, List<Commande> commandeList) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.commandeList = commandeList;
+    }
+
     private List<Commande> commandeList;
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
     public void setId(int id) {
         this.id = id;

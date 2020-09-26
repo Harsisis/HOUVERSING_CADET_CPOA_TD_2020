@@ -1,7 +1,7 @@
 package main.ui;
-import main.dao.classeDao.CategoryDao;
-import main.dao.classeDao.ClientDao;
-import main.dao.classeDao.ProductDao;
+import main.dao.classeDaoTD1.CategoryDao;
+import main.dao.classeDaoTD1.ClientDao;
+import main.dao.classeDaoTD1.ProductDao;
 
 import java.util.Scanner;
 public class applimenu {
