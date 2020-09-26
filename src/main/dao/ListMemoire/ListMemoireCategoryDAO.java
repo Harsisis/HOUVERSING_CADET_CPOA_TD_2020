@@ -35,7 +35,8 @@ public class ListMemoireCategoryDAO implements CategoryDAO {
 
     @Override
     public ArrayList<Category> findAll() {
-        return (ArrayList<Category>) this.donnees;    }
+        return (ArrayList<Category>) this.donnees;
+    }
 
     @Override
     public boolean create(Category objet) {
@@ -47,5 +48,17 @@ public class ListMemoireCategoryDAO implements CategoryDAO {
         boolean ok = this.donnees.add(objet);
 
         return ok;
+    }
+
+    @Override
+    public boolean update(Category object) {
+        int idx = this.donnees.indexOf(object);
+        if (idx == -1) {
+            throw new IllegalArgumentException("Tentative de modification d'une categorie inexistante");
+        } else {
+
+            this.donnees.set(idx, object);
+        }
+        return true;
     }
 }
