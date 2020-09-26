@@ -12,6 +12,14 @@ public class ListMemoireProduitDAO implements ProduitDAO {
     private static ListMemoireProduitDAO instance;
     private List<Produit> donnees;
 
+    public static ProduitDAO getInstance() {
+        if (instance == null) {
+            instance = new ListMemoireProduitDAO();
+        }
+        return instance;
+    }
+
+
     @Override
     public boolean delete(Produit objet) {
         Produit supprime;
@@ -42,14 +50,14 @@ public class ListMemoireProduitDAO implements ProduitDAO {
 
     @Override
     public boolean create(Produit objet) {
-        objet.setId(3);
+        objet.setId(1);
         while (this.donnees.contains(objet)) {
 
             objet.setId(objet.getId() + 1);
         }
         boolean ok = this.donnees.add(objet);
 
-        return ok;
+        return true;
     }
 
     @Override
