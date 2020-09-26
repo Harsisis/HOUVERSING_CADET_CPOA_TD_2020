@@ -1,5 +1,7 @@
 package main.pojo;
 
+import java.util.Objects;
+
 public class Produit {
     private int id;
     private String nom;
@@ -63,5 +65,18 @@ public class Produit {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Produit)) return false;
+        Produit produit = (Produit) o;
+        return id == produit.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

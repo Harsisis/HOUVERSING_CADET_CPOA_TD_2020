@@ -3,6 +3,7 @@ package main.pojo;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Commande {
     private int id;
@@ -59,5 +60,19 @@ public class Commande {
             resultat += (produit.getTarif() * quantite);
         }
         return resultat;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Commande)) return false;
+        Commande commande = (Commande) o;
+        return id == commande.id &&
+                Objects.equals(client, commande.client);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, client);
     }
 }
