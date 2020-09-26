@@ -11,6 +11,13 @@ public class ListMemoireCategoryDAO implements CategoryDAO {
     private static ListMemoireCategoryDAO instance;
     private List<Category> donnees;
 
+    public static CategoryDAO getInstance() {
+        if (instance == null) {
+            instance = new ListMemoireCategoryDAO();
+        }
+        return instance;
+    }
+
     @Override
     public boolean delete(Category objet) {
         Category supprime;
@@ -41,14 +48,13 @@ public class ListMemoireCategoryDAO implements CategoryDAO {
 
     @Override
     public boolean create(Category objet) {
-        objet.setId(3);
+        objet.setId(1);
         while (this.donnees.contains(objet)) {
-
             objet.setId(objet.getId() + 1);
         }
         boolean ok = this.donnees.add(objet);
 
-        return ok;
+        return true;
     }
 
     @Override

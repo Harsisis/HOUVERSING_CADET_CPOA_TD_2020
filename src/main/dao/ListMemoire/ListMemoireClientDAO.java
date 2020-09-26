@@ -42,14 +42,14 @@ public class ListMemoireClientDAO implements ClientDAO {
 
     @Override
     public boolean create(Client objet) {
-        objet.setId(3);
+        objet.setId(1);
         while (this.donnees.contains(objet)) {
 
             objet.setId(objet.getId() + 1);
         }
         boolean ok = this.donnees.add(objet);
 
-        return ok;
+        return true;
     }
 
     @Override
