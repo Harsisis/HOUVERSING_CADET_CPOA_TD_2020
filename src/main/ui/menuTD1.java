@@ -1,7 +1,7 @@
 package main.ui;
-import main.dao.classeDaoTD1.CategoryDao;
-import main.dao.classeDaoTD1.ClientDao;
-import main.dao.classeDaoTD1.ProductDao;
+import main.dao.classeSQL.CategorySQL;
+import main.dao.classeSQL.ClientSQL;
+import main.dao.classeSQL.ProductSQL;
 
 import java.util.Scanner;
 public class menuTD1 {
@@ -41,16 +41,16 @@ public class menuTD1 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
-        ClientDao clientDao = new ClientDao();
+        ClientSQL clientSQL = new ClientSQL();
 
         switch(choice){
-            case "1": clientDao.add_client();
+            case "1": clientSQL.add_client();
                 break;
-            case "2": clientDao.edit_client();
+            case "2": clientSQL.edit_client();
                 break;
-            case "3": clientDao.del_client();
+            case "3": clientSQL.del_client();
                 break;
-            case "4": clientDao.add_client();
+            case "4": clientSQL.add_client();
                 break;
             case "5": menu1();
                 break;
@@ -67,16 +67,16 @@ public class menuTD1 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
-        ProductDao productDao = new ProductDao();
+        ProductSQL productSQL = new ProductSQL();
 
         switch(choice) {
-            case "1": productDao.add_prod();
+            case "1": productSQL.add_prod();
                 break;
-            case "2": productDao.edit_prod();
+            case "2": productSQL.edit_prod();
                 break;
-            case "3": productDao.del_prod();
+            case "3": productSQL.del_prod();
                 break;
-            case "4": productDao.all_prod();
+            case "4": productSQL.all_prod();
                 break;
             case "5":
                 menu1();
@@ -93,16 +93,16 @@ public class menuTD1 {
             choice = scan.next();
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
-        CategoryDao categoryDao = new CategoryDao();
+        CategorySQL categorySQL = new CategorySQL();
 
         switch(choice){
-            case "1": categoryDao.add_cat();
+            case "1": categorySQL.add_cat();
                 break;
-            case "2": categoryDao.edit_cat();
+            case "2": categorySQL.edit_cat();
                 break;
-            case "3": categoryDao.del_cat();
+            case "3": categorySQL.del_cat();
                 break;
-            case "4": categoryDao.all_cat();
+            case "4": categorySQL.all_cat();
                 break;
             case "5": menu1();
                 break;

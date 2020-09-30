@@ -1,9 +1,18 @@
-package main.dao.classeDaoTD1;
+package main.dao.classeSQL;
 import java.util.Scanner;
 import java.sql.*;
 
-public class ProductDao {
+public class ProductSQL {
     Scanner scan = new Scanner(System.in);
+
+    private static ProductSQL instance;
+
+    public static ProductSQL getInstance() {
+        if (instance == null) {
+            instance = new ProductSQL();
+        }
+        return instance;
+    }
 
     public void add_prod(){
         String name_prod = null;

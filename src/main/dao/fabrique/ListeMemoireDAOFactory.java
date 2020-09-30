@@ -9,7 +9,6 @@ import main.dao.metiersDAO.ProduitDAO;
 
 public class ListeMemoireDAOFactory extends DAOFactory {
 
-
     @Override
     public CategoryDAO getCategoryDAO() {
         return ListMemoireCategoryDAO.getInstance();

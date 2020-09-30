@@ -1,10 +1,19 @@
-package main.dao.classeDaoTD1;
+package main.dao.classeSQL;
 
 import java.util.Scanner;
 import java.sql.*;
 
-public class CategoryDao {
+public class CategorySQL {
     Scanner scan = new Scanner(System.in);
+
+    private static CategorySQL instance;
+
+    public static CategorySQL getInstance() {
+        if (instance == null) {
+            instance = new CategorySQL();
+        }
+        return instance;
+    }
 
     public void add_cat(){
         String title_cat = null;

@@ -1,9 +1,19 @@
-package main.dao.classeDaoTD1;
+package main.dao.classeSQL;
+
 import java.util.Scanner;
 import java.sql.*;
 
-public class ClientDao {
+public class ClientSQL {
     Scanner scan = new Scanner(System.in);
+
+    private static ClientSQL instance;
+
+    public static ClientSQL getInstance() {
+        if (instance == null) {
+            instance = new ClientSQL();
+        }
+        return instance;
+    }
 
     public void add_client(){
         String name_client = null;
