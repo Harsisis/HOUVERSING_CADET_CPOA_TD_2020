@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static junit.framework.Assert.assertNotNull;
 
-public class TestProduitSQL {
+public class TestProduitSQLGetById {
 
     private int id = 2;
     Produit produit;
