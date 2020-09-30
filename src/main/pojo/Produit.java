@@ -68,6 +68,18 @@ public class Produit {
     }
 
     @Override
+    public String toString() {
+        return "Produit{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                ", tarif=" + tarif +
+                ", visuel='" + visuel + '\'' +
+                ", category=" + category +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Produit)) return false;

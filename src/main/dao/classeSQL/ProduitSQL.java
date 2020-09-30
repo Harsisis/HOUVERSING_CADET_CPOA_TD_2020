@@ -147,38 +147,57 @@ public class ProduitSQL implements ProduitDAO {
     @Override
     public Produit getById(int id) {
         java.sql.Connection connection = main.modele.Connection.connect();
-        Produit produit;
+        Produit produit = null;
+        String nom = null;
+        String description = null;
+        Float tarif = null;
+        String visuel = null;
+        Category category = null;
+        int idCategory = 2;
+
         try {
-            String rNom = "SELECT nom FROM Categorie WHERE id_produit = ?";
+            String rNom = "SELECT nom FROM Produit WHERE id_produit = ?";
             PreparedStatement psNom = connection.prepareStatement(rNom);
+            psNom.setInt(1, id);
             ResultSet rsNom = psNom.executeQuery();
-            String nom = rsNom.getString("nom");
-
-            String rDescription = "SELECT nom FROM Categorie WHERE id_produit = ?";
+            if (rsNom.next()) {
+                nom = rsNom.getString("nom");
+            }
+            String rDescription = "SELECT description FROM Produit WHERE id_produit = ?";
             PreparedStatement psDescription = connection.prepareStatement(rDescription);
+            psDescription.setInt(1, id);
             ResultSet rsDescription = psDescription.executeQuery();
-            String description = rsDescription.getString("description");
-
-            String rTarif = "SELECT tarif FROM Categorie WHERE id_produit = ?";
+            if (rsDescription.next()) {
+                description = rsDescription.getString("description");
+            }
+            String rTarif = "SELECT tarif FROM Produit WHERE id_produit = ?";
             PreparedStatement psTarif = connection.prepareStatement(rTarif);
+            psTarif.setInt(1, id);
             ResultSet rsTarif = psTarif.executeQuery();
-            Float tarif = rsTarif.getFloat("tarif");
-
-            String rVisuel = "SELECT visuel FROM Categorie WHERE id_produit = ?";
+            if(rsTarif.next()) {
+                tarif = rsTarif.getFloat("tarif");
+            }
+            String rVisuel = "SELECT visuel FROM Produit WHERE id_produit = ?";
             PreparedStatement psVisuel = connection.prepareStatement(rVisuel);
+            psVisuel.setInt(1, id);
             ResultSet rsVisuel = psVisuel.executeQuery();
-            String visuel = rsVisuel.getString("visuel");
-
-            String rCategorie = "SELECT id_categorie FROM Categorie WHERE id_produit = ?";
-            PreparedStatement psCategorie = connection.prepareStatement(rCategorie);
-            ResultSet rsCategorie = psVisuel.executeQuery();
-            int idCategory = rsCategorie.getInt("id_categorie");
-            Category category = CategorySQL.getInstance().getById(idCategory);
-
+            if (rsVisuel.next()) {
+                visuel = rsVisuel.getString("visuel");
+            }
+            String rCategory = "SELECT id_categorie FROM Produit WHERE id_produit = ?";
+            PreparedStatement psCategory = connection.prepareStatement(rCategory);
+            psCategory.setInt(1, id);
+            ResultSet rsCategory = psCategory.executeQuery();
+            if (rsCategory.next()) {
+                idCategory = rsCategory.getInt("id_categorie");
+            }
+            category = CategorySQL.getInstance().getById(idCategory);
+            produit = new Produit(id, nom, description, tarif, visuel, category);
+            connection.close();
         } catch (SQLException sqle) {
-            System.out.println("FAIL " + sqle.getMessage());
+            System.out.println(sqle.getMessage());
         }
-        return null;
+        return produit;
     }
 
     @Override

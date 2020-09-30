@@ -117,18 +117,18 @@ public class CategorySQL implements CategoryDAO {
             PreparedStatement psTitre = connection.prepareStatement(rTitre);
             psTitre.setInt(1, id);
             ResultSet rsTitre = psTitre.executeQuery();
-            if(rsTitre.next()) {
+            if (rsTitre.next()) {
                 titre = rsTitre.getString("titre");
             }
             String rVisuel = "SELECT visuel FROM Categorie WHERE id_categorie = ?";
             PreparedStatement psVisuel = connection.prepareStatement(rVisuel);
             psVisuel.setInt(1, id);
             ResultSet rsVisuel = psVisuel.executeQuery();
-            if(rsVisuel.next()) {
+            if (rsVisuel.next()) {
                 visuel = rsVisuel.getString("visuel");
             }
             category = new Category(id, titre, visuel);
-
+            connection.close();
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }

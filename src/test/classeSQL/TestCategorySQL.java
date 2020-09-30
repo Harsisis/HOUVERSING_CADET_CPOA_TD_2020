@@ -1,9 +1,11 @@
-package test;
+package test.classeSQL;
 
 import main.dao.classeSQL.CategorySQL;
 import main.pojo.Category;
 import org.junit.Before;
 import org.junit.Test;
+
+import static junit.framework.Assert.assertNotNull;
 
 public class TestCategorySQL {
 
@@ -15,7 +17,8 @@ public class TestCategorySQL {
         category = CategorySQL.getInstance().getById(id);
     }
     @Test
-    public void TestCategorySQL() {
+    public void TestCategorySQLGetById() {
         System.out.println(category);
+        assertNotNull(category);
     }
 }
