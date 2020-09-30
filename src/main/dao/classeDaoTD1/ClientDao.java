@@ -8,9 +8,9 @@ public class ClientDao {
     public void add_client(){
         String name_client = null;
         String surname_client = null;
-        System.out.println("Prompt the clientomer name :\n");
+        System.out.println("Prompt the client name :\n");
         name_client = scan.next();
-        System.out.println("Prompt the clientomer surname :\n");
+        System.out.println("Prompt the client surname :\n");
         surname_client = scan.next();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
@@ -29,11 +29,11 @@ public class ClientDao {
         String name_client = null;
         String surname_client = null;
         String id_client = null;
-        System.out.println("Which clientomer would you like to change ?\n");
+        System.out.println("Which client would you like to change ?\n");
         id_client = scan.next();
-        System.out.println("Prompt the clientomer name :\n");
+        System.out.println("Prompt the client name :\n");
         name_client = scan.next();
-        System.out.println("Prompt the clientomer surname :\n");
+        System.out.println("Prompt the client surname :\n");
         surname_client = scan.next();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
@@ -51,7 +51,7 @@ public class ClientDao {
 
     public void del_client(){
         String id_client = null;
-        System.out.println("Which clientomer would you like to delete ?\n");
+        System.out.println("Which client would you like to delete ?\n");
         id_client = scan.next();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{

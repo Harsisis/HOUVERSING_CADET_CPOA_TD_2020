@@ -4,9 +4,9 @@ import main.dao.classeDaoTD1.ClientDao;
 import main.dao.classeDaoTD1.ProductDao;
 
 import java.util.Scanner;
-public class applimenu {
+public class menuTD1 {
     Scanner scan = new Scanner(System.in);
-    public applimenu() {
+    public menuTD1() {
         menu1();
     }
 
