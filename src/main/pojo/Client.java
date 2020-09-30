@@ -25,6 +25,8 @@ public class Client {
         this.commandeList = commandeList;
     }
 
+    public Client(){}
+
     public int getId() { return id; }
 
     public void setId(int id) {

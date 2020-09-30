@@ -7,6 +7,7 @@ import main.dao.classeSQL.ClientSQL;
 import main.dao.classeSQL.ProduitSQL;
 import main.dao.fabrique.EPersistence;
 import main.dao.fabrique.DAOFactory;
+import main.dao.ListMemoire.*;
 
 public class menuTD2 {
     Scanner scan = new Scanner(System.in);

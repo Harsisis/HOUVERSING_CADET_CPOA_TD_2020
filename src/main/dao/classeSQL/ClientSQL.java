@@ -4,9 +4,9 @@ import main.dao.metiersDAO.ClientDAO;
 import main.pojo.Category;
 import main.pojo.Client;
 import main.pojo.Commande;
+import main.pojo.Produit;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.sql.*;
 
@@ -105,7 +105,20 @@ public class ClientSQL implements ClientDAO {
 
     @Override
     public boolean delete(Client objet) {
-        return false;
+        int id = objet.getId();
+        java.sql.Connection connection = main.modele.Connection.connect();
+        try{
+            String request = "DELETE FROM Client WHERE id_produit = ? ";
+            PreparedStatement ps = connection.prepareStatement(request);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println("Objet n'existe pas");
+            System.out.println(sqle.getMessage());
+            return false;
+        }
     }
 
     @Override
@@ -140,7 +153,27 @@ public class ClientSQL implements ClientDAO {
 
     @Override
     public ArrayList<Client> findAll() {
-        return null;
+        ArrayList<Client> clients = new ArrayList<Client>();
+        java.sql.Connection connection = main.modele.Connection.connect();
+        try {
+            String request = "SELECT * FROM Client";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(request);
+            while (rs.next()) {
+                Client client = new Client();
+                client.setId(rs.getInt("id_client"));
+                client.setNom(rs.getString("nom"));
+                client.setPrenom(rs.getString("prenom"));
+                client.setCommandeList(rs.getArray(client.getCommandeList()));
+
+                System.out.println(client);
+                clients.add(client);
+            }
+            statement.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        return clients;
     }
 
     @Override
@@ -163,6 +196,26 @@ public class ClientSQL implements ClientDAO {
 
     @Override
     public boolean update(Client objet) {
-        return false;
+        String name_client = null;
+        String surname_client = null;
+        int id_client = objet.getId();
+        System.out.println("Prompt the new client name :\n");
+        name_client = scan.next();
+        System.out.println("Prompt the new client surname :\n");
+        surname_client = scan.next();
+        java.sql.Connection connection = main.modele.Connection.connect();
+        try {
+            String request = "UPDATE Client SET nom = ?, prenom = ? WHERE id_client = ? ";
+            PreparedStatement ps = connection.prepareStatement(request);
+            ps.setString(1, name_client);
+            ps.setString(2, surname_client);
+            ps.setInt(3, id_client);
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            return false;
+        }
     }
 }
