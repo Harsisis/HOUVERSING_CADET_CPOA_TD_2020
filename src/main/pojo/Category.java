@@ -13,15 +13,6 @@ public class Category {
         idCategorie = id;
         this.titre = titre;
         this.visuel = visuel;
-
-    }
-
-    public int getIdCategorie() {
-        return idCategorie;
-    }
-
-    public void setIdCategorie(int idCategorie) {
-        this.idCategorie = idCategorie;
     }
 
     public String getTitre() {
@@ -54,6 +45,15 @@ public class Category {
 
     public int getId() {
         return idCategorie;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "idCategorie=" + idCategorie +
+                ", titre='" + titre + '\'' +
+                ", visuel='" + visuel + '\'' +
+                '}';
     }
 
     @Override

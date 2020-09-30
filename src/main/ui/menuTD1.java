@@ -1,7 +1,7 @@
 package main.ui;
 import main.dao.classeSQL.CategorySQL;
 import main.dao.classeSQL.ClientSQL;
-import main.dao.classeSQL.ProductSQL;
+import main.dao.classeSQL.ProduitSQL;
 
 import java.util.Scanner;
 public class menuTD1 {
@@ -67,16 +67,16 @@ public class menuTD1 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
-        ProductSQL productSQL = new ProductSQL();
+        ProduitSQL produitSQL = new ProduitSQL();
 
         switch(choice) {
-            case "1": productSQL.add_prod();
+            case "1": produitSQL.add_prod();
                 break;
-            case "2": productSQL.edit_prod();
+            case "2": produitSQL.edit_prod();
                 break;
-            case "3": productSQL.del_prod();
+            case "3": produitSQL.del_prod();
                 break;
-            case "4": productSQL.all_prod();
+            case "4": produitSQL.all_prod();
                 break;
             case "5":
                 menu1();
@@ -93,7 +93,7 @@ public class menuTD1 {
             choice = scan.next();
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
-        CategorySQL categorySQL = new CategorySQL();
+        CategorySQL categorySQL = CategorySQL.getInstance();
 
         switch(choice){
             case "1": categorySQL.add_cat();

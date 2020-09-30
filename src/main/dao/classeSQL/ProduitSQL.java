@@ -1,15 +1,22 @@
 package main.dao.classeSQL;
+import main.dao.metiersDAO.ProduitDAO;
+import main.pojo.Category;
+import main.pojo.Produit;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.sql.*;
 
-public class ProductSQL {
+public class ProduitSQL implements ProduitDAO {
     Scanner scan = new Scanner(System.in);
 
-    private static ProductSQL instance;
+    private static ProduitSQL instance;
+    private List<Produit> donnees;
 
-    public static ProductSQL getInstance() {
+    public static ProduitDAO getInstance() {
         if (instance == null) {
-            instance = new ProductSQL();
+            instance = new ProduitSQL();
         }
         return instance;
     }
@@ -118,5 +125,91 @@ public class ProductSQL {
         } catch (SQLException sqle) {
             System.out.println("FAIL " + sqle.getMessage());
         }
+    }
+
+    @Override
+    public boolean delete(Produit objet) {
+        int id = objet.getId();
+        java.sql.Connection connection = main.modele.Connection.connect();
+        try{
+            String request = "DELETE FROM Produit WHERE id_produit = ? ";
+            PreparedStatement ps = connection.prepareStatement(request);
+            ps.setString(1, String.valueOf(id));
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println("FAIL " + sqle.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public Produit getById(int id) {
+        java.sql.Connection connection = main.modele.Connection.connect();
+        Produit produit;
+        try {
+            String rNom = "SELECT nom FROM Categorie WHERE id_produit = ?";
+            PreparedStatement psNom = connection.prepareStatement(rNom);
+            ResultSet rsNom = psNom.executeQuery();
+            String nom = rsNom.getString("nom");
+
+            String rDescription = "SELECT nom FROM Categorie WHERE id_produit = ?";
+            PreparedStatement psDescription = connection.prepareStatement(rDescription);
+            ResultSet rsDescription = psDescription.executeQuery();
+            String description = rsDescription.getString("description");
+
+            String rTarif = "SELECT tarif FROM Categorie WHERE id_produit = ?";
+            PreparedStatement psTarif = connection.prepareStatement(rTarif);
+            ResultSet rsTarif = psTarif.executeQuery();
+            Float tarif = rsTarif.getFloat("tarif");
+
+            String rVisuel = "SELECT visuel FROM Categorie WHERE id_produit = ?";
+            PreparedStatement psVisuel = connection.prepareStatement(rVisuel);
+            ResultSet rsVisuel = psVisuel.executeQuery();
+            String visuel = rsVisuel.getString("visuel");
+
+            String rCategorie = "SELECT id_categorie FROM Categorie WHERE id_produit = ?";
+            PreparedStatement psCategorie = connection.prepareStatement(rCategorie);
+            ResultSet rsCategorie = psVisuel.executeQuery();
+            int idCategory = rsCategorie.getInt("id_categorie");
+            Category category = CategorySQL.getInstance().getById(idCategory);
+
+        } catch (SQLException sqle) {
+            System.out.println("FAIL " + sqle.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Produit> findAll() {
+        java.sql.Connection connection = main.modele.Connection.connect();
+        try {
+            String request = "SELECT * FROM Produit";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(request);
+
+            while (resultSet.next()) {
+                int idCat = resultSet.getInt("categorie");
+                PreparedStatement preparedStatement = connection.prepareStatement(
+                        "SELECT  titre FROM Categorie WHERE id_categorie = ?");
+                preparedStatement.setInt(1, idCat);
+                ResultSet rs = preparedStatement.executeQuery();
+            }
+            statement.close();
+        } catch (SQLException sqle) {
+            System.out.println("FAIL " + sqle.getMessage());
+        }
+        return (ArrayList<Produit>) this.donnees;
+    }
+
+    @Override
+    public boolean create(Produit objet) {
+        return false;
+    }
+
+    @Override
+    public boolean update(Produit objet) {
+        return false;
     }
 }

@@ -1,12 +1,19 @@
 package main.dao.classeSQL;
 
+import main.dao.metiersDAO.CategoryDAO;
+import main.pojo.Category;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.sql.*;
 
-public class CategorySQL {
+public class CategorySQL implements CategoryDAO {
     Scanner scan = new Scanner(System.in);
 
     private static CategorySQL instance;
+
+    private CategorySQL() {
+    }
 
     public static CategorySQL getInstance() {
         if (instance == null) {
@@ -92,5 +99,54 @@ public class CategorySQL {
         } catch (SQLException sqle) {
             System.out.println("FAIL " + sqle.getMessage());
         }
+    }
+
+    @Override
+    public boolean delete(Category objet) {
+        return false;
+    }
+
+    @Override
+    public Category getById(int id) {
+        java.sql.Connection connection = main.modele.Connection.connect();
+        Category category = null;
+        String titre = null;
+        String visuel = null;
+        try {
+            String rTitre = "SELECT titre FROM Categorie WHERE id_categorie = ?";
+            PreparedStatement psTitre = connection.prepareStatement(rTitre);
+            psTitre.setInt(1, id);
+            ResultSet rsTitre = psTitre.executeQuery();
+            if(rsTitre.next()) {
+                titre = rsTitre.getString("titre");
+            }
+            String rVisuel = "SELECT visuel FROM Categorie WHERE id_categorie = ?";
+            PreparedStatement psVisuel = connection.prepareStatement(rVisuel);
+            psVisuel.setInt(1, id);
+            ResultSet rsVisuel = psVisuel.executeQuery();
+            if(rsVisuel.next()) {
+                visuel = rsVisuel.getString("visuel");
+            }
+            category = new Category(id, titre, visuel);
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        return category;
+    }
+
+    @Override
+    public ArrayList<Category> findAll() {
+        return null;
+    }
+
+    @Override
+    public boolean create(Category objet) {
+        return false;
+    }
+
+    @Override
+    public boolean update(Category objet) {
+        return false;
     }
 }

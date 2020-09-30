@@ -5,6 +5,7 @@ import main.pojo.Category;
 import java.util.ArrayList;
 
 public interface CategoryDAO extends IDAO<Category> {
+
     boolean delete(Category objet);
 
     Category getById(int id);
