@@ -1,20 +1,22 @@
 package main.dao.classeSQL;
+
 import main.dao.metiersDAO.ProduitDAO;
 import main.pojo.Category;
 import main.pojo.Produit;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.sql.*;
 
 public class ProduitSQL implements ProduitDAO {
+    private static ProduitSQL instance;
     Scanner scan = new Scanner(System.in);
 
-    private static ProduitSQL instance;
-    private List<Produit> donnees;
-
-    private ProduitSQL() {}
+    private ProduitSQL() {
+    }
 
     public static ProduitSQL getInstance() {
         if (instance == null) {
@@ -23,7 +25,7 @@ public class ProduitSQL implements ProduitDAO {
         return instance;
     }
 
-    public void add_prod(){
+    public void add_prod() {
         String name_prod = null;
         String description_prod = null;
         float price_prod = 0;
@@ -40,7 +42,7 @@ public class ProduitSQL implements ProduitDAO {
         System.out.println("Prompt the product categorie id :\n");
         categ = scan.nextInt();
         java.sql.Connection connection = main.modele.Connection.connect();
-        try{
+        try {
             String request = "INSERT INTO Produit(nom, description, tarif, visuel, id_categorie) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, name_prod);
@@ -55,7 +57,7 @@ public class ProduitSQL implements ProduitDAO {
         }
     }
 
-    public void edit_prod(){
+    public void edit_prod() {
         String name_prod = null;
         String description_prod = null;
         float price_prod = 0;
@@ -75,7 +77,7 @@ public class ProduitSQL implements ProduitDAO {
         System.out.println("Prompt the product categorie id :\n");
         categ = scan.nextInt();
         java.sql.Connection connection = main.modele.Connection.connect();
-        try{
+        try {
             String request = "UPDATE Produit SET nom = ?, description = ?, tarif = ?, visuel = ?, id_categorie = ? WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, name_prod);
@@ -91,12 +93,12 @@ public class ProduitSQL implements ProduitDAO {
         }
     }
 
-    public void del_prod(){
+    public void del_prod() {
         String id_prod = null;
         System.out.println("Which product would you like to delete ?\n");
         id_prod = scan.next();
         java.sql.Connection connection = main.modele.Connection.connect();
-        try{
+        try {
             String request = "DELETE FROM Produit WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, id_prod);
@@ -133,7 +135,7 @@ public class ProduitSQL implements ProduitDAO {
     public boolean delete(Produit objet) {
         int id = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
-        try{
+        try {
             String request = "DELETE FROM Produit WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setInt(1, id);
@@ -177,7 +179,7 @@ public class ProduitSQL implements ProduitDAO {
             PreparedStatement psTarif = connection.prepareStatement(rTarif);
             psTarif.setInt(1, id);
             ResultSet rsTarif = psTarif.executeQuery();
-            if(rsTarif.next()) {
+            if (rsTarif.next()) {
                 tarif = rsTarif.getFloat("tarif");
             }
             String rVisuel = "SELECT visuel FROM Produit WHERE id_produit = ?";
@@ -205,24 +207,33 @@ public class ProduitSQL implements ProduitDAO {
 
     @Override
     public ArrayList<Produit> findAll() {
+        ArrayList<Produit> produits = new ArrayList<Produit>();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
             String request = "SELECT * FROM Produit";
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(request);
+            ResultSet rs = statement.executeQuery(request);
+            while (rs.next()) {
+                Produit produit = new Produit();
+                produit.setId(rs.getInt("id_produit"));
+                produit.setNom(rs.getString("nom"));
+                produit.setDescription(rs.getString("description"));
+                produit.setTarif(rs.getFloat("tarif"));
+                produit.setVisuel(rs.getString("visuel"));
 
-            while (resultSet.next()) {
-                int idCat = resultSet.getInt("categorie");
-                PreparedStatement preparedStatement = connection.prepareStatement(
-                        "SELECT  titre FROM Categorie WHERE id_categorie = ?");
-                preparedStatement.setInt(1, idCat);
-                ResultSet rs = preparedStatement.executeQuery();
+                int idCategorie = rs.getInt("id_categorie");
+                Category category = CategorySQL.getInstance().getById(idCategorie);
+
+                produit.setCategory(category);
+
+                System.out.println(produit);
+                produits.add(produit);
             }
             statement.close();
         } catch (SQLException sqle) {
-            System.out.println("FAIL " + sqle.getMessage());
+            System.out.println(sqle.getMessage());
         }
-        return (ArrayList<Produit>) this.donnees;
+        return produits;
     }
 
     @Override
@@ -249,7 +260,7 @@ public class ProduitSQL implements ProduitDAO {
         System.out.println("Prompt the product categorie id :\n");
         categ = scan.nextInt();
         java.sql.Connection connection = main.modele.Connection.connect();
-        try{
+        try {
             String request = "UPDATE Produit SET nom = ?, description = ?, tarif = ?, visuel = ?, id_categorie = ? WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, name_prod);

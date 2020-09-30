@@ -19,6 +19,9 @@ public class Produit {
         this.category = category;
     }
 
+    public Produit() {
+    }
+
     public int getId() {
         return id;
     }
