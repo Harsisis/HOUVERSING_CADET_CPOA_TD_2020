@@ -182,7 +182,7 @@ public class CategorySQL implements CategoryDAO {
     public boolean update(Category objet) {
         String title_cat = null;
         String visual_cat = null;
-        String id_cat = objet.getId();
+        int id_cat = objet.getId();
         System.out.println("Prompt the new category title :\n");
         title_cat = scan.next();
         System.out.println("Prompt the new category visual :\n");
@@ -193,7 +193,7 @@ public class CategorySQL implements CategoryDAO {
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, title_cat);
             ps.setString(2, visual_cat);
-            ps.setString(3, id_cat);
+            ps.setInt(3, id_cat);
             ps.executeUpdate();
             connection.close();
             return true;
