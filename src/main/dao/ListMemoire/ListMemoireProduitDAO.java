@@ -19,7 +19,6 @@ public class ListMemoireProduitDAO implements ProduitDAO {
         return instance;
     }
 
-
     @Override
     public boolean delete(Produit objet) {
         Produit supprime;

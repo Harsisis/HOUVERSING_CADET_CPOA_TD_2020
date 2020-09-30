@@ -1,6 +1,7 @@
 package main.dao.ListMemoire;
 
 import main.dao.metiersDAO.ClientDAO;
+import main.dao.metiersDAO.ProduitDAO;
 import main.pojo.Client;
 import main.pojo.Commande;
 
@@ -11,6 +12,13 @@ public class ListMemoireClientDAO implements ClientDAO {
 
     private static ListMemoireClientDAO instance;
     private List<Client> donnees;
+
+    public static ClientDAO getInstance() {
+        if (instance == null) {
+            instance = new ListMemoireClientDAO();
+        }
+        return instance;
+    }
 
     @Override
     public boolean delete(Client objet) {
