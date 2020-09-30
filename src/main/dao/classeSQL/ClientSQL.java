@@ -1,9 +1,16 @@
 package main.dao.classeSQL;
 
+import main.dao.metiersDAO.ClientDAO;
+import main.pojo.Category;
+import main.pojo.Client;
+import main.pojo.Commande;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.sql.*;
 
-public class ClientSQL {
+public class ClientSQL implements ClientDAO {
     Scanner scan = new Scanner(System.in);
 
     private static ClientSQL instance;
@@ -13,6 +20,9 @@ public class ClientSQL {
             instance = new ClientSQL();
         }
         return instance;
+    }
+
+    private ClientSQL() {
     }
 
     public void add_client(){
@@ -91,5 +101,68 @@ public class ClientSQL {
         } catch (SQLException sqle) {
             System.out.println("FAIL" + sqle.getMessage());
         }
+    }
+
+    @Override
+    public boolean delete(Client objet) {
+        return false;
+    }
+
+    @Override
+    public Client getById(int id) {
+        java.sql.Connection connection = main.modele.Connection.connect();
+        Client client = null;
+        String name_client = null;
+        String surname_client = null;
+        try {
+            String rNom = "SELECT nom FROM Client WHERE id_client = ?";
+            PreparedStatement psNom = connection.prepareStatement(rNom);
+            psNom.setInt(1, id);
+            ResultSet rsNom = psNom.executeQuery();
+            if(rsNom.next()) {
+                name_client = rsNom.getString("nom");
+            }
+            String rSurname = "SELECT prenom FROM Client WHERE id_client = ?";
+            PreparedStatement psSurname = connection.prepareStatement(rSurname);
+            psSurname.setInt(1, id);
+            ResultSet rsSurname = psSurname.executeQuery();
+            if(rsSurname.next()) {
+                surname_client = rsSurname.getString("prenom");
+            }
+            client = new Client(id, name_client, surname_client, new ArrayList<Commande>());
+            connection.close();
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        return client;
+    }
+
+    @Override
+    public ArrayList<Client> findAll() {
+        return null;
+    }
+
+    @Override
+    public boolean create(Client objet) {
+        java.sql.Connection connection = main.modele.Connection.connect();
+        String nom = objet.getNom();
+        String prenom = objet.getPrenom();
+        //new ArrayList<Client>() = objet.getCommandeList();
+        try{
+            String rAdd = ("INSERT INTO Client(nom, prenom, identifiant, mot_de_passe, adr_numero, adr_voie, adr_code_postal, adr_ville, adr_pays) VALUES(?, ?, 0, 0, 0, 0, 0, 0, 0)");
+            PreparedStatement ps = connection.prepareStatement(rAdd);
+            ps.setString(1, nom);
+            ps.setString(2, prenom);
+            ps.executeUpdate();
+        }catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Client objet) {
+        return false;
     }
 }

@@ -15,6 +15,8 @@ public class Client {
 //    private String adrVille;
 //    private String adrPays;
 
+    private List<Commande> commandeList;
+
 
     public Client(int id, String nom, String prenom, List<Commande> commandeList) {
         this.id = id;
@@ -22,8 +24,6 @@ public class Client {
         this.prenom = prenom;
         this.commandeList = commandeList;
     }
-
-    private List<Commande> commandeList;
 
     public int getId() { return id; }
 
@@ -66,5 +66,15 @@ public class Client {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", commandeList=" + commandeList +
+                '}';
     }
 }

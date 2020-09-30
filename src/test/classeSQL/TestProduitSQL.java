@@ -17,7 +17,7 @@ public class TestProduitSQL {
         produit = ProduitSQL.getInstance().getById(id);
     }
     @Test
-    public void TestCategorySQLGetById() {
+    public void TestProduitSQLGetById() {
         System.out.println(produit);
         assertNotNull(produit);
     }
