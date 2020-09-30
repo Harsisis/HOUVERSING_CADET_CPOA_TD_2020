@@ -14,6 +14,8 @@ public class ProduitSQL implements ProduitDAO {
     private static ProduitSQL instance;
     private List<Produit> donnees;
 
+    private ProduitSQL() {}
+
     public static ProduitSQL getInstance() {
         if (instance == null) {
             instance = new ProduitSQL();
@@ -49,7 +51,7 @@ public class ProduitSQL implements ProduitDAO {
             ps.executeUpdate();
             connection.close();
         } catch (SQLException sqle) {
-            System.out.println("FAIL " + sqle.getMessage());
+            System.out.println(sqle.getMessage());
         }
     }
 
@@ -85,7 +87,7 @@ public class ProduitSQL implements ProduitDAO {
             ps.executeUpdate();
             connection.close();
         } catch (SQLException sqle) {
-            System.out.println("FAIL " + sqle.getMessage());
+            System.out.println(sqle.getMessage());
         }
     }
 
@@ -134,12 +136,13 @@ public class ProduitSQL implements ProduitDAO {
         try{
             String request = "DELETE FROM Produit WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
-            ps.setString(1, String.valueOf(id));
+            ps.setInt(1, id);
             ps.executeUpdate();
             connection.close();
             return true;
         } catch (SQLException sqle) {
-            System.out.println("FAIL " + sqle.getMessage());
+            System.out.println("Objet n'existe pas");
+            System.out.println(sqle.getMessage());
             return false;
         }
     }
@@ -152,7 +155,7 @@ public class ProduitSQL implements ProduitDAO {
         String description = null;
         Float tarif = null;
         String visuel = null;
-        Category category = null;
+        Category category;
         int idCategory = 2;
 
         try {
@@ -224,11 +227,43 @@ public class ProduitSQL implements ProduitDAO {
 
     @Override
     public boolean create(Produit objet) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean update(Produit objet) {
-        return false;
+        String name_prod = null;
+        String description_prod = null;
+        float price_prod = 0;
+        String visual_prod = null;
+        int categ = 1;
+        int id_prod = objet.getId();
+        System.out.println("Prompt the product name :\n");
+        name_prod = scan.next();
+        System.out.println("Prompt the product description :\n");
+        description_prod = scan.next();
+        System.out.println("Prompt the product price :\n");
+        price_prod = scan.nextFloat();
+        System.out.println("Prompt the product visual :\n");
+        visual_prod = scan.next();
+        System.out.println("Prompt the product categorie id :\n");
+        categ = scan.nextInt();
+        java.sql.Connection connection = main.modele.Connection.connect();
+        try{
+            String request = "UPDATE Produit SET nom = ?, description = ?, tarif = ?, visuel = ?, id_categorie = ? WHERE id_produit = ? ";
+            PreparedStatement ps = connection.prepareStatement(request);
+            ps.setString(1, name_prod);
+            ps.setString(2, description_prod);
+            ps.setFloat(3, price_prod);
+            ps.setString(4, visual_prod);
+            ps.setInt(5, categ);
+            ps.setInt(6, id_prod);
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            return false;
+        }
     }
 }

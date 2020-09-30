@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static junit.framework.Assert.assertNotNull;
 
-public class TestCategorySQL {
+public class TestCategorySQLGetById {
 
     private int id = 2;
     Category category;
