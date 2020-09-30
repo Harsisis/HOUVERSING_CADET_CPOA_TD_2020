@@ -2,6 +2,7 @@ package main.dao.classeSQL;
 
 import main.dao.metiersDAO.CategoryDAO;
 import main.pojo.Category;
+import main.pojo.Produit;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -103,7 +104,20 @@ public class CategorySQL implements CategoryDAO {
 
     @Override
     public boolean delete(Category objet) {
-        return false;
+        int id = objet.getId();
+        java.sql.Connection connection = main.modele.Connection.connect();
+        try {
+            String request = "DELETE FROM Categorie WHERE id_produit = ? ";
+            PreparedStatement ps = connection.prepareStatement(request);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println("Objet n'existe pas");
+            System.out.println(sqle.getMessage());
+            return false;
+        }
     }
 
     @Override
@@ -137,7 +151,26 @@ public class CategorySQL implements CategoryDAO {
 
     @Override
     public ArrayList<Category> findAll() {
-        return null;
+        ArrayList<Category> categories = new ArrayList<Category>();
+        java.sql.Connection connection = main.modele.Connection.connect();
+        try {
+            String request = "SELECT * FROM Produit";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(request);
+            while (rs.next()) {
+                Category category = new Category();
+                category.setId(rs.getInt("id_categorie"));
+                category.setTitre(rs.getString("titre"));
+                category.setVisuel(rs.getString("visuel"));
+
+                System.out.println(category);
+                categories.add(category);
+            }
+            statement.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        return categories;
     }
 
     @Override
@@ -147,6 +180,26 @@ public class CategorySQL implements CategoryDAO {
 
     @Override
     public boolean update(Category objet) {
-        return false;
+        String title_cat = null;
+        String visual_cat = null;
+        String id_cat = objet.getId();
+        System.out.println("Prompt the new category title :\n");
+        title_cat = scan.next();
+        System.out.println("Prompt the new category visual :\n");
+        visual_cat = scan.next();
+        java.sql.Connection connection = main.modele.Connection.connect();
+        try{
+            String request = "UPDATE Categorie SET titre = ?, visuel = ? WHERE id_categorie =  ?";
+            PreparedStatement ps = connection.prepareStatement(request);
+            ps.setString(1, title_cat);
+            ps.setString(2, visual_cat);
+            ps.setString(3, id_cat);
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            return false;
+        }
     }
 }

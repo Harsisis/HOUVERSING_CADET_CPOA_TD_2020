@@ -15,6 +15,9 @@ public class Category {
         this.visuel = visuel;
     }
 
+    public Category() {
+    }
+
     public String getTitre() {
         return titre;
     }
