@@ -22,7 +22,7 @@ public class ClientSQL implements ClientDAO {
         return instance;
     }
 
-    private ClientSQL() {
+    public ClientSQL() {
     }
 
     public void add_client(){

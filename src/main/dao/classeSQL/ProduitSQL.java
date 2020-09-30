@@ -14,7 +14,7 @@ public class ProduitSQL implements ProduitDAO {
     private static ProduitSQL instance;
     private List<Produit> donnees;
 
-    public static ProduitDAO getInstance() {
+    public static ProduitSQL getInstance() {
         if (instance == null) {
             instance = new ProduitSQL();
         }
