@@ -195,13 +195,9 @@ public class ClientSQL implements ClientDAO {
 
     @Override
     public boolean update(Client objet) {
-        String name_client = null;
-        String surname_client = null;
+        String name_client = objet.getNom();
+        String surname_client = objet.getPrenom();
         int id_client = objet.getId();
-        System.out.println("Prompt the new client name :\n");
-        name_client = scan.next();
-        System.out.println("Prompt the new client surname :\n");
-        surname_client = scan.next();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
             String request = "UPDATE Client SET nom = ?, prenom = ? WHERE id_client = ? ";

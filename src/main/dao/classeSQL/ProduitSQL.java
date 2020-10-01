@@ -238,36 +238,54 @@ public class ProduitSQL implements ProduitDAO {
 
     @Override
     public boolean create(Produit objet) {
-        return true;
+        int id_category = 0;
+        java.sql.Connection connection = main.modele.Connection.connect();
+        String nom = objet.getNom();
+        String description = objet.getDescription();
+        Float tarif = objet.getTarif();
+        String visuel = objet.getVisuel();
+        Category category = objet.getCategory();
+        if (category != null)
+            id_category = category.getId();
+        try{
+            String rAdd = ("INSERT INTO Produit(nom, description, tarif, visuel, id_categorie) VALUES(?, ?, ?, ?, ?)");
+            PreparedStatement ps = connection.prepareStatement(rAdd);
+            ps.setString(1, nom);
+            ps.setString(2, description);
+            ps.setFloat(3, tarif);
+            ps.setString(4, visuel);
+            ps.setInt(5, id_category);
+            ps.executeUpdate();
+        }catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        return false;
     }
 
     @Override
     public boolean update(Produit objet) {
-        String name_prod = null;
-        String description_prod = null;
+        //je pense qu'il ne récupère pas l'objet, il en cherche un autre
+        int id_prod = objet.getId();
+        int id_category = 0;
         float price_prod = 0;
         String visual_prod = null;
-        int categ = 1;
-        int id_prod = objet.getId();
-        System.out.println("Prompt the product name :\n");
-        name_prod = scan.next();
-        System.out.println("Prompt the product description :\n");
-        description_prod = scan.next();
-        System.out.println("Prompt the product price :\n");
-        price_prod = scan.nextFloat();
-        System.out.println("Prompt the product visual :\n");
-        visual_prod = scan.next();
-        System.out.println("Prompt the product categorie id :\n");
-        categ = scan.nextInt();
+        String nom = objet.getNom();
+        String description = objet.getDescription();
+        Float tarif = objet.getTarif();
+        String visuel = objet.getVisuel();
+        Category category = objet.getCategory();
+        if (category != null)
+            id_category = category.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
+            System.out.println("test");
             String request = "UPDATE Produit SET nom = ?, description = ?, tarif = ?, visuel = ?, id_categorie = ? WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
-            ps.setString(1, name_prod);
-            ps.setString(2, description_prod);
-            ps.setFloat(3, price_prod);
-            ps.setString(4, visual_prod);
-            ps.setInt(5, categ);
+            ps.setString(1, nom);
+            ps.setString(2, description);
+            ps.setFloat(3, tarif);
+            ps.setString(4, visuel);
+            ps.setInt(5, id_category);
             ps.setInt(6, id_prod);
             ps.executeUpdate();
             connection.close();

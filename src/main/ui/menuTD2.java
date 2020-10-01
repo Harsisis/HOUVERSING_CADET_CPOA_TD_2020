@@ -87,7 +87,12 @@ public class menuTD2 {
         Client client = new Client();
 
         switch(choice){
-            case "1": ClientSQL.getInstance().create(client);
+            case "1":
+                System.out.println("Prompt the new client name :\n");
+                client.setNom(scan.next());
+                System.out.println("Prompt the new client surname :\n");
+                client.setPrenom(scan.next());
+                ClientSQL.getInstance().create(client);
                 break;
             case "2":
                 System.out.println("Wich client id would you update ?\n");
@@ -122,11 +127,27 @@ public class menuTD2 {
 
         switch(choice) {
             case "1":
+                System.out.println("Prompt the product name :\n");
+                produit.setNom(scan.next());
+                System.out.println("Prompt the product description :\n");
+                produit.setDescription(scan.next());
+                System.out.println("Prompt the product price :\n");
+                produit.setTarif(Float.parseFloat(scan.next()));
+                System.out.println("Prompt the product visual :\n");
+                produit.setVisuel(scan.next());
                 ProduitSQL.getInstance().create(produit);
                 break;
             case "2":
                 System.out.println("Wich product id would you update ?\n");
                 id = scan.nextInt();
+                System.out.println("Prompt the product name :\n");
+                produit.setNom(scan.next());
+                System.out.println("Prompt the product description :\n");
+                produit.setDescription(scan.next());
+                System.out.println("Prompt the product price :\n");
+                produit.setTarif(Float.parseFloat(scan.next()));
+                System.out.println("Prompt the product visual :\n");
+                produit.setVisuel(scan.next());
                 produit = ProduitSQL.getInstance().getById(id);
                 ProduitSQL.getInstance().update(produit);
                 break;
