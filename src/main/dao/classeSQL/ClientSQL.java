@@ -142,7 +142,7 @@ public class ClientSQL implements ClientDAO {
             if(rsSurname.next()) {
                 surname_client = rsSurname.getString("prenom");
             }
-            client = new Client(id, name_client, surname_client, new ArrayList<Commande>());
+            client = new Client(id, name_client, surname_client);
             connection.close();
 
         } catch (SQLException sqle) {
