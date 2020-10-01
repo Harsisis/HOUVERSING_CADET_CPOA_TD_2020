@@ -15,17 +15,17 @@ public class Client {
 //    private String adrVille;
 //    private String adrPays;
 
-    private List<Commande> commandeList;
+//    private List<Commande> commandeList;
 
 
-    public Client(int id, String nom, String prenom, List<Commande> commandeList) {
+    public Client(int id, String nom, String prenom) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
-        this.commandeList = commandeList;
     }
 
-    public Client(){}
+    public Client(){
+    }
 
     public int getId() { return id; }
 
@@ -49,14 +49,6 @@ public class Client {
         this.prenom = prenom;
     }
 
-    public List<Commande> getCommandeList() {
-        return commandeList;
-    }
-
-    public void setCommandeList(List<Commande> commandeList) {
-        this.commandeList = commandeList;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,7 +68,6 @@ public class Client {
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
-                ", commandeList=" + commandeList +
                 '}';
     }
 }

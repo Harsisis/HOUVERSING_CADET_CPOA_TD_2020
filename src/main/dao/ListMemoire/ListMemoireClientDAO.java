@@ -11,7 +11,10 @@ import java.util.List;
 public class ListMemoireClientDAO implements ClientDAO {
 
     private static ListMemoireClientDAO instance;
-    private List<Client> donnees;
+    private List<Client> donnees = new ArrayList<>();
+
+    public ListMemoireClientDAO() {
+    }
 
     public static ClientDAO getInstance() {
         if (instance == null) {
@@ -35,7 +38,7 @@ public class ListMemoireClientDAO implements ClientDAO {
 
     @Override
     public Client getById(int id) {
-        int idx = this.donnees.indexOf(new Client(id, "test", "test", new ArrayList<Commande>()));
+        int idx = this.donnees.indexOf(new Client(id, "test", "test"));
         if (idx == -1) {
             throw new IllegalArgumentException("Aucun client ne possède cet identifiant");
         } else {
@@ -50,13 +53,11 @@ public class ListMemoireClientDAO implements ClientDAO {
 
     @Override
     public boolean create(Client objet) {
-        objet.setId(1);
         while (this.donnees.contains(objet)) {
-
             objet.setId(objet.getId() + 1);
         }
-        boolean ok = this.donnees.add(objet);
-
+        this.donnees.add(objet);
+        System.out.println(this.donnees);
         return true;
     }
 
