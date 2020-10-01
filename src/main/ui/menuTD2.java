@@ -88,9 +88,9 @@ public class menuTD2 {
 
         switch(choice){
             case "1":
-                System.out.println("Prompt the new client name :\n");
-                client.setNom(scan.next());
                 System.out.println("Prompt the new client surname :\n");
+                client.setNom(scan.next());
+                System.out.println("Prompt the new client name :\n");
                 client.setPrenom(scan.next());
                 ClientSQL.getInstance().create(client);
                 break;
@@ -214,7 +214,6 @@ public class menuTD2 {
                 break;
             case "4":
                 return;
-
         }
     }
 

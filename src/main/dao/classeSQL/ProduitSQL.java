@@ -155,7 +155,7 @@ public class ProduitSQL implements ProduitDAO {
         Produit produit = null;
         String nom = null;
         String description = null;
-        Float tarif = null;
+        float tarif = 0f;
         String visuel = null;
         Category category;
         int idCategory = 2;
@@ -242,7 +242,7 @@ public class ProduitSQL implements ProduitDAO {
         java.sql.Connection connection = main.modele.Connection.connect();
         String nom = objet.getNom();
         String description = objet.getDescription();
-        Float tarif = objet.getTarif();
+        float tarif = objet.getTarif();
         String visuel = objet.getVisuel();
         Category category = objet.getCategory();
         if (category != null)
@@ -256,7 +256,7 @@ public class ProduitSQL implements ProduitDAO {
             ps.setString(4, visuel);
             ps.setInt(5, id_category);
             ps.executeUpdate();
-        }catch (SQLException sqle) {
+        } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }
         return false;
