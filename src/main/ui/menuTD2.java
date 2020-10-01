@@ -214,14 +214,29 @@ public class menuTD2 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
+        int id = 0;
+        Client client = new Client();
+
         switch(choice){
-            case "1": ClientSQL.getInstance().add_client();
+            case "1":
+                System.out.println("Prompt the client name :\n");
+                client.setNom(scan.next());
+                System.out.println("Prompt the client surname :\n");
+                client.setPrenom(scan.next());
+                ListMemoireClientDAO.getInstance().create(client);
                 break;
-            case "2": ClientSQL.getInstance().edit_client();
+            case "2":
+                System.out.println("Prompt the client id :\n");
+                client = ListMemoireClientDAO.getInstance().getById(scan.nextInt());
+                System.out.println("Prompt the new client name :\n");
+                client.setNom(scan.next());
+                System.out.println("Prompt the new client surname :\n");
+                client.setPrenom(scan.next());
+                ListMemoireClientDAO.getInstance().update(client);
                 break;
-            case "3": ClientSQL.getInstance().del_client();
+            case "3": ListMemoireClientDAO.getInstance().delete(client);
                 break;
-            case "4": ClientSQL.getInstance().add_client();
+            case "4": ListMemoireClientDAO.getInstance().findAll();
                 break;
             case "5": menu2();
                 break;
