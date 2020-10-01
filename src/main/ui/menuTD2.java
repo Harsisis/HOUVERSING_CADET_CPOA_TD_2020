@@ -87,7 +87,7 @@ public class menuTD2 {
         Client client = new Client();
 
         switch(choice){
-            case "1": ClientSQL.getInstance().add_client();
+            case "1": ClientSQL.getInstance().create(client);
                 break;
             case "2":
                 System.out.println("Wich client id would you update ?\n");
@@ -122,7 +122,7 @@ public class menuTD2 {
 
         switch(choice) {
             case "1":
-                ProduitSQL.getInstance().add_prod();
+                ProduitSQL.getInstance().create(produit);
                 break;
             case "2":
                 System.out.println("Wich product id would you update ?\n");
@@ -158,7 +158,7 @@ public class menuTD2 {
 
         switch(choice){
             case "1":
-                CategorySQL.getInstance().add_cat();
+                CategorySQL.getInstance().create(category);
                 break;
             case "2":
                 System.out.println("Wich category id would you update ?\n");

@@ -107,7 +107,7 @@ public class CategorySQL implements CategoryDAO {
         int id = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
-            String request = "DELETE FROM Categorie WHERE id_produit = ? ";
+            String request = "DELETE FROM Categorie WHERE id_categorie = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -175,7 +175,25 @@ public class CategorySQL implements CategoryDAO {
 
     @Override
     public boolean create(Category objet) {
-        return false;
+        String title_cat = null;
+        String visual_cat = null;
+        System.out.println("Prompt the category title :\n");
+        title_cat = scan.next();
+        System.out.println("Prompt the category visual :\n");
+        visual_cat = scan.next();
+        java.sql.Connection connection = main.modele.Connection.connect();
+        try{
+            String request = "INSERT INTO Categorie(titre, visuel) VALUES(?, ?)";
+            PreparedStatement ps = connection.prepareStatement(request);
+            ps.setString(1, title_cat);
+            ps.setString(2, visual_cat);
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            return false;
+        }
     }
 
     @Override
