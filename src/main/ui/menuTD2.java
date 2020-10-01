@@ -232,7 +232,6 @@ public class menuTD2 {
             case "1":
                 System.out.println("Prompt the client name :\n");
                 client.setNom(scan.next());
-                System.out.println(client);
                 System.out.println("Prompt the client surname :\n");
                 client.setPrenom(scan.next());
                 System.out.println(client);
@@ -249,7 +248,10 @@ public class menuTD2 {
                 ListMemoireClientDAO.getInstance().update(client);
                 menu2();
                 break;
-            case "3": ListMemoireClientDAO.getInstance().delete(client);
+            case "3":
+                System.out.println("Prompt the client id :\n");
+                client = ListMemoireClientDAO.getInstance().getById(scan.nextInt());
+                ListMemoireClientDAO.getInstance().delete(client);
                 menu2();
                 break;
             case "4": ListMemoireClientDAO.getInstance().findAll();
@@ -269,18 +271,42 @@ public class menuTD2 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
+        Produit produit = new Produit();
+
         switch(choice) {
             case "1":
-                ProduitSQL.getInstance().add_prod();
+                System.out.println("Prompt the product name :\n");
+                produit.setNom(scan.next());
+                System.out.println("Prompt the product description :\n");
+                produit.setDescription(scan.next());
+                System.out.println("Prompt the product price :\n");
+                produit.setTarif(Float.parseFloat(scan.next()));
+                System.out.println("Prompt the product visual :\n");
+                produit.setVisuel(scan.next());
+                ListMemoireProduitDAO.getInstance().create(produit);
                 menu2();
                 break;
-            case "2": ProduitSQL.getInstance().edit_prod();
+            case "2":
+                System.out.println("Prompt the product id :\n");
+                produit = ListMemoireProduitDAO.getInstance().getById(scan.nextInt());
+                System.out.println("Prompt the product name :\n");
+                produit.setNom(scan.next());
+                System.out.println("Prompt the product description :\n");
+                produit.setDescription(scan.next());
+                System.out.println("Prompt the product price :\n");
+                produit.setTarif(Float.parseFloat(scan.next()));
+                System.out.println("Prompt the product visual :\n");
+                produit.setVisuel(scan.next());
+                ListMemoireProduitDAO.getInstance().update(produit);
                 menu2();
                 break;
-            case "3": ProduitSQL.getInstance().del_prod();
+            case "3":
+                System.out.println("Prompt the product id :\n");
+                produit = ListMemoireProduitDAO.getInstance().getById(scan.nextInt());
+                ListMemoireProduitDAO.getInstance().delete(produit);
                 menu2();
                 break;
-            case "4": ProduitSQL.getInstance().all_prod();
+            case "4": ListMemoireProduitDAO.getInstance().findAll();
                 menu2();
                 break;
             case "5":
@@ -298,18 +324,34 @@ public class menuTD2 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
+        Category category = new Category();
+
         switch(choice){
             case "1":
-                CategorySQL.getInstance().add_cat();
+                System.out.println("Prompt the category title :\n");
+                category.setTitre(scan.next());
+                System.out.println("Prompt the category visual :\n");
+                category.setVisuel(scan.next());
+                ListMemoireCategoryDAO.getInstance().create(category);
                 menu2();
                 break;
-            case "2": CategorySQL.getInstance().edit_cat();
+            case "2":
+                System.out.println("Prompt the category id :\n");
+                category = ListMemoireCategoryDAO.getInstance().getById(scan.nextInt());
+                System.out.println("Prompt the category title :\n");
+                category.setTitre(scan.next());
+                System.out.println("Prompt the category visual :\n");
+                category.setVisuel(scan.next());
+                ListMemoireCategoryDAO.getInstance().update(category);
                 menu2();
                 break;
-            case "3": CategorySQL.getInstance().del_cat();
+            case "3":
+                System.out.println("Prompt the category id :\n");
+                category = ListMemoireCategoryDAO.getInstance().getById(scan.nextInt());
+                ListMemoireCategoryDAO.getInstance().delete(category);
                 menu2();
                 break;
-            case "4": CategorySQL.getInstance().all_cat();
+            case "4": ListMemoireCategoryDAO.getInstance().findAll();
                 menu2();
                 break;
             case "5": menu2();
