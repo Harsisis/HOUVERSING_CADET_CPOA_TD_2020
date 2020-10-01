@@ -54,6 +54,7 @@ public class ListMemoireClientDAO implements ClientDAO {
 
     @Override
     public boolean create(Client objet) {
+        objet.setId(0);
         while (this.donnees.contains(objet)) {
             objet.setId(objet.getId() + 1);
         }
