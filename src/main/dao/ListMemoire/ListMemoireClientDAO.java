@@ -48,13 +48,13 @@ public class ListMemoireClientDAO implements ClientDAO {
 
     @Override
     public ArrayList<Client> findAll() {
-        System.out.println((ArrayList<Client>) this.donnees);
+        System.out.println(this.donnees);
         return (ArrayList<Client>) this.donnees;
     }
 
     @Override
     public boolean create(Client objet) {
-        objet.setId(0);
+        objet.setId(1);
         while (this.donnees.contains(objet)) {
             objet.setId(objet.getId() + 1);
         }

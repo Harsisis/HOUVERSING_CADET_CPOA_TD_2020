@@ -195,9 +195,9 @@ public class ClientSQL implements ClientDAO {
 
     @Override
     public boolean update(Client objet) {
-        System.out.println("Prompt the new client name :\n");
+        System.out.println("Prompt the new client family name :\n");
         String name_client = scan.next();
-        System.out.println("Prompt the new client surname :\n");
+        System.out.println("Prompt the new client name :\n");
         String surname_client = scan.next();
         int id_client = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();

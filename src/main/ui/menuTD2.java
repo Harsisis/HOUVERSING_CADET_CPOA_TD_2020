@@ -88,7 +88,7 @@ public class menuTD2 {
 
         switch(choice){
             case "1":
-                System.out.println("Prompt the new client surname :\n");
+                System.out.println("Prompt the new client family name :\n");
                 client.setNom(scan.next());
                 System.out.println("Prompt the new client name :\n");
                 client.setPrenom(scan.next());
@@ -240,9 +240,9 @@ public class menuTD2 {
             case "2":
                 System.out.println("Prompt the client id :\n");
                 client = ListMemoireClientDAO.getInstance().getById(scan.nextInt());
-                System.out.println("Prompt the new client name :\n");
+                System.out.println("Prompt the new client family name :\n");
                 client.setNom(scan.next());
-                System.out.println("Prompt the new client surname :\n");
+                System.out.println("Prompt the new client name :\n");
                 client.setPrenom(scan.next());
                 ListMemoireClientDAO.getInstance().update(client);
                 menu2();
