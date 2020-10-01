@@ -48,6 +48,7 @@ public class ListMemoireClientDAO implements ClientDAO {
 
     @Override
     public ArrayList<Client> findAll() {
+        System.out.println((ArrayList<Client>) this.donnees);
         return (ArrayList<Client>) this.donnees;
     }
 
