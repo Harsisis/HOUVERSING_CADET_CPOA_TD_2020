@@ -10,7 +10,7 @@ import java.util.List;
 public class ListMemoireProduitDAO implements ProduitDAO {
 
     private static ListMemoireProduitDAO instance;
-    private List<Produit> donnees;
+    private List<Produit> donnees = new ArrayList<Produit>();
 
     public static ProduitDAO getInstance() {
         if (instance == null) {
@@ -44,6 +44,7 @@ public class ListMemoireProduitDAO implements ProduitDAO {
 
     @Override
     public ArrayList<Produit> findAll() {
+        System.out.println(this.donnees);
         return (ArrayList<Produit>) this.donnees;
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 public class ListMemoireCategoryDAO implements CategoryDAO {
 
     private static ListMemoireCategoryDAO instance;
-    private List<Category> donnees;
+    private List<Category> donnees = new ArrayList<Category>();
 
     public static CategoryDAO getInstance() {
         if (instance == null) {
@@ -43,6 +43,7 @@ public class ListMemoireCategoryDAO implements CategoryDAO {
 
     @Override
     public ArrayList<Category> findAll() {
+        System.out.println(this.donnees);
         return (ArrayList<Category>) this.donnees;
     }
 
