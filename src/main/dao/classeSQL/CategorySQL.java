@@ -154,7 +154,7 @@ public class CategorySQL implements CategoryDAO {
         ArrayList<Category> categories = new ArrayList<Category>();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
-            String request = "SELECT * FROM Produit";
+            String request = "SELECT * FROM Categorie";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(request);
             while (rs.next()) {

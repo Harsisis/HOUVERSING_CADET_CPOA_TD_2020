@@ -1,5 +1,6 @@
 package main.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import main.dao.classeSQL.CategorySQL;
@@ -8,6 +9,9 @@ import main.dao.classeSQL.ProduitSQL;
 import main.dao.fabrique.EPersistence;
 import main.dao.fabrique.DAOFactory;
 import main.dao.ListMemoire.*;
+import main.pojo.Category;
+import main.pojo.Client;
+import main.pojo.Produit;
 
 public class menuTD2 {
     Scanner scan = new Scanner(System.in);
@@ -79,14 +83,25 @@ public class menuTD2 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
+        int id = 0;
+        Client client = new Client();
+
         switch(choice){
             case "1": ClientSQL.getInstance().add_client();
                 break;
-            case "2": ClientSQL.getInstance().edit_client();
+            case "2":
+                System.out.println("Wich client id would you update ?\n");
+                id = scan.nextInt();
+                client = ClientSQL.getInstance().getById(id);
+                ClientSQL.getInstance().update(client);
                 break;
-            case "3": ClientSQL.getInstance().del_client();
+            case "3":
+                System.out.println("Wich client id would you delete ?\n");
+                id = scan.nextInt();
+                client = ClientSQL.getInstance().getById(id);
+                ClientSQL.getInstance().delete(client);
                 break;
-            case "4": ClientSQL.getInstance().add_client();
+            case "4": ClientSQL.getInstance().findAll();
                 break;
             case "5": menu2();
                 break;
@@ -102,15 +117,26 @@ public class menuTD2 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
+        int id = 0;
+        Produit produit = new Produit();
+
         switch(choice) {
             case "1":
                 ProduitSQL.getInstance().add_prod();
                 break;
-            case "2": ProduitSQL.getInstance().edit_prod();
+            case "2":
+                System.out.println("Wich product id would you update ?\n");
+                id = scan.nextInt();
+                produit = ProduitSQL.getInstance().getById(id);
+                ProduitSQL.getInstance().update(produit);
                 break;
-            case "3": ProduitSQL.getInstance().del_prod();
+            case "3":
+                System.out.println("Wich product id would you delete ?\n");
+                id = scan.nextInt();
+                produit = ProduitSQL.getInstance().getById(id);
+                ProduitSQL.getInstance().delete(produit);
                 break;
-            case "4": ProduitSQL.getInstance().all_prod();
+            case "4": ProduitSQL.getInstance().findAll();
                 break;
             case "5":
                 menu2();
@@ -127,15 +153,26 @@ public class menuTD2 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
+        int id = 0;
+        Category category = new Category();
+
         switch(choice){
             case "1":
                 CategorySQL.getInstance().add_cat();
                 break;
-            case "2": CategorySQL.getInstance().edit_cat();
+            case "2":
+                System.out.println("Wich category id would you update ?\n");
+                id = scan.nextInt();
+                category = CategorySQL.getInstance().getById(id);
+                CategorySQL.getInstance().update(category);
                 break;
-            case "3": CategorySQL.getInstance().del_cat();
+            case "3":
+                System.out.println("Wich category id would you delete ?\n");
+                id = scan.nextInt();
+                category = CategorySQL.getInstance().getById(id);
+                CategorySQL.getInstance().delete(category);
                 break;
-            case "4": CategorySQL.getInstance().all_cat();
+            case "4": CategorySQL.getInstance().findAll();
                 break;
             case "5": menu2();
                 break;

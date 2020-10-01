@@ -164,7 +164,6 @@ public class ClientSQL implements ClientDAO {
                 client.setId(rs.getInt("id_client"));
                 client.setNom(rs.getString("nom"));
                 client.setPrenom(rs.getString("prenom"));
-                client.setCommandeList(rs.getArray(client.getCommandeList()));
 
                 System.out.println(client);
                 clients.add(client);
