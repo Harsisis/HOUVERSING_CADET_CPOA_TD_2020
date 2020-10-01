@@ -140,14 +140,6 @@ public class menuTD2 {
             case "2":
                 System.out.println("Wich product id would you update ?\n");
                 id = scan.nextInt();
-                System.out.println("Prompt the product name :\n");
-                produit.setNom(scan.next());
-                System.out.println("Prompt the product description :\n");
-                produit.setDescription(scan.next());
-                System.out.println("Prompt the product price :\n");
-                produit.setTarif(Float.parseFloat(scan.next()));
-                System.out.println("Prompt the product visual :\n");
-                produit.setVisuel(scan.next());
                 produit = ProduitSQL.getInstance().getById(id);
                 ProduitSQL.getInstance().update(produit);
                 break;
@@ -255,10 +247,13 @@ public class menuTD2 {
                 System.out.println("Prompt the new client surname :\n");
                 client.setPrenom(scan.next());
                 ListMemoireClientDAO.getInstance().update(client);
+                menu2();
                 break;
             case "3": ListMemoireClientDAO.getInstance().delete(client);
+                menu2();
                 break;
             case "4": ListMemoireClientDAO.getInstance().findAll();
+                menu2();
                 break;
             case "5": menu2();
                 break;
@@ -277,12 +272,16 @@ public class menuTD2 {
         switch(choice) {
             case "1":
                 ProduitSQL.getInstance().add_prod();
+                menu2();
                 break;
             case "2": ProduitSQL.getInstance().edit_prod();
+                menu2();
                 break;
             case "3": ProduitSQL.getInstance().del_prod();
+                menu2();
                 break;
             case "4": ProduitSQL.getInstance().all_prod();
+                menu2();
                 break;
             case "5":
                 menu2();
@@ -302,12 +301,16 @@ public class menuTD2 {
         switch(choice){
             case "1":
                 CategorySQL.getInstance().add_cat();
+                menu2();
                 break;
             case "2": CategorySQL.getInstance().edit_cat();
+                menu2();
                 break;
             case "3": CategorySQL.getInstance().del_cat();
+                menu2();
                 break;
             case "4": CategorySQL.getInstance().all_cat();
+                menu2();
                 break;
             case "5": menu2();
                 break;

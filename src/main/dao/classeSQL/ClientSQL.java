@@ -108,7 +108,7 @@ public class ClientSQL implements ClientDAO {
         int id = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
-            String request = "DELETE FROM Client WHERE id_produit = ? ";
+            String request = "DELETE FROM Client WHERE id_client = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -195,12 +195,14 @@ public class ClientSQL implements ClientDAO {
 
     @Override
     public boolean update(Client objet) {
-        String name_client = objet.getNom();
-        String surname_client = objet.getPrenom();
+        System.out.println("Prompt the new client name :\n");
+        String name_client = scan.next();
+        System.out.println("Prompt the new client surname :\n");
+        String surname_client = scan.next();
         int id_client = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
-            String request = "UPDATE Client SET nom = ?, prenom = ? WHERE id_client = ? ";
+            String request = "UPDATE Client SET nom = ?, prenom = ?,identifiant = 0, mot_de_passe = 0, adr_numero = 0, adr_voie = 0, adr_code_postal = 0, adr_ville = 0, adr_pays = 0 WHERE id_client = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, name_client);
             ps.setString(2, surname_client);

@@ -266,19 +266,19 @@ public class ProduitSQL implements ProduitDAO {
     public boolean update(Produit objet) {
         //je pense qu'il ne récupère pas l'objet, il en cherche un autre
         int id_prod = objet.getId();
-        int id_category = 0;
-        float price_prod = 0;
-        String visual_prod = null;
-        String nom = objet.getNom();
-        String description = objet.getDescription();
-        Float tarif = objet.getTarif();
-        String visuel = objet.getVisuel();
-        Category category = objet.getCategory();
-        if (category != null)
-            id_category = category.getId();
+
+        System.out.println("Prompt the product name :\n");
+        String nom = scan.next();
+        System.out.println("Prompt the product description :\n");
+        String description = scan.next();
+        System.out.println("Prompt the product price :\n");
+        Float tarif = Float.parseFloat(scan.next());
+        System.out.println("Prompt the product visual :\n");
+        String visuel = scan.next();
+        System.out.println("Prompt the product category :\n");
+        int id_category = scan.nextInt();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
-            System.out.println("test");
             String request = "UPDATE Produit SET nom = ?, description = ?, tarif = ?, visuel = ?, id_categorie = ? WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, nom);
