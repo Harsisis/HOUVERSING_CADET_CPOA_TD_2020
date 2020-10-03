@@ -95,13 +95,13 @@ public class menuTD2 {
                 ClientSQL.getInstance().create(client);
                 break;
             case "2":
-                System.out.println("Wich client id would you update ?\n");
+                System.out.println("Which client id would you like to update ?\n");
                 id = scan.nextInt();
                 client = ClientSQL.getInstance().getById(id);
                 ClientSQL.getInstance().update(client);
                 break;
             case "3":
-                System.out.println("Wich client id would you delete ?\n");
+                System.out.println("Which client id would you like to delete ?\n");
                 id = scan.nextInt();
                 client = ClientSQL.getInstance().getById(id);
                 ClientSQL.getInstance().delete(client);
@@ -138,13 +138,13 @@ public class menuTD2 {
                 ProduitSQL.getInstance().create(produit);
                 break;
             case "2":
-                System.out.println("Wich product id would you update ?\n");
+                System.out.println("Which product id would you like to update ?\n");
                 id = scan.nextInt();
                 produit = ProduitSQL.getInstance().getById(id);
                 ProduitSQL.getInstance().update(produit);
                 break;
             case "3":
-                System.out.println("Wich product id would you delete ?\n");
+                System.out.println("Which product id would you like to delete ?\n");
                 id = scan.nextInt();
                 produit = ProduitSQL.getInstance().getById(id);
                 ProduitSQL.getInstance().delete(produit);
@@ -174,13 +174,13 @@ public class menuTD2 {
                 CategorySQL.getInstance().create(category);
                 break;
             case "2":
-                System.out.println("Wich category id would you update ?\n");
+                System.out.println("Which category id would you like to update ?\n");
                 id = scan.nextInt();
                 category = CategorySQL.getInstance().getById(id);
                 CategorySQL.getInstance().update(category);
                 break;
             case "3":
-                System.out.println("Wich category id would you delete ?\n");
+                System.out.println("Which category id would you like to delete ?\n");
                 id = scan.nextInt();
                 category = CategorySQL.getInstance().getById(id);
                 CategorySQL.getInstance().delete(category);

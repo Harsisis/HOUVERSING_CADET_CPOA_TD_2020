@@ -2,11 +2,13 @@ package main.dao.classeSQL;
 
 import main.dao.metiersDAO.CategoryDAO;
 import main.pojo.Category;
-import main.pojo.Produit;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.sql.*;
 
 public class CategorySQL implements CategoryDAO {
     Scanner scan = new Scanner(System.in);
