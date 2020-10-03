@@ -23,7 +23,7 @@ public class TestLMClient {
     }
 
     @Test
-    public void Videotheque_is_singleton() {
+    public void testClientIsASingleton() {
         //GIVEN
         ClientDAO clientDAO1 = ListMemoireClientDAO.getInstance();
         ClientDAO clientDAO2 = ListMemoireClientDAO.getInstance();
