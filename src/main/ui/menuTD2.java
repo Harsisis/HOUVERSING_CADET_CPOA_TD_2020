@@ -1,11 +1,10 @@
 package main.ui;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import main.dao.classeSQL.CategorySQL;
-import main.dao.classeSQL.ClientSQL;
-import main.dao.classeSQL.ProduitSQL;
+import main.dao.classeSQL.CategorySQLDAO;
+import main.dao.classeSQL.ClientSQLDAO;
+import main.dao.classeSQL.ProduitSQLDAO;
 import main.dao.fabrique.EPersistence;
 import main.dao.fabrique.DAOFactory;
 import main.dao.ListMemoire.*;
@@ -92,21 +91,21 @@ public class menuTD2 {
                 client.setNom(scan.next());
                 System.out.println("Prompt the new client name :\n");
                 client.setPrenom(scan.next());
-                ClientSQL.getInstance().create(client);
+                ClientSQLDAO.getInstance().create(client);
                 break;
             case "2":
                 System.out.println("Which client id would you like to update ?\n");
                 id = scan.nextInt();
-                client = ClientSQL.getInstance().getById(id);
-                ClientSQL.getInstance().update(client);
+                client = ClientSQLDAO.getInstance().getById(id);
+                ClientSQLDAO.getInstance().update(client);
                 break;
             case "3":
                 System.out.println("Which client id would you like to delete ?\n");
                 id = scan.nextInt();
-                client = ClientSQL.getInstance().getById(id);
-                ClientSQL.getInstance().delete(client);
+                client = ClientSQLDAO.getInstance().getById(id);
+                ClientSQLDAO.getInstance().delete(client);
                 break;
-            case "4": ClientSQL.getInstance().findAll();
+            case "4": ClientSQLDAO.getInstance().findAll();
                 break;
             case "5": menu2();
                 break;
@@ -135,21 +134,21 @@ public class menuTD2 {
                 produit.setTarif(Float.parseFloat(scan.next()));
                 System.out.println("Prompt the product visual :\n");
                 produit.setVisuel(scan.next());
-                ProduitSQL.getInstance().create(produit);
+                ProduitSQLDAO.getInstance().create(produit);
                 break;
             case "2":
                 System.out.println("Which product id would you like to update ?\n");
                 id = scan.nextInt();
-                produit = ProduitSQL.getInstance().getById(id);
-                ProduitSQL.getInstance().update(produit);
+                produit = ProduitSQLDAO.getInstance().getById(id);
+                ProduitSQLDAO.getInstance().update(produit);
                 break;
             case "3":
                 System.out.println("Which product id would you like to delete ?\n");
                 id = scan.nextInt();
-                produit = ProduitSQL.getInstance().getById(id);
-                ProduitSQL.getInstance().delete(produit);
+                produit = ProduitSQLDAO.getInstance().getById(id);
+                ProduitSQLDAO.getInstance().delete(produit);
                 break;
-            case "4": ProduitSQL.getInstance().findAll();
+            case "4": ProduitSQLDAO.getInstance().findAll();
                 break;
             case "5":
                 menu2();
@@ -171,21 +170,21 @@ public class menuTD2 {
 
         switch(choice){
             case "1":
-                CategorySQL.getInstance().create(category);
+                CategorySQLDAO.getInstance().create(category);
                 break;
             case "2":
                 System.out.println("Which category id would you like to update ?\n");
                 id = scan.nextInt();
-                category = CategorySQL.getInstance().getById(id);
-                CategorySQL.getInstance().update(category);
+                category = CategorySQLDAO.getInstance().getById(id);
+                CategorySQLDAO.getInstance().update(category);
                 break;
             case "3":
                 System.out.println("Which category id would you like to delete ?\n");
                 id = scan.nextInt();
-                category = CategorySQL.getInstance().getById(id);
-                CategorySQL.getInstance().delete(category);
+                category = CategorySQLDAO.getInstance().getById(id);
+                CategorySQLDAO.getInstance().delete(category);
                 break;
-            case "4": CategorySQL.getInstance().findAll();
+            case "4": CategorySQLDAO.getInstance().findAll();
                 break;
             case "5": menu2();
                 break;

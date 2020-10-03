@@ -11,16 +11,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ProduitSQL implements ProduitDAO {
-    private static ProduitSQL instance;
+public class ProduitSQLDAO implements ProduitDAO {
+    private static ProduitSQLDAO instance;
     Scanner scan = new Scanner(System.in);
 
-    private ProduitSQL() {
+    private ProduitSQLDAO() {
     }
 
-    public static ProduitSQL getInstance() {
+    public static ProduitSQLDAO getInstance() {
         if (instance == null) {
-            instance = new ProduitSQL();
+            instance = new ProduitSQLDAO();
         }
         return instance;
     }
@@ -196,7 +196,7 @@ public class ProduitSQL implements ProduitDAO {
             if (rsCategory.next()) {
                 idCategory = rsCategory.getInt("id_categorie");
             }
-            category = CategorySQL.getInstance().getById(idCategory);
+            category = CategorySQLDAO.getInstance().getById(idCategory);
             produit = new Produit(id, nom, description, tarif, visuel, category);
             connection.close();
         } catch (SQLException sqle) {
@@ -222,7 +222,7 @@ public class ProduitSQL implements ProduitDAO {
                 produit.setVisuel(rs.getString("visuel"));
 
                 int idCategorie = rs.getInt("id_categorie");
-                Category category = CategorySQL.getInstance().getById(idCategorie);
+                Category category = CategorySQLDAO.getInstance().getById(idCategorie);
 
                 produit.setCategory(category);
 

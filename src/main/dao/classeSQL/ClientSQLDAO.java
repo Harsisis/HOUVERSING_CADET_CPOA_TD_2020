@@ -10,19 +10,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ClientSQL implements ClientDAO {
+public class ClientSQLDAO implements ClientDAO {
     Scanner scan = new Scanner(System.in);
 
-    private static ClientSQL instance;
+    private static ClientSQLDAO instance;
 
-    public static ClientSQL getInstance() {
+    public static ClientSQLDAO getInstance() {
         if (instance == null) {
-            instance = new ClientSQL();
+            instance = new ClientSQLDAO();
         }
         return instance;
     }
 
-    public ClientSQL() {
+    public ClientSQLDAO() {
     }
 
     public void add_client(){

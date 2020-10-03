@@ -10,17 +10,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CategorySQL implements CategoryDAO {
+public class CategorySQLDAO implements CategoryDAO {
     Scanner scan = new Scanner(System.in);
 
-    private static CategorySQL instance;
+    private static CategorySQLDAO instance;
 
-    private CategorySQL() {
+    private CategorySQLDAO() {
     }
 
-    public static CategorySQL getInstance() {
+    public static CategorySQLDAO getInstance() {
         if (instance == null) {
-            instance = new CategorySQL();
+            instance = new CategorySQLDAO();
         }
         return instance;
     }

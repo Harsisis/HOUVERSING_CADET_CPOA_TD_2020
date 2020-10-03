@@ -1,7 +1,7 @@
 package main.ui;
-import main.dao.classeSQL.CategorySQL;
-import main.dao.classeSQL.ClientSQL;
-import main.dao.classeSQL.ProduitSQL;
+import main.dao.classeSQL.CategorySQLDAO;
+import main.dao.classeSQL.ClientSQLDAO;
+import main.dao.classeSQL.ProduitSQLDAO;
 
 import java.util.Scanner;
 public class menuTD1 {
@@ -41,7 +41,7 @@ public class menuTD1 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
-        ClientSQL clientSQL = ClientSQL.getInstance();
+        ClientSQLDAO clientSQL = ClientSQLDAO.getInstance();
 
         switch(choice){
             case "1": clientSQL.add_client();
@@ -67,16 +67,16 @@ public class menuTD1 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
-        ProduitSQL produitSQL = ProduitSQL.getInstance();
+        ProduitSQLDAO produitSQLDAO = ProduitSQLDAO.getInstance();
 
         switch(choice) {
-            case "1": produitSQL.add_prod();
+            case "1": produitSQLDAO.add_prod();
                 break;
-            case "2": produitSQL.edit_prod();
+            case "2": produitSQLDAO.edit_prod();
                 break;
-            case "3": produitSQL.del_prod();
+            case "3": produitSQLDAO.del_prod();
                 break;
-            case "4": produitSQL.all_prod();
+            case "4": produitSQLDAO.all_prod();
                 break;
             case "5":
                 menu1();
@@ -93,16 +93,16 @@ public class menuTD1 {
             choice = scan.next();
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
-        CategorySQL categorySQL = CategorySQL.getInstance();
+        CategorySQLDAO categorySQLDAO = CategorySQLDAO.getInstance();
 
         switch(choice){
-            case "1": categorySQL.add_cat();
+            case "1": categorySQLDAO.add_cat();
                 break;
-            case "2": categorySQL.edit_cat();
+            case "2": categorySQLDAO.edit_cat();
                 break;
-            case "3": categorySQL.del_cat();
+            case "3": categorySQLDAO.del_cat();
                 break;
-            case "4": categorySQL.all_cat();
+            case "4": categorySQLDAO.all_cat();
                 break;
             case "5": menu1();
                 break;

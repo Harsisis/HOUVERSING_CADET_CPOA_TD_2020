@@ -1,9 +1,6 @@
 package main;
 
 //import main.ui.menuTD1;
-import main.dao.classeSQL.CategorySQL;
-import main.dao.classeSQL.ClientSQL;
-import main.dao.classeSQL.ProduitSQL;
 import main.ui.menuTD2;
 
 public class Main {
