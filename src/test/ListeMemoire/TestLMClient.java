@@ -20,6 +20,10 @@ public class TestLMClient {
     }
 
     @Test
+    public void testIfClientIsASingleton() {
+
+    }
+    @Test
     public void testFindByID() {
         Client clientA = new Client();
         //create a clientA
@@ -35,7 +39,6 @@ public class TestLMClient {
         //get the size of the array
         int size = dao.findAll().size();
         Client client = new Client();
-
         Assert.assertTrue(dao.create(client));
         //check if the array is incremented
         Assert.assertEquals(size + 1, dao.findAll().size());
@@ -56,5 +59,16 @@ public class TestLMClient {
         Assert.assertTrue(dao.update(clientB));
         //verify
         Assert.assertEquals(clientB,dao.getById(clientA.getId()));
+    }
+
+    @Test
+    public void testDeleteClient() {
+        //get the size of the array
+        Client client = new Client();
+        Assert.assertTrue(dao.create(client));
+        int size = dao.findAll().size();
+        Assert.assertTrue(dao.delete(client));
+        //check if the array is incremented
+        Assert.assertEquals(size - 1, dao.findAll().size());
     }
 }
