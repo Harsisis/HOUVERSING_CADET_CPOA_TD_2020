@@ -1,8 +1,8 @@
 package main.dao.fabrique;
 
-import main.dao.ListMemoire.ListMemoireCategoryDAO;
-import main.dao.ListMemoire.ListMemoireClientDAO;
-import main.dao.ListMemoire.ListMemoireProduitDAO;
+import main.dao.ListMemoireDAO.ListMemoireCategoryDAO;
+import main.dao.ListMemoireDAO.ListMemoireClientDAO;
+import main.dao.ListMemoireDAO.ListMemoireProduitDAO;
 import main.dao.metiersDAO.CategoryDAO;
 import main.dao.metiersDAO.ClientDAO;
 import main.dao.metiersDAO.ProduitDAO;

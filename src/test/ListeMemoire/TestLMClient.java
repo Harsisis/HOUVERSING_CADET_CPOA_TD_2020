@@ -1,6 +1,6 @@
 package test.ListeMemoire;
 
-import main.dao.ListMemoire.ListMemoireClientDAO;
+import main.dao.ListMemoireDAO.ListMemoireClientDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.ClientDAO;

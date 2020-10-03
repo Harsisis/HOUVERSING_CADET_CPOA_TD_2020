@@ -1,4 +1,4 @@
-package main.dao.ListMemoire;
+package main.dao.ListMemoireDAO;
 
 import main.dao.metiersDAO.CategoryDAO;
 import main.pojo.Category;

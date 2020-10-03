@@ -2,12 +2,12 @@ package main.ui;
 
 import java.util.Scanner;
 
-import main.dao.classeSQL.CategorySQLDAO;
-import main.dao.classeSQL.ClientSQLDAO;
-import main.dao.classeSQL.ProduitSQLDAO;
+import main.dao.SQLDAO.CategorySQLDAO;
+import main.dao.SQLDAO.ClientSQLDAO;
+import main.dao.SQLDAO.ProduitSQLDAO;
 import main.dao.fabrique.EPersistence;
 import main.dao.fabrique.DAOFactory;
-import main.dao.ListMemoire.*;
+import main.dao.ListMemoireDAO.*;
 import main.pojo.Category;
 import main.pojo.Client;
 import main.pojo.Produit;

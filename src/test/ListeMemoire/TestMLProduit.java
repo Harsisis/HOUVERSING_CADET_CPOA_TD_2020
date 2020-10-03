@@ -1,10 +1,8 @@
 package test.ListeMemoire;
 
-import main.dao.ListMemoire.ListMemoireClientDAO;
-import main.dao.ListMemoire.ListMemoireProduitDAO;
+import main.dao.ListMemoireDAO.ListMemoireProduitDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
-import main.dao.metiersDAO.ClientDAO;
 import main.dao.metiersDAO.ProduitDAO;
 import main.pojo.Produit;
 import org.junit.Assert;

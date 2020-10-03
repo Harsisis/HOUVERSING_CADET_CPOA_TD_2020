@@ -1,4 +1,4 @@
-package main.dao.classeSQL;
+package main.dao.SQLDAO;
 
 import main.dao.metiersDAO.CategoryDAO;
 import main.pojo.Category;
