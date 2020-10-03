@@ -1,12 +1,18 @@
 package test.ListeMemoire;
 
+import main.dao.ListMemoire.ListMemoireClientDAO;
+import main.dao.ListMemoire.ListMemoireProduitDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
+import main.dao.metiersDAO.ClientDAO;
 import main.dao.metiersDAO.ProduitDAO;
 import main.pojo.Produit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class TestMLProduit {
 
@@ -16,13 +22,25 @@ public class TestMLProduit {
     @Before
     public void setUp() {
         dao = DAOFactory.getDAOFactory(ePersistence).getProduitDAO();
-        Assert.assertNotNull(dao);
-        Assert.assertNotNull(dao.findAll());
+        assertNotNull(dao);
+        assertNotNull(dao.findAll());
+    }
+
+    @Test
+    public void testProduitIsASingleton() {
+        //GIVEN
+        ProduitDAO produitDAO1 = ListMemoireProduitDAO.getInstance();
+        ProduitDAO produitDAO2 = ListMemoireProduitDAO.getInstance();
+        //THEN
+        assertEquals(produitDAO1, produitDAO2);
     }
 
     @Test
     public void testFindbyID() {
-        //Produit produit
+        Produit prodFind = new Produit();
+        prodFind.setId(1);
+        Assert.assertTrue(dao.create(prodFind));
+        assertNotNull(dao.getById(1));
     }
 
     @Test
@@ -48,5 +66,14 @@ public class TestMLProduit {
         Assert.assertTrue(dao.update(produitB));
         //verify
         Assert.assertEquals(produitB,dao.getById(produitA.getId()));
+    }
+
+    @Test
+    public void TestDeleteProduit(){
+        Produit produit = new Produit();
+        Assert.assertTrue(dao.create(produit));
+        int size = dao.findAll().size();
+        Assert.assertTrue(dao.delete(produit));
+        Assert.assertEquals(size - 1, dao.findAll().size());
     }
 }

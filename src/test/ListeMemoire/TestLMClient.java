@@ -30,6 +30,7 @@ public class TestLMClient {
         //THEN
         assertEquals(clientDAO1, clientDAO2);
     }
+
     @Test
     public void testFindByID() {
         Client clientA = new Client();
