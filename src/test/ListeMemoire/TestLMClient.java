@@ -1,5 +1,6 @@
 package test.ListeMemoire;
 
+import main.dao.ListMemoire.ListMemoireClientDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.ClientDAO;
@@ -7,6 +8,8 @@ import main.pojo.Client;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestLMClient {
     private ClientDAO dao;
@@ -20,8 +23,12 @@ public class TestLMClient {
     }
 
     @Test
-    public void testIfClientIsASingleton() {
-
+    public void Videotheque_is_singleton() {
+        //GIVEN
+        ClientDAO clientDAO1 = ListMemoireClientDAO.getInstance();
+        ClientDAO clientDAO2 = ListMemoireClientDAO.getInstance();
+        //THEN
+        assertEquals(clientDAO1, clientDAO2);
     }
     @Test
     public void testFindByID() {
@@ -32,6 +39,11 @@ public class TestLMClient {
         Client clientB = dao.getById(clientA.getId());
         //test if clientB is an instance of the class Client
         Assert.assertTrue(clientB instanceof Client);
+    }
+
+    @Test
+    public void testFindAll() {
+
     }
 
     @Test
