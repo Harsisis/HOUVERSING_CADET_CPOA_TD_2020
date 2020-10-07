@@ -1,10 +1,10 @@
 package main.dao.fabrique;
 
-import main.dao.ListMemoireDAO.ListMemoireCategoryDAO;
+import main.dao.ListMemoireDAO.ListMemoireCategorieDAO;
 import main.dao.ListMemoireDAO.ListMemoireClientDAO;
 import main.dao.ListMemoireDAO.ListMemoireCommandeDAO;
 import main.dao.ListMemoireDAO.ListMemoireProduitDAO;
-import main.dao.metiersDAO.CategoryDAO;
+import main.dao.metiersDAO.CategorieDAO;
 import main.dao.metiersDAO.ClientDAO;
 import main.dao.metiersDAO.CommandeDAO;
 import main.dao.metiersDAO.ProduitDAO;
@@ -12,8 +12,8 @@ import main.dao.metiersDAO.ProduitDAO;
 public class ListeMemoireDAOFactory extends DAOFactory {
 
     @Override
-    public CategoryDAO getCategoryDAO() {
-        return ListMemoireCategoryDAO.getInstance();
+    public CategorieDAO getCategorieDAO() {
+        return ListMemoireCategorieDAO.getInstance();
     }
     @Override
     public ClientDAO getClientDAO() {

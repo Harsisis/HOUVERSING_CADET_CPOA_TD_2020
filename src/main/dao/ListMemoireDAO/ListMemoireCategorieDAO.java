@@ -1,19 +1,19 @@
 package main.dao.ListMemoireDAO;
 
-import main.dao.metiersDAO.CategoryDAO;
+import main.dao.metiersDAO.CategorieDAO;
 import main.pojo.Categorie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListMemoireCategoryDAO implements CategoryDAO {
+public class ListMemoireCategorieDAO implements CategorieDAO {
 
-    private static ListMemoireCategoryDAO instance;
+    private static ListMemoireCategorieDAO instance;
     private List<Categorie> donnees = new ArrayList<Categorie>();
 
-    public static CategoryDAO getInstance() {
+    public static CategorieDAO getInstance() {
         if (instance == null) {
-            instance = new ListMemoireCategoryDAO();
+            instance = new ListMemoireCategorieDAO();
         }
         return instance;
     }

@@ -407,26 +407,26 @@ public class menuTD2 {
                 categorie.setTitre(scan.next());
                 System.out.println("Prompt the category visual :\n");
                 categorie.setVisuel(scan.next());
-                ListMemoireCategoryDAO.getInstance().create(categorie);
+                ListMemoireCategorieDAO.getInstance().create(categorie);
                 menu2();
                 break;
             case "2":
                 System.out.println("Prompt the category id :\n");
-                categorie = ListMemoireCategoryDAO.getInstance().getById(scan.nextInt());
+                categorie = ListMemoireCategorieDAO.getInstance().getById(scan.nextInt());
                 System.out.println("Prompt the category title :\n");
                 categorie.setTitre(scan.next());
                 System.out.println("Prompt the category visual :\n");
                 categorie.setVisuel(scan.next());
-                ListMemoireCategoryDAO.getInstance().update(categorie);
+                ListMemoireCategorieDAO.getInstance().update(categorie);
                 menu2();
                 break;
             case "3":
                 System.out.println("Prompt the category id :\n");
-                categorie = ListMemoireCategoryDAO.getInstance().getById(scan.nextInt());
-                ListMemoireCategoryDAO.getInstance().delete(categorie);
+                categorie = ListMemoireCategorieDAO.getInstance().getById(scan.nextInt());
+                ListMemoireCategorieDAO.getInstance().delete(categorie);
                 menu2();
                 break;
-            case "4": ListMemoireCategoryDAO.getInstance().findAll();
+            case "4": ListMemoireCategorieDAO.getInstance().findAll();
                 menu2();
                 break;
             case "5": menu2();

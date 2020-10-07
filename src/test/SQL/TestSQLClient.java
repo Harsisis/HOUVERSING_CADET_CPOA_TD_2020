@@ -1,7 +1,7 @@
 package test.SQL;
 
 import main.dao.ListMemoireDAO.ListMemoireClientDAO;
-import main.dao.SQLDAO.ClientSQLDAO;
+import main.dao.SQLDAO.SQLClientDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.ClientDAO;
@@ -30,8 +30,8 @@ public class TestSQLClient {
     @Test
     public void testClientIsASingleton() {
         //GIVEN
-        ClientDAO clientDAO1 = ClientSQLDAO.getInstance();
-        ClientDAO clientDAO2 = ClientSQLDAO.getInstance();
+        ClientDAO clientDAO1 = SQLClientDAO.getInstance();
+        ClientDAO clientDAO2 = SQLClientDAO.getInstance();
         //THEN
         assertEquals(clientDAO1, clientDAO2);
     }

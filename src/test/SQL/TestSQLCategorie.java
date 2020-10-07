@@ -4,7 +4,7 @@ import main.dao.SQLDAO.SQLCategorieDAO;
 import main.dao.SQLDAO.SQLClientDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
-import main.dao.metiersDAO.Categorie()DAO;
+import main.dao.metiersDAO.CategorieDAO;
 import main.dao.metiersDAO.ClientDAO;
 import main.pojo.Categorie;
 import main.pojo.Produit;
@@ -19,21 +19,21 @@ import static org.junit.Assert.assertEquals;
 
 public class TestSQLCategorie {
 
-    private Categorie()DAO dao;
+    private CategorieDAO dao;
     private EPersistence ePersistence = EPersistence.MYSQL;
 
     @Before
     public void setUp() {
-        dao = DAOFactory.getDAOFactory(ePersistence).getCategorie()DAO();
+        dao = DAOFactory.getDAOFactory(ePersistence).getCategorieDAO();
         Assert.assertNotNull(dao);
         Assert.assertNotNull(dao.findAll());
     }
 
     @Test
-    public void testCategorie()IsASingleton() {
+    public void testCategorieIsASingleton() {
         //GIVEN
-        Categorie()DAO categorieDAO1 = SQLCategorieDAO.getInstance();
-        Categorie()DAO categorieDAO2 = SQLCategorieDAO.getInstance();
+        CategorieDAO categorieDAO1 = SQLCategorieDAO.getInstance();
+        CategorieDAO categorieDAO2 = SQLCategorieDAO.getInstance();
         //THEN
         assertEquals(categorieDAO1, categorieDAO2);
     }
@@ -71,12 +71,12 @@ public class TestSQLCategorie {
     @Test
     public void testupdateCategorie(){//pas de suppression
         int size = dao.findAll().size();
-        Categorie() categorie = new Categorie();
+        Categorie categorie = new Categorie();
         categorie.setTitre("test");
         categorie.setVisuel("test.png");
         dao.create(categorie);
         Assert.assertEquals(size + 1, dao.findAll().size());
-        Categorie() categ = dao.getById(categorie.getId());
+        Categorie categ = dao.getById(categorie.getId());
         System.out.println(categ.getId());
         dao.delete(categorie);
     }
@@ -84,7 +84,7 @@ public class TestSQLCategorie {
     @Test
     public void FindAllCategorie(){
         ArrayList categorieArrayList = dao.findAll();
-        Categorie() categorie = new Categorie();
+        Categorie categorie = new Categorie();
         dao.create(categorie);
         System.out.println(categorieArrayList);
         Assert.assertTrue(categorieArrayList.contains(categorie));
@@ -92,7 +92,7 @@ public class TestSQLCategorie {
 
     @Test
     public void GetById(){
-        Categorie() categorie = new Categorie();
+        Categorie categorie = new Categorie();
         dao.create(categorie);
         categorie = dao.getById(categorie.getId());
         Assert.assertEquals(categorie, dao.getById(categorie.getId()));

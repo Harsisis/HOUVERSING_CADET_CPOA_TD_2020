@@ -1,6 +1,6 @@
 package main.dao.SQLDAO;
 
-import main.dao.metiersDAO.CategoryDAO;
+import main.dao.metiersDAO.CategorieDAO;
 import main.pojo.Categorie;
 
 import java.sql.PreparedStatement;
@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class SQLCategorieDAO implements CategoryDAO {
+public class SQLCategorieDAO implements CategorieDAO {
     private static SQLCategorieDAO instance;
 
     private SQLCategorieDAO() {
     }
 
-    public static CategoryDAO getInstance() {
+    public static CategorieDAO getInstance() {
         if (instance == null) {
             instance = new SQLCategorieDAO();
         }

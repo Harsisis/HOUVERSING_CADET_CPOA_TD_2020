@@ -1,9 +1,9 @@
 package test.ListeMemoire;
 
-import main.dao.ListMemoireDAO.ListMemoireCategoryDAO;
+import main.dao.ListMemoireDAO.ListMemoireCategorieDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
-import main.dao.metiersDAO.CategoryDAO;
+import main.dao.metiersDAO.CategorieDAO;
 import main.pojo.Categorie;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,12 +16,12 @@ import static org.junit.Assert.assertNotNull;
 
 public class TestMLCategorie {
 
-    private CategoryDAO dao;
+    private CategorieDAO dao;
     private EPersistence ePersistence = EPersistence.LISTEMEMORY;
 
     @Before
     public void setUp() {
-        dao = DAOFactory.getDAOFactory(ePersistence).getCategoryDAO();
+        dao = DAOFactory.getDAOFactory(ePersistence).getCategorieDAO();
         assertNotNull(dao);
         assertNotNull(dao.findAll());
     }
@@ -29,11 +29,11 @@ public class TestMLCategorie {
     @Test
     public void testCategoryIsASingleton() {
         //GIVEN
-        CategoryDAO categoryDAO1 = ListMemoireCategoryDAO.getInstance();
-        CategoryDAO categoryDAO2 = ListMemoireCategoryDAO.getInstance();
+        CategorieDAO categorieDAO1 = ListMemoireCategorieDAO.getInstance();
+        CategorieDAO categorieDAO2 = ListMemoireCategorieDAO.getInstance();
 
         //THEN
-        assertEquals(categoryDAO1, categoryDAO2);
+        assertEquals(categorieDAO1, categorieDAO2);
     }
 
     @Test

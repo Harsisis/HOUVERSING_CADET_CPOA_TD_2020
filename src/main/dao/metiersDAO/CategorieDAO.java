@@ -5,7 +5,7 @@ import main.pojo.Categorie;
 
 import java.util.ArrayList;
 
-public interface CategoryDAO extends IDAO<Categorie> {
+public interface CategorieDAO extends IDAO<Categorie> {
 
     boolean delete(Categorie objet);
 
