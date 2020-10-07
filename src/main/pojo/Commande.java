@@ -35,6 +35,9 @@ public class Commande {
         this.produits = produits;
     }
 
+    public Commande() {
+    }
+
     /* @return le montant total du panier (ligne de commande). */
     public Double getMontantTotal() {
         // Parcours de la table des produits ...ligne de commande.

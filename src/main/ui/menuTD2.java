@@ -1,5 +1,8 @@
 package main.ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Scanner;
 
 import main.dao.SQLDAO.CategorySQLDAO;
@@ -10,6 +13,7 @@ import main.dao.fabrique.DAOFactory;
 import main.dao.ListMemoireDAO.*;
 import main.pojo.Category;
 import main.pojo.Client;
+import main.pojo.Commande;
 import main.pojo.Produit;
 
 public class menuTD2 {
@@ -215,13 +219,13 @@ public class menuTD2 {
 
     //----------------------------------------------------------------------------
     public void menuML(){
-        System.out.println("Select a type\n\t1. Category\n\t2. Product\n\t3. Client\n\t4. Exit");
+        System.out.println("Select a type\n\t1. Category\n\t2. Product\n\t3. Client\n\t4. Order\n\t5. Exit");
         String choice;
         do {
-            System.out.println("Select a number between 1 and 4 please");
+            System.out.println("Select a number between 1 and 5 please");
             choice = scan.next();
             System.out.println(choice);
-        } while (choice.equals("1") && choice.equals("2") && choice.equals("3"));
+        } while (choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
         switch (choice) {
             case "1":
@@ -234,7 +238,56 @@ public class menuTD2 {
                 menuClientML();
                 break;
             case "4":
+                menuCommandeML();
+                break;
+            case "5":
                 return;
+        }
+    }
+
+    private void menuCommandeML() {
+        System.out.println("Select an action\n\t1. Add an Order\n\t2. Edit an Order\n\t3. Delete an Order\n\t4. Display all the Orders\n\t5. Back");
+        String choice;
+        do {
+            System.out.println("Select a number between 1 and 5 please");
+            choice = scan.next();
+            System.out.println(choice);
+        } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
+
+        Commande commande = new Commande();
+        switch(choice){
+            case "1":
+                System.out.println("Prompt the order date :\n");
+                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
+                System.out.println("All the client :\n");
+                ListMemoireClientDAO.getInstance().findAll();
+                System.out.println("Prompt the client id :\n");
+                commande.setClient(ListMemoireClientDAO.getInstance().getById(scan.nextInt()));
+
+                ListMemoireCommandeDAO.getInstance().create(commande);
+                menu2();
+                break;
+            case "2":
+                System.out.println("Prompt the client id :\n");
+                client = ListMemoireClientDAO.getInstance().getById(scan.nextInt());
+                System.out.println("Prompt the new client family name :\n");
+                client.setNom(scan.next());
+                System.out.println("Prompt the new client name :\n");
+                client.setPrenom(scan.next());
+                ListMemoireClientDAO.getInstance().update(client);
+                menu2();
+                break;
+            case "3":
+                System.out.println("Prompt the order id :\n");
+                commande = ListMemoireCommandeDAO.getInstance().getById(scan.nextInt());
+                ListMemoireCommandeDAO.getInstance().delete(commande);
+                menu2();
+                break;
+            case "4": ListMemoireCommandeDAO.getInstance().findAll();
+                menu2();
+                break;
+            case "5": menu2();
+                break;
         }
     }
 
