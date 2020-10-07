@@ -53,6 +53,8 @@ public class TestSQLCategorie {
         category.setVisuel("test.png");
         dao.create(category);
         Assert.assertEquals(size + 1, dao.findAll().size());
+        Category categ = dao.getById(category.getId());
+        System.out.println(categ.getId());
         dao.delete(category);
     }
 
