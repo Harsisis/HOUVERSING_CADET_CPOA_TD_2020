@@ -1,8 +1,11 @@
 package test.SQL;
 
+import main.dao.SQLDAO.CategorySQLDAO;
+import main.dao.SQLDAO.ClientSQLDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.CategoryDAO;
+import main.dao.metiersDAO.ClientDAO;
 import main.pojo.Category;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,6 +13,8 @@ import org.junit.Test;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestSQLCategorie {
 
@@ -21,6 +26,15 @@ public class TestSQLCategorie {
         dao = DAOFactory.getDAOFactory(ePersistence).getCategoryDAO();
         Assert.assertNotNull(dao);
         Assert.assertNotNull(dao.findAll());
+    }
+
+    @Test
+    public void testCategoryIsASingleton() {
+        //GIVEN
+        CategoryDAO categoryDAO1 = CategorySQLDAO.getInstance();
+        CategoryDAO categoryDAO2 = CategorySQLDAO.getInstance();
+        //THEN
+        assertEquals(categoryDAO1, categoryDAO2);
     }
 
     @Test

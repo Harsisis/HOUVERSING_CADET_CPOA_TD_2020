@@ -1,7 +1,10 @@
 package test.SQL;
 
+import main.dao.SQLDAO.ClientSQLDAO;
+import main.dao.SQLDAO.ProduitSQLDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
+import main.dao.metiersDAO.ClientDAO;
 import main.dao.metiersDAO.ProduitDAO;
 import main.pojo.Category;
 import main.pojo.Produit;
@@ -11,6 +14,8 @@ import org.junit.Test;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestSQLProduit {
 
@@ -22,6 +27,15 @@ public class TestSQLProduit {
         dao = DAOFactory.getDAOFactory(ePersistence).getProduitDAO();
         Assert.assertNotNull(dao);
         Assert.assertNotNull(dao.findAll());
+    }
+
+    @Test
+    public void testProduitIsASingleton() {
+        //GIVEN
+        ProduitDAO produitDAO1 = ProduitSQLDAO.getInstance();
+        ProduitDAO produitDAO2 = ProduitSQLDAO.getInstance();
+        //THEN
+        assertEquals(produitDAO1, produitDAO2);
     }
 
     @Test

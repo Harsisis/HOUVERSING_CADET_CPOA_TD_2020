@@ -1,5 +1,7 @@
 package test.SQL;
 
+import main.dao.ListMemoireDAO.ListMemoireClientDAO;
+import main.dao.SQLDAO.ClientSQLDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.ClientDAO;
@@ -11,6 +13,8 @@ import org.junit.Test;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import static org.junit.Assert.assertEquals;
+
 public class TestSQLClient {
 
     private ClientDAO dao;
@@ -21,6 +25,15 @@ public class TestSQLClient {
         dao = DAOFactory.getDAOFactory(ePersistence).getClientDAO();
         Assert.assertNotNull(dao);
         Assert.assertNotNull(dao.findAll());
+    }
+
+    @Test
+    public void testClientIsASingleton() {
+        //GIVEN
+        ClientDAO clientDAO1 = ClientSQLDAO.getInstance();
+        ClientDAO clientDAO2 = ClientSQLDAO.getInstance();
+        //THEN
+        assertEquals(clientDAO1, clientDAO2);
     }
 
     @Test
