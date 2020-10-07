@@ -2,6 +2,7 @@ package main.dao.fabrique;
 
 import main.dao.metiersDAO.CategoryDAO;
 import main.dao.metiersDAO.ClientDAO;
+import main.dao.metiersDAO.CommandeDAO;
 import main.dao.metiersDAO.ProduitDAO;
 
 public abstract class DAOFactory {
@@ -21,4 +22,5 @@ public abstract class DAOFactory {
     public abstract CategoryDAO getCategoryDAO();
     public abstract ClientDAO getClientDAO();
     public abstract ProduitDAO getProduitDAO();
+    //public abstract CommandeDAO getCommandeDAO();
 }

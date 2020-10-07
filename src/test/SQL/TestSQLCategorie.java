@@ -27,6 +27,8 @@ public class TestSQLCategorie {
     public void testCreateCategory(){
         int size = dao.findAll().size();
         Category category = new Category();
+        category.setTitre("test");
+        category.setVisuel("test.png");
         dao.create(category);
         Assert.assertEquals(size + 1, dao.findAll().size());
         dao.delete(category);// il faut set les parametres

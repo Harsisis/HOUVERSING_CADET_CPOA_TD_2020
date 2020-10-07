@@ -7,7 +7,6 @@ public class Category {
     private int idCategorie;
     private String titre;
     private String visuel;
-    private List<Produit> produits;
 
     public Category(int id, String titre, String visuel) {
         idCategorie = id;
@@ -32,14 +31,6 @@ public class Category {
 
     public void setVisuel(String visuel) {
         this.visuel = visuel;
-    }
-
-    public List<Produit> getProduits() {
-        return produits;
-    }
-
-    public void setProduits(List<Produit> produits) {
-        this.produits = produits;
     }
 
     public void setId(int id) {

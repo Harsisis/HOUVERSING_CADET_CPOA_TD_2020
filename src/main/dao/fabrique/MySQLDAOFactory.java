@@ -21,4 +21,6 @@ public class MySQLDAOFactory extends DAOFactory{
     public ProduitDAO getProduitDAO() {
         return ProduitSQLDAO.getInstance();
     }
+
+
 }
