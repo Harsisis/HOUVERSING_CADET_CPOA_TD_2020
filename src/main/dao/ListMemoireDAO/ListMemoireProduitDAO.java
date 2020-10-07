@@ -52,11 +52,9 @@ public class ListMemoireProduitDAO implements ProduitDAO {
     public boolean create(Produit objet) {
         objet.setId(1);
         while (this.donnees.contains(objet)) {
-
             objet.setId(objet.getId() + 1);
         }
         boolean ok = this.donnees.add(objet);
-
         return true;
     }
 

@@ -54,7 +54,6 @@ public class ListMemoireCategoryDAO implements CategoryDAO {
             objet.setId(objet.getId() + 1);
         }
         boolean ok = this.donnees.add(objet);
-
         return true;
     }
 
