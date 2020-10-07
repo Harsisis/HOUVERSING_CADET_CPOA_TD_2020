@@ -5,13 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Scanner;
 
-import main.dao.SQLDAO.CategorySQLDAO;
-import main.dao.SQLDAO.ClientSQLDAO;
-import main.dao.SQLDAO.ProduitSQLDAO;
+import main.dao.SQLDAO.SQLCategorieDAO;
+import main.dao.SQLDAO.SQLClientDAO;
+import main.dao.SQLDAO.SQLProduitDAO;
 import main.dao.fabrique.EPersistence;
 import main.dao.fabrique.DAOFactory;
 import main.dao.ListMemoireDAO.*;
-import main.pojo.Category;
+import main.pojo.Categorie;
 import main.pojo.Client;
 import main.pojo.Commande;
 import main.pojo.Produit;
@@ -95,25 +95,25 @@ public class menuTD2 {
                 client.setNom(scan.next());
                 System.out.println("Prompt the new client name :\n");
                 client.setPrenom(scan.next());
-                ClientSQLDAO.getInstance().create(client);
+                SQLClientDAO.getInstance().create(client);
                 break;
             case "2":
                 System.out.println("Which client id would you like to update ?\n");
                 id = scan.nextInt();
-                client = ClientSQLDAO.getInstance().getById(id);
+                client = SQLClientDAO.getInstance().getById(id);
                 System.out.println("Prompt the new client family name :\n");
                 client.setNom(scan.next());
                 System.out.println("Prompt the new client name :\n");
                 client.setPrenom(scan.next());
-                ClientSQLDAO.getInstance().update(client);
+                SQLClientDAO.getInstance().update(client);
                 break;
             case "3":
                 System.out.println("Which client id would you like to delete ?\n");
                 id = scan.nextInt();
-                client = ClientSQLDAO.getInstance().getById(id);
-                ClientSQLDAO.getInstance().delete(client);
+                client = SQLClientDAO.getInstance().getById(id);
+                SQLClientDAO.getInstance().delete(client);
                 break;
-            case "4": ClientSQLDAO.getInstance().findAll();
+            case "4": SQLClientDAO.getInstance().findAll();
                 break;
             case "5": menu2();
                 break;
@@ -142,12 +142,12 @@ public class menuTD2 {
                 produit.setTarif(Float.parseFloat(scan.next()));
                 System.out.println("Prompt the product visual :\n");
                 produit.setVisuel(scan.next());
-                ProduitSQLDAO.getInstance().create(produit);
+                SQLProduitDAO.getInstance().create(produit);
                 break;
             case "2":
                 System.out.println("Which product id would you like to update ?\n");
                 id = scan.nextInt();
-                produit = ProduitSQLDAO.getInstance().getById(id);
+                produit = SQLProduitDAO.getInstance().getById(id);
                 System.out.println("Prompt the product name :\n");
                 produit.setNom(scan.next());
                 System.out.println("Prompt the product description :\n");
@@ -157,16 +157,16 @@ public class menuTD2 {
                 System.out.println("Prompt the product visual :\n");
                 produit.setVisuel(scan.next());
                 System.out.println("Prompt the product category :\n");
-                produit.setCategory(new Category(scan.nextInt()));
-                ProduitSQLDAO.getInstance().update(produit);
+                produit.setCategory(new Categorie(scan.nextInt()));
+                SQLProduitDAO.getInstance().update(produit);
                 break;
             case "3":
                 System.out.println("Which product id would you like to delete ?\n");
                 id = scan.nextInt();
-                produit = ProduitSQLDAO.getInstance().getById(id);
-                ProduitSQLDAO.getInstance().delete(produit);
+                produit = SQLProduitDAO.getInstance().getById(id);
+                SQLProduitDAO.getInstance().delete(produit);
                 break;
-            case "4": ProduitSQLDAO.getInstance().findAll();
+            case "4": SQLProduitDAO.getInstance().findAll();
                 break;
             case "5":
                 menu2();
@@ -184,33 +184,33 @@ public class menuTD2 {
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
         int id = 0;
-        Category category = new Category();
+        Categorie categorie = new Categorie();
 
         switch(choice){
             case "1":
                 System.out.println("Prompt the category title :\n");
-                category.setTitre(scan.next());
+                categorie.setTitre(scan.next());
                 System.out.println("Prompt the category visual :\n");
-                category.setVisuel(scan.next());
-                CategorySQLDAO.getInstance().create(category);
+                categorie.setVisuel(scan.next());
+                SQLCategorieDAO.getInstance().create(categorie);
                 break;
             case "2":
                 System.out.println("Which category id would you like to update ?\n");
                 id = scan.nextInt();
-                category = CategorySQLDAO.getInstance().getById(id);
+                categorie = SQLCategorieDAO.getInstance().getById(id);
                 System.out.println("Prompt the category title :\n");
-                category.setTitre(scan.next());
+                categorie.setTitre(scan.next());
                 System.out.println("Prompt the category visual :\n");
-                category.setVisuel(scan.next());
-                CategorySQLDAO.getInstance().update(category);
+                categorie.setVisuel(scan.next());
+                SQLCategorieDAO.getInstance().update(categorie);
                 break;
             case "3":
                 System.out.println("Which category id would you like to delete ?\n");
                 id = scan.nextInt();
-                category = CategorySQLDAO.getInstance().getById(id);
-                CategorySQLDAO.getInstance().delete(category);
+                categorie = SQLCategorieDAO.getInstance().getById(id);
+                SQLCategorieDAO.getInstance().delete(categorie);
                 break;
-            case "4": CategorySQLDAO.getInstance().findAll();
+            case "4": SQLCategorieDAO.getInstance().findAll();
                 break;
             case "5": menu2();
                 break;
@@ -399,31 +399,31 @@ public class menuTD2 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
-        Category category = new Category();
+        Categorie categorie = new Categorie();
 
         switch(choice){
             case "1":
                 System.out.println("Prompt the category title :\n");
-                category.setTitre(scan.next());
+                categorie.setTitre(scan.next());
                 System.out.println("Prompt the category visual :\n");
-                category.setVisuel(scan.next());
-                ListMemoireCategoryDAO.getInstance().create(category);
+                categorie.setVisuel(scan.next());
+                ListMemoireCategoryDAO.getInstance().create(categorie);
                 menu2();
                 break;
             case "2":
                 System.out.println("Prompt the category id :\n");
-                category = ListMemoireCategoryDAO.getInstance().getById(scan.nextInt());
+                categorie = ListMemoireCategoryDAO.getInstance().getById(scan.nextInt());
                 System.out.println("Prompt the category title :\n");
-                category.setTitre(scan.next());
+                categorie.setTitre(scan.next());
                 System.out.println("Prompt the category visual :\n");
-                category.setVisuel(scan.next());
-                ListMemoireCategoryDAO.getInstance().update(category);
+                categorie.setVisuel(scan.next());
+                ListMemoireCategoryDAO.getInstance().update(categorie);
                 menu2();
                 break;
             case "3":
                 System.out.println("Prompt the category id :\n");
-                category = ListMemoireCategoryDAO.getInstance().getById(scan.nextInt());
-                ListMemoireCategoryDAO.getInstance().delete(category);
+                categorie = ListMemoireCategoryDAO.getInstance().getById(scan.nextInt());
+                ListMemoireCategoryDAO.getInstance().delete(categorie);
                 menu2();
                 break;
             case "4": ListMemoireCategoryDAO.getInstance().findAll();

@@ -1,18 +1,13 @@
 package test.SQL;
 
-import main.dao.SQLDAO.CategorySQLDAO;
-import main.dao.SQLDAO.ClientSQLDAO;
+import main.dao.SQLDAO.SQLCategorieDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.CategoryDAO;
-import main.dao.metiersDAO.ClientDAO;
-import main.pojo.Category;
+import main.pojo.Categorie;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,8 +26,8 @@ public class TestSQLCategorie {
     @Test
     public void testCategoryIsASingleton() {
         //GIVEN
-        CategoryDAO categoryDAO1 = CategorySQLDAO.getInstance();
-        CategoryDAO categoryDAO2 = CategorySQLDAO.getInstance();
+        CategoryDAO categoryDAO1 = SQLCategorieDAO.getInstance();
+        CategoryDAO categoryDAO2 = SQLCategorieDAO.getInstance();
         //THEN
         assertEquals(categoryDAO1, categoryDAO2);
     }
@@ -40,36 +35,36 @@ public class TestSQLCategorie {
     @Test
     public void testCreateCategory(){//pas de suppression
         int size = dao.findAll().size();
-        Category category = new Category();
-        category.setTitre("test");
-        category.setVisuel("test.png");
-        dao.create(category);
+        Categorie categorie = new Categorie();
+        categorie.setTitre("test");
+        categorie.setVisuel("test.png");
+        dao.create(categorie);
         Assert.assertEquals(size + 1, dao.findAll().size());
-        category = dao.getById(category.getId());
-        dao.delete(category);
+        categorie = dao.getById(categorie.getId());
+        dao.delete(categorie);
     }
 
     @Test
     public void testDeleteCategory(){
         int size = dao.findAll().size();
-        Category category = new Category();
-        dao.create(category);
-        category = dao.getById(category.getId());
-        dao.delete(category);
+        Categorie categorie = new Categorie();
+        dao.create(categorie);
+        categorie = dao.getById(categorie.getId());
+        dao.delete(categorie);
         Assert.assertEquals(size, dao.findAll().size());
     }
 
     @Test
     public void testupdateCategory(){//pas de suppression
         int size = dao.findAll().size();
-        Category category = new Category();
-        category.setTitre("test");
-        category.setVisuel("test.png");
-        dao.create(category);
+        Categorie categorie = new Categorie();
+        categorie.setTitre("test");
+        categorie.setVisuel("test.png");
+        dao.create(categorie);
         Assert.assertEquals(size + 1, dao.findAll().size());
-        Category categ = dao.getById(category.getId());
+        Categorie categ = dao.getById(categorie.getId());
         System.out.println(categ.getId());
-        dao.delete(category);
+        dao.delete(categorie);
     }
 
     @Test
@@ -79,11 +74,11 @@ public class TestSQLCategorie {
 
     @Test
     public void GetById(){
-        Category category = new Category();
-        dao.create(category);
-        category = dao.getById(category.getId());
-        Assert.assertEquals(category, dao.getById(category.getId()));
-        dao.delete(category);
+        Categorie categorie = new Categorie();
+        dao.create(categorie);
+        categorie = dao.getById(categorie.getId());
+        Assert.assertEquals(categorie, dao.getById(categorie.getId()));
+        dao.delete(categorie);
     }
 
 }

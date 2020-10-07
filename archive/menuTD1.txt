@@ -1,7 +1,7 @@
 package main.ui;
-import main.dao.SQLDAO.CategorySQLDAO;
-import main.dao.SQLDAO.ClientSQLDAO;
-import main.dao.SQLDAO.ProduitSQLDAO;
+import main.dao.SQLDAO.SQLCategorieDAO;
+import main.dao.SQLDAO.SQLClientDAO;
+import main.dao.SQLDAO.SQLProduitDAO;
 
 import java.util.Scanner;
 public class menuTD1 {
@@ -10,7 +10,7 @@ public class menuTD1 {
         menu1();
     }
 
-    //menu to manage if the user want a category, a product or a client
+    //menu to manage if the user want a categorie, a product or a client
     public void menu1(){
         System.out.println("Hello, what do you want to do ?\n\t1. Category\n\t2. Product\n\t3. Client\n\t4. Exit");
         String choice;

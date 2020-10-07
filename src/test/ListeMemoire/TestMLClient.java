@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestLMClient {
+public class TestMLClient {
     private ClientDAO dao;
     private EPersistence ePersistence = EPersistence.LISTEMEMORY;
 

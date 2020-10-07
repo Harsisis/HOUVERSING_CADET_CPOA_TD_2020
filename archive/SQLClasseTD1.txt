@@ -2,9 +2,9 @@
 public void add_cat(){
         String title_cat = null;
         String visual_cat = null;
-        System.out.println("Prompt the category title :\n");
+        System.out.println("Prompt the categorie title :\n");
         title_cat = scan.next();
-        System.out.println("Prompt the category visual :\n");
+        System.out.println("Prompt the categorie visual :\n");
         visual_cat = scan.next();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
@@ -23,11 +23,11 @@ public void add_cat(){
         String title_cat = null;
         String visual_cat = null;
         String id_cat = null;
-        System.out.println("Which category would you like to change ?\n");
+        System.out.println("Which categorie would you like to change ?\n");
         id_cat = scan.next();
-        System.out.println("Prompt the new category title :\n");
+        System.out.println("Prompt the new categorie title :\n");
         title_cat = scan.next();
-        System.out.println("Prompt the new category visual :\n");
+        System.out.println("Prompt the new categorie visual :\n");
         visual_cat = scan.next();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
@@ -45,7 +45,7 @@ public void add_cat(){
 
     public void del_cat(){
         String id_cat = null;
-        System.out.println("Which category would you like to delete ?\n");
+        System.out.println("Which categorie would you like to delete ?\n");
         id_cat = scan.next();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{

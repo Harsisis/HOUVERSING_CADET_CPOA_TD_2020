@@ -1,7 +1,7 @@
 package main.dao.ListMemoireDAO;
 
 import main.dao.metiersDAO.ProduitDAO;
-import main.pojo.Category;
+import main.pojo.Categorie;
 import main.pojo.Produit;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class ListMemoireProduitDAO implements ProduitDAO {
 
     @Override
     public Produit getById(int id) {
-        int idx = this.donnees.indexOf(new Produit(id, "test", "test", (float) 0.0, "test.png", new Category(id, "test", "test.png")));
+        int idx = this.donnees.indexOf(new Produit(id, "test", "test", (float) 0.0, "test.png", new Categorie(id, "test", "test.png")));
         if (idx == -1) {
             throw new IllegalArgumentException("Aucun produit ne possède cet identifiant");
         } else {

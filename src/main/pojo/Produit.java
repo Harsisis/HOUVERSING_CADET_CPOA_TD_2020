@@ -8,15 +8,15 @@ public class Produit {
     private String description;
     private float tarif;
     private String visuel;
-    private Category category;
+    private Categorie categorie;
 
-    public Produit(int id, String nom, String description, float tarif, String visuel, Category category) {
+    public Produit(int id, String nom, String description, float tarif, String visuel, Categorie categorie) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.tarif = tarif;
         this.visuel = visuel;
-        this.category = category;
+        this.categorie = categorie;
     }
 
     public Produit() {
@@ -62,12 +62,12 @@ public class Produit {
         this.visuel = visuel;
     }
 
-    public Category getCategory() {
-        return category;
+    public Categorie getCategory() {
+        return categorie;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategory(Categorie categorie) {
+        this.categorie = categorie;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class Produit {
                 ", description='" + description + '\'' +
                 ", tarif=" + tarif +
                 ", visuel='" + visuel + '\'' +
-                ", category=" + category +
+                ", category=" + categorie +
                 '}';
     }
 

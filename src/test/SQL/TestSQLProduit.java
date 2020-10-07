@@ -1,19 +1,14 @@
 package test.SQL;
 
-import main.dao.SQLDAO.ClientSQLDAO;
-import main.dao.SQLDAO.ProduitSQLDAO;
+import main.dao.SQLDAO.SQLProduitDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
-import main.dao.metiersDAO.ClientDAO;
 import main.dao.metiersDAO.ProduitDAO;
-import main.pojo.Category;
+import main.pojo.Categorie;
 import main.pojo.Produit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,8 +27,8 @@ public class TestSQLProduit {
     @Test
     public void testProduitIsASingleton() {
         //GIVEN
-        ProduitDAO produitDAO1 = ProduitSQLDAO.getInstance();
-        ProduitDAO produitDAO2 = ProduitSQLDAO.getInstance();
+        ProduitDAO produitDAO1 = SQLProduitDAO.getInstance();
+        ProduitDAO produitDAO2 = SQLProduitDAO.getInstance();
         //THEN
         assertEquals(produitDAO1, produitDAO2);
     }
@@ -45,7 +40,7 @@ public class TestSQLProduit {
         Produit.setNom("test");
         Produit.setDescription("test");
         Produit.setTarif(17);
-        Produit.setCategory(new Category());
+        Produit.setCategory(new Categorie());
         Produit.setVisuel("test.png");
         dao.create(Produit);
         Assert.assertEquals(size + 1, dao.findAll().size());
@@ -70,7 +65,7 @@ public class TestSQLProduit {
         Produit.setNom("te");
         Produit.setDescription("test");
         Produit.setTarif(17);
-        Produit.setCategory(new Category());
+        Produit.setCategory(new Categorie());
         Produit.setVisuel("test.png");
         dao.create(Produit);
         Assert.assertEquals(size + 1, dao.findAll().size());
@@ -89,7 +84,7 @@ public class TestSQLProduit {
         Produit.setNom("test");
         Produit.setDescription("test");
         Produit.setTarif(17);
-        Produit.setCategory(new Category());
+        Produit.setCategory(new Categorie());
         Produit.setVisuel("test.png");
         dao.create(Produit);
         Assert.assertEquals(Produit, dao.getById(Produit.getId()));

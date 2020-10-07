@@ -1,18 +1,19 @@
 package main.dao.metiersDAO;
 
 import main.dao.IDAO.IDAO;
-import main.pojo.Category;
+import main.pojo.Categorie;
+
 import java.util.ArrayList;
 
-public interface CategoryDAO extends IDAO<Category> {
+public interface CategoryDAO extends IDAO<Categorie> {
 
-    boolean delete(Category objet);
+    boolean delete(Categorie objet);
 
-    Category getById(int id);
+    Categorie getById(int id);
 
-    ArrayList<Category> findAll();
+    ArrayList<Categorie> findAll();
 
-    boolean create(Category objet);
+    boolean create(Categorie objet);
 
-    boolean update(Category objet);
+    boolean update(Categorie objet);
 }

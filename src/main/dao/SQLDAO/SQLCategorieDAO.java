@@ -1,7 +1,7 @@
 package main.dao.SQLDAO;
 
 import main.dao.metiersDAO.CategoryDAO;
-import main.pojo.Category;
+import main.pojo.Categorie;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,21 +9,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CategorySQLDAO implements CategoryDAO {
-    private static CategorySQLDAO instance;
+public class SQLCategorieDAO implements CategoryDAO {
+    private static SQLCategorieDAO instance;
 
-    private CategorySQLDAO() {
+    private SQLCategorieDAO() {
     }
 
     public static CategoryDAO getInstance() {
         if (instance == null) {
-            instance = new CategorySQLDAO();
+            instance = new SQLCategorieDAO();
         }
         return instance;
     }
 
     @Override
-    public boolean delete(Category objet) {
+    public boolean delete(Categorie objet) {
         int id = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
@@ -41,9 +41,9 @@ public class CategorySQLDAO implements CategoryDAO {
     }
 
     @Override
-    public Category getById(int id) {
+    public Categorie getById(int id) {
         java.sql.Connection connection = main.modele.Connection.connect();
-        Category category = null;
+        Categorie categorie = null;
         String titre = null;
         String visuel = null;
         try {
@@ -61,30 +61,30 @@ public class CategorySQLDAO implements CategoryDAO {
             if (rsVisuel.next()) {
                 visuel = rsVisuel.getString("visuel");
             }
-            category = new Category(id, titre, visuel);
+            categorie = new Categorie(id, titre, visuel);
             connection.close();
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }
-        return category;
+        return categorie;
     }
 
     @Override
-    public ArrayList<Category> findAll() {
-        ArrayList<Category> categories = new ArrayList<Category>();
+    public ArrayList<Categorie> findAll() {
+        ArrayList<Categorie> categories = new ArrayList<Categorie>();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
             String request = "SELECT * FROM Categorie";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(request);
             while (rs.next()) {
-                Category category = new Category();
-                category.setId(rs.getInt("id_categorie"));
-                category.setTitre(rs.getString("titre"));
-                category.setVisuel(rs.getString("visuel"));
+                Categorie categorie = new Categorie();
+                categorie.setId(rs.getInt("id_categorie"));
+                categorie.setTitre(rs.getString("titre"));
+                categorie.setVisuel(rs.getString("visuel"));
 
-                System.out.println(category);
-                categories.add(category);
+                System.out.println(categorie);
+                categories.add(categorie);
             }
             statement.close();
         } catch (SQLException sqle) {
@@ -94,7 +94,7 @@ public class CategorySQLDAO implements CategoryDAO {
     }
 
     @Override
-    public boolean create(Category objet) {
+    public boolean create(Categorie objet) {
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "INSERT INTO Categorie(titre, visuel) VALUES(?, ?)";
@@ -111,7 +111,7 @@ public class CategorySQLDAO implements CategoryDAO {
     }
 
     @Override
-    public boolean update(Category objet) {
+    public boolean update(Categorie objet) {
         int id_cat = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{

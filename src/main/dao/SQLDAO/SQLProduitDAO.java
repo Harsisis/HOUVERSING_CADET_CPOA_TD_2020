@@ -1,7 +1,7 @@
 package main.dao.SQLDAO;
 
 import main.dao.metiersDAO.ProduitDAO;
-import main.pojo.Category;
+import main.pojo.Categorie;
 import main.pojo.Produit;
 
 import java.sql.PreparedStatement;
@@ -10,15 +10,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ProduitSQLDAO implements ProduitDAO {
-    private static ProduitSQLDAO instance;
+public class SQLProduitDAO implements ProduitDAO {
+    private static SQLProduitDAO instance;
 
-    private ProduitSQLDAO() {
+    private SQLProduitDAO() {
     }
 
     public static ProduitDAO getInstance() {
         if (instance == null) {
-            instance = new ProduitSQLDAO();
+            instance = new SQLProduitDAO();
         }
         return instance;
     }
@@ -49,7 +49,7 @@ public class ProduitSQLDAO implements ProduitDAO {
         String description = null;
         float tarif = 0f;
         String visuel = null;
-        Category category;
+        Categorie categorie;
         int idCategory = 2;
 
         try {
@@ -88,8 +88,8 @@ public class ProduitSQLDAO implements ProduitDAO {
             if (rsCategory.next()) {
                 idCategory = rsCategory.getInt("id_categorie");
             }
-            category = CategorySQLDAO.getInstance().getById(idCategory);
-            produit = new Produit(id, nom, description, tarif, visuel, category);
+            categorie = SQLCategorieDAO.getInstance().getById(idCategory);
+            produit = new Produit(id, nom, description, tarif, visuel, categorie);
             connection.close();
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
@@ -114,9 +114,9 @@ public class ProduitSQLDAO implements ProduitDAO {
                 produit.setVisuel(rs.getString("visuel"));
 
                 int idCategorie = rs.getInt("id_categorie");
-                Category category = CategorySQLDAO.getInstance().getById(idCategorie);
+                Categorie categorie = SQLCategorieDAO.getInstance().getById(idCategorie);
 
-                produit.setCategory(category);
+                produit.setCategory(categorie);
 
                 System.out.println(produit);
                 produits.add(produit);
@@ -136,9 +136,9 @@ public class ProduitSQLDAO implements ProduitDAO {
         String description = objet.getDescription();
         float tarif = objet.getTarif();
         String visuel = objet.getVisuel();
-        Category category = objet.getCategory();
-        if (category != null)
-            id_category = category.getId();
+        Categorie categorie = objet.getCategory();
+        if (categorie != null)
+            id_category = categorie.getId();
         try{
             String rAdd = ("INSERT INTO Produit(nom, description, tarif, visuel, id_categorie) VALUES(?, ?, ?, ?, ?)");
             PreparedStatement ps = connection.prepareStatement(rAdd);

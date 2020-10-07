@@ -1,7 +1,7 @@
 package main.dao.ListMemoireDAO;
 
 import main.dao.metiersDAO.CategoryDAO;
-import main.pojo.Category;
+import main.pojo.Categorie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public class ListMemoireCategoryDAO implements CategoryDAO {
 
     private static ListMemoireCategoryDAO instance;
-    private List<Category> donnees = new ArrayList<Category>();
+    private List<Categorie> donnees = new ArrayList<Categorie>();
 
     public static CategoryDAO getInstance() {
         if (instance == null) {
@@ -19,8 +19,8 @@ public class ListMemoireCategoryDAO implements CategoryDAO {
     }
 
     @Override
-    public boolean delete(Category objet) {
-        Category supprime;
+    public boolean delete(Categorie objet) {
+        Categorie supprime;
         int idx = this.donnees.indexOf(objet);
         if (idx == -1) {
             throw new IllegalArgumentException("Tentative de suppression d'une categorie inexistante");
@@ -32,8 +32,8 @@ public class ListMemoireCategoryDAO implements CategoryDAO {
     }
 
     @Override
-    public Category getById(int id) {
-        int idx = this.donnees.indexOf(new Category(id, "test", "test.png"));
+    public Categorie getById(int id) {
+        int idx = this.donnees.indexOf(new Categorie(id, "test", "test.png"));
         if (idx == -1) {
             throw new IllegalArgumentException("Aucune categorie ne possède cet identifiant");
         } else {
@@ -42,13 +42,13 @@ public class ListMemoireCategoryDAO implements CategoryDAO {
     }
 
     @Override
-    public ArrayList<Category> findAll() {
+    public ArrayList<Categorie> findAll() {
         System.out.println(this.donnees);
-        return (ArrayList<Category>) this.donnees;
+        return (ArrayList<Categorie>) this.donnees;
     }
 
     @Override
-    public boolean create(Category objet) {
+    public boolean create(Categorie objet) {
         objet.setId(1);
         while (this.donnees.contains(objet)) {
             objet.setId(objet.getId() + 1);
@@ -58,7 +58,7 @@ public class ListMemoireCategoryDAO implements CategoryDAO {
     }
 
     @Override
-    public boolean update(Category objet) {
+    public boolean update(Categorie objet) {
         int idx = this.donnees.indexOf(objet);
         if (idx == -1) {
             throw new IllegalArgumentException("Tentative de modification d'une categorie inexistante");

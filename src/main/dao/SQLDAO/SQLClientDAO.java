@@ -9,17 +9,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ClientSQLDAO implements ClientDAO {
-    private static ClientSQLDAO instance;
+public class SQLClientDAO implements ClientDAO {
+    private static SQLClientDAO instance;
 
     public static ClientDAO getInstance() {
         if (instance == null) {
-            instance = new ClientSQLDAO();
+            instance = new SQLClientDAO();
         }
         return instance;
     }
 
-    public ClientSQLDAO() {
+    public SQLClientDAO() {
     }
 
     @Override
