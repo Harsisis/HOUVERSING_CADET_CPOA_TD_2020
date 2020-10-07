@@ -177,18 +177,12 @@ public class CategorySQLDAO implements CategoryDAO {
 
     @Override
     public boolean create(Category objet) {
-        String title_cat = null;
-        String visual_cat = null;
-        System.out.println("Prompt the category title :\n");
-        title_cat = scan.next();
-        System.out.println("Prompt the category visual :\n");
-        visual_cat = scan.next();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "INSERT INTO Categorie(titre, visuel) VALUES(?, ?)";
             PreparedStatement ps = connection.prepareStatement(request);
-            ps.setString(1, title_cat);
-            ps.setString(2, visual_cat);
+            ps.setString(1, objet.getTitre());
+            ps.setString(2, objet.getVisuel());
             ps.executeUpdate();
             connection.close();
             return true;
@@ -200,19 +194,13 @@ public class CategorySQLDAO implements CategoryDAO {
 
     @Override
     public boolean update(Category objet) {
-        String title_cat = null;
-        String visual_cat = null;
         int id_cat = objet.getId();
-        System.out.println("Prompt the new category title :\n");
-        title_cat = scan.next();
-        System.out.println("Prompt the new category visual :\n");
-        visual_cat = scan.next();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
             String request = "UPDATE Categorie SET titre = ?, visuel = ? WHERE id_categorie =  ?";
             PreparedStatement ps = connection.prepareStatement(request);
-            ps.setString(1, title_cat);
-            ps.setString(2, visual_cat);
+            ps.setString(1, objet.getTitre());
+            ps.setString(2, objet.getVisuel());
             ps.setInt(3, id_cat);
             ps.executeUpdate();
             connection.close();

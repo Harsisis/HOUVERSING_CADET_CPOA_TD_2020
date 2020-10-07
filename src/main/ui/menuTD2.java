@@ -174,12 +174,20 @@ public class menuTD2 {
 
         switch(choice){
             case "1":
+                System.out.println("Prompt the category title :\n");
+                category.setTitre(scan.next());
+                System.out.println("Prompt the category visual :\n");
+                category.setVisuel(scan.next());
                 CategorySQLDAO.getInstance().create(category);
                 break;
             case "2":
                 System.out.println("Which category id would you like to update ?\n");
                 id = scan.nextInt();
                 category = CategorySQLDAO.getInstance().getById(id);
+                System.out.println("Prompt the category title :\n");
+                category.setTitre(scan.next());
+                System.out.println("Prompt the category visual :\n");
+                category.setVisuel(scan.next());
                 CategorySQLDAO.getInstance().update(category);
                 break;
             case "3":

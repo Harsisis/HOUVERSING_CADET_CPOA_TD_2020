@@ -44,13 +44,13 @@ public class menuTD1 {
         ClientSQLDAO clientSQL = ClientSQLDAO.getInstance();
 
         switch(choice){
-            case "1":
+            case "1": clientSQL.add_client();
                 break;
-            case "2":
+            case "2": clientSQL.edit_client();
                 break;
-            case "3":
+            case "3": clientSQL.del_client();
                 break;
-            case "4":
+            case "4": clientSQL.add_client();
                 break;
             case "5": menu1();
                 break;
