@@ -5,9 +5,12 @@ import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.CategoryDAO;
 import main.pojo.Category;
+import main.pojo.Client;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -66,6 +69,15 @@ public class TestMLCategorie {
         int size = dao.findAll().size();
         Assert.assertTrue(dao.delete(category));
         Assert.assertEquals(size - 1, dao.findAll().size());
+    }
+
+    @Test
+    public void testFindAll() {
+        ArrayList categoryArrayList = dao.findAll();
+        Category category = new Category();
+        dao.create(category);
+        System.out.println(categoryArrayList);
+        Assert.assertTrue(categoryArrayList.contains(category));
     }
 
     @Test

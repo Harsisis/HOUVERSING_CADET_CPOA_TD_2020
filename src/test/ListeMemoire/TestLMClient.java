@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 public class TestLMClient {
@@ -44,7 +46,11 @@ public class TestLMClient {
 
     @Test
     public void testFindAll() {
-
+        ArrayList clientArrayList = dao.findAll();
+        Client client = new Client();
+        dao.create(client);
+        System.out.println(clientArrayList);
+        Assert.assertTrue(clientArrayList.contains(client));
     }
 
     @Test
