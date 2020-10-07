@@ -17,6 +17,9 @@ public class Category {
     public Category() {
     }
 
+    public Category(int nextInt) {
+    }
+
     public String getTitre() {
         return titre;
     }

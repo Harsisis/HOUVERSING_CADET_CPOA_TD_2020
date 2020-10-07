@@ -144,6 +144,16 @@ public class menuTD2 {
                 System.out.println("Which product id would you like to update ?\n");
                 id = scan.nextInt();
                 produit = ProduitSQLDAO.getInstance().getById(id);
+                System.out.println("Prompt the product name :\n");
+                produit.setNom(scan.next());
+                System.out.println("Prompt the product description :\n");
+                produit.setDescription(scan.next());
+                System.out.println("Prompt the product price :\n");
+                produit.setTarif(Float.parseFloat(scan.next()));
+                System.out.println("Prompt the product visual :\n");
+                produit.setVisuel(scan.next());
+                System.out.println("Prompt the product category :\n");
+                produit.setCategory(new Category(scan.nextInt()));
                 ProduitSQLDAO.getInstance().update(produit);
                 break;
             case "3":
