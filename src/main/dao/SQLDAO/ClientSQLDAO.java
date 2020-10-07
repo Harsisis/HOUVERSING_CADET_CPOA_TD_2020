@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class ClientSQLDAO implements ClientDAO {
     private static ClientSQLDAO instance;
 
-    public static ClientSQLDAO getInstance() {
+    public static ClientDAO getInstance() {
         if (instance == null) {
             instance = new ClientSQLDAO();
         }
