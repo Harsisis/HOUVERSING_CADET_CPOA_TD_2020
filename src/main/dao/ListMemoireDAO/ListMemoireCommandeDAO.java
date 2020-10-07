@@ -38,7 +38,8 @@ public class ListMemoireCommandeDAO implements CommandeDAO {
     public Commande getById(int id) {
         ListMemoireClientDAO.getInstance().findAll();
         Client client = ListMemoireClientDAO.getInstance().getById(scan.nextInt());
-        int idx = this.donnees.indexOf(new Commande(id, client));
+        LocalDate date = LocalDate.now();
+        int idx = this.donnees.indexOf(new Commande(id, date, client));
         if (idx == -1) {
             throw new IllegalArgumentException("Aucune commande ne possède cet identifiant");
         } else {

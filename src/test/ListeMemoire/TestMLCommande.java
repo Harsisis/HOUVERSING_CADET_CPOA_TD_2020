@@ -15,24 +15,24 @@ public class TestMLCommande {
 
     @Before
     public void setUp() {
-        createCommande();
+        //createCommande();
     }
 
-    private void createCommande() {
-        Client client = new Client();
-        this.commande = new Commande(client.getId(), client);
-        client.setId(1);
-        client.setNom("JOYEUX");
-        client.setPrenom("Stéphane");
-        // J'affecte un client à une commande :
-        commande.setClient(client);
-        Produit produit = new Produit();
-        produit.setId(1);
-        produit.setNom("souris");
-        produit.setTarif(10f);
-        // Je commande une souris :
-        commande.addProduit(produit, 3);
-    }
+//    private void createCommande() {
+//        Client client = new Client();
+//        this.commande = new Commande(client.getId(), client);
+//        client.setId(1);
+//        client.setNom("JOYEUX");
+//        client.setPrenom("Stéphane");
+//        // J'affecte un client à une commande :
+//        commande.setClient(client);
+//        Produit produit = new Produit();
+//        produit.setId(1);
+//        produit.setNom("souris");
+//        produit.setTarif(10f);
+//        // Je commande une souris :
+//        commande.addProduit(produit, 3);
+//    }
 
     @Test
     public void testCommandeIsValid() {

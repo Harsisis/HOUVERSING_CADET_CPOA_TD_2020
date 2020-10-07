@@ -97,6 +97,10 @@ public class menuTD2 {
                 System.out.println("Which client id would you like to update ?\n");
                 id = scan.nextInt();
                 client = ClientSQLDAO.getInstance().getById(id);
+                System.out.println("Prompt the new client family name :\n");
+                client.setNom(scan.next());
+                System.out.println("Prompt the new client name :\n");
+                client.setPrenom(scan.next());
                 ClientSQLDAO.getInstance().update(client);
                 break;
             case "3":
