@@ -57,7 +57,6 @@ public class ListMemoireCommandeDAO implements CommandeDAO {
             objet.setId(objet.getId() + 1);
         }
         boolean ok = this.donnees.add(objet);
-        System.out.println(this.donnees);
         return true;
     }
 

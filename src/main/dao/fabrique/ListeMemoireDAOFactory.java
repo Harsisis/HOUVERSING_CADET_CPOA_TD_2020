@@ -2,9 +2,11 @@ package main.dao.fabrique;
 
 import main.dao.ListMemoireDAO.ListMemoireCategoryDAO;
 import main.dao.ListMemoireDAO.ListMemoireClientDAO;
+import main.dao.ListMemoireDAO.ListMemoireCommandeDAO;
 import main.dao.ListMemoireDAO.ListMemoireProduitDAO;
 import main.dao.metiersDAO.CategoryDAO;
 import main.dao.metiersDAO.ClientDAO;
+import main.dao.metiersDAO.CommandeDAO;
 import main.dao.metiersDAO.ProduitDAO;
 
 public class ListeMemoireDAOFactory extends DAOFactory {
@@ -20,5 +22,9 @@ public class ListeMemoireDAOFactory extends DAOFactory {
     @Override
     public ProduitDAO getProduitDAO() {
         return ListMemoireProduitDAO.getInstance();
+    }
+    @Override
+    public CommandeDAO getCommandeDAO() {
+        return ListMemoireCommandeDAO.getInstance();
     }
 }

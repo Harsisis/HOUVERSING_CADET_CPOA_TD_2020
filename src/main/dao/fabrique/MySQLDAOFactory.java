@@ -5,22 +5,25 @@ import main.dao.SQLDAO.ClientSQLDAO;
 import main.dao.SQLDAO.ProduitSQLDAO;
 import main.dao.metiersDAO.CategoryDAO;
 import main.dao.metiersDAO.ClientDAO;
+import main.dao.metiersDAO.CommandeDAO;
 import main.dao.metiersDAO.ProduitDAO;
 
 public class MySQLDAOFactory extends DAOFactory{
 
     @Override
     public CategoryDAO getCategoryDAO() {
-        return (CategoryDAO) CategorySQLDAO.getInstance();
+        return CategorySQLDAO.getInstance();
     }
     @Override
     public ClientDAO getClientDAO() {
-        return (ClientDAO) ClientSQLDAO.getInstance();
+        return ClientSQLDAO.getInstance();
     }
     @Override
     public ProduitDAO getProduitDAO() {
         return ProduitSQLDAO.getInstance();
     }
-
-
+    @Override
+    public CommandeDAO getCommandeDAO() {
+        return null ;
+    }
 }

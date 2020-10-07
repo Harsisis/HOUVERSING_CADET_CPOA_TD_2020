@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /*
  * Réprésentation métier d'une 'commande'.
@@ -57,7 +58,7 @@ public class Commande {
         if (produits == null) {
             produits = new HashMap<>();
         }
-        produits.put(produit, quantite);
+        this.produits.put(produit, quantite);
     }
 
     public int getId() {
@@ -86,5 +87,18 @@ public class Commande {
 
     public Map<Produit, Integer> getProduits() {
         return produits;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Commande)) return false;
+        Commande commande = (Commande) o;
+        return id == commande.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

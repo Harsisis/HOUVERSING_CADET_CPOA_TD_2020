@@ -314,13 +314,13 @@ public class menuTD2 {
                 menu2();
                 break;
             case "2":
-                System.out.println("Prompt the client id :\n");
-                client = ListMemoireClientDAO.getInstance().getById(scan.nextInt());
-                System.out.println("Prompt the new client family name :\n");
-                client.setNom(scan.next());
-                System.out.println("Prompt the new client name :\n");
-                client.setPrenom(scan.next());
-                ListMemoireClientDAO.getInstance().update(client);
+//                System.out.println("Prompt the client id :\n");
+//                client = ListMemoireClientDAO.getInstance().getById(scan.nextInt());
+//                System.out.println("Prompt the new client family name :\n");
+//                client.setNom(scan.next());
+//                System.out.println("Prompt the new client name :\n");
+//                client.setPrenom(scan.next());
+//                ListMemoireClientDAO.getInstance().update(client);
                 menu2();
                 break;
             case "3":
