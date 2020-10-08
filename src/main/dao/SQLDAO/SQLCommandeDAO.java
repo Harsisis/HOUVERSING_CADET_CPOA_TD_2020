@@ -4,10 +4,7 @@ import main.dao.metiersDAO.CommandeDAO;
 import main.pojo.Client;
 import main.pojo.Commande;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -49,21 +46,21 @@ public class SQLCommandeDAO implements CommandeDAO {
         LocalDate date = null;
         String id_client = null;
         try {
-            String rTitre = "SELECT date FROM Commande WHERE id_commande = ?";
-            PreparedStatement psTitre = connection.prepareStatement(rTitre);
-            psTitre.setInt(1, id);
-            ResultSet rsTitre = psTitre.executeQuery();
-            if (rsTitre.next()) {
-                date = LocalDate.parse(rsTitre.getString("date_commande"), DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
+            String rDate = "SELECT date_commande FROM Commande WHERE id_commande = ?";
+            PreparedStatement psDate = connection.prepareStatement(rDate);
+            psDate.setInt(1, id);
+            ResultSet rsDate = psDate.executeQuery();
+            if (rsDate.next()) {
+                date = rsDate.getDate("date_commande").toLocalDate();
+                //date = LocalDate.parse(rsDate.getDate("date_commande"), DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
             }
-            String rVisuel = "SELECT id_client FROM Commande WHERE id_commande = ?";
-            PreparedStatement psVisuel = connection.prepareStatement(rVisuel);
-            psVisuel.setInt(1, id);
-            ResultSet rsVisuel = psVisuel.executeQuery();
+            String rClient = "SELECT id_client FROM Commande WHERE id_commande = ?";
+            PreparedStatement psClient = connection.prepareStatement(rClient);
+            psClient.setInt(1, id);
+            ResultSet rsVisuel = psClient.executeQuery();
             if (rsVisuel.next()) {
                 id_client = rsVisuel.getString("id_client");
             }
-            Client client = new Client();
             commande = new Commande(id, date, SQLClientDAO.getInstance().getById(Integer.parseInt(id_client)));
             connection.close();
         } catch (SQLException sqle) {
@@ -85,7 +82,6 @@ public class SQLCommandeDAO implements CommandeDAO {
                 commande.setId(rs.getInt("id_commande"));
                 commande.setDate(LocalDate.parse(rs.getString("date_commande"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
                 commande.setClient( SQLClientDAO.getInstance().getById(Integer.parseInt(rs.getString("id_client"))));
-                System.out.println(commande);
                 commandes.add(commande);
             }
             statement.close();
@@ -101,7 +97,7 @@ public class SQLCommandeDAO implements CommandeDAO {
         try{
             String request = "INSERT INTO Commande(date_commande, id_client) VALUES(?, ?)";
             PreparedStatement ps = connection.prepareStatement(request);
-            ps.setString(1, String.valueOf(objet.getDate()));
+            ps.setDate(1, Date.valueOf(objet.getDate()));
             ps.setInt(2, objet.getClient().getId());
             ps.executeUpdate();
             connection.close();
