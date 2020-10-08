@@ -271,7 +271,7 @@ public class menuTD2 {
                 System.out.println("Prompt the order id :\n");
                 commande = ListMemoireCommandeDAO.getInstance().getById(scan.nextInt());
                 System.out.println("Prompt the order date :\n");
-                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
+                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
                 System.out.println("All the order :\n");
                 ListMemoireClientDAO.getInstance().findAll();
                 System.out.println("Prompt the order id :\n");
@@ -314,13 +314,13 @@ public class menuTD2 {
                 menu2();
                 break;
             case "2":
-//                System.out.println("Prompt the client id :\n");
-//                client = ListMemoireClientDAO.getInstance().getById(scan.nextInt());
-//                System.out.println("Prompt the new client family name :\n");
-//                client.setNom(scan.next());
-//                System.out.println("Prompt the new client name :\n");
-//                client.setPrenom(scan.next());
-//                ListMemoireClientDAO.getInstance().update(client);
+                System.out.println("Prompt the client id :\n");
+                client = ListMemoireClientDAO.getInstance().getById(scan.nextInt());
+                System.out.println("Prompt the new client family name :\n");
+                client.setNom(scan.next());
+                System.out.println("Prompt the new client name :\n");
+                client.setPrenom(scan.next());
+                ListMemoireClientDAO.getInstance().update(client);
                 menu2();
                 break;
             case "3":
