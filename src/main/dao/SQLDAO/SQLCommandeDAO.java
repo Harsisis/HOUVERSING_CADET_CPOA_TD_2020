@@ -1,7 +1,6 @@
 package main.dao.SQLDAO;
 
 import main.dao.metiersDAO.CommandeDAO;
-import main.pojo.Categorie;
 import main.pojo.Client;
 import main.pojo.Commande;
 
@@ -15,6 +14,16 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 public class SQLCommandeDAO implements CommandeDAO {
+
+    private static SQLCommandeDAO instance;
+
+    public static SQLCommandeDAO getInstance() {
+        if (instance == null) {
+            instance = new SQLCommandeDAO();
+        }
+        return instance;
+    }
+
     @Override
     public boolean delete(Commande objet) {
         int id = objet.getId();

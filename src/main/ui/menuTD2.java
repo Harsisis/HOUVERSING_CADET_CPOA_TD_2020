@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import main.dao.SQLDAO.SQLCategorieDAO;
 import main.dao.SQLDAO.SQLClientDAO;
+import main.dao.SQLDAO.SQLCommandeDAO;
 import main.dao.SQLDAO.SQLProduitDAO;
 import main.dao.fabrique.EPersistence;
 import main.dao.fabrique.DAOFactory;
@@ -81,6 +82,50 @@ public class menuTD2 {
     }
 
     private void menuCommandeSQL() {
+        System.out.println("Select an action\n\t1. Add a Client\n\t2. Edit a Client\n\t3. Delete a Client\n\t4. Display all the Clients\n\t5. Back");
+        String choice;
+        do {
+            System.out.println("Select a number between 1 and 5 please");
+            choice = scan.next();
+            System.out.println(choice);
+        } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
+
+        int id = 0;
+        Commande commande = new Commande();
+
+        switch(choice){
+            case "1":
+                System.out.println("Prompt the order date :\n");
+                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
+                System.out.println("All the order :\n");
+                SQLCommandeDAO.getInstance().findAll();
+                System.out.println("Prompt the order id :\n");
+                commande.setClient(SQLClientDAO.getInstance().getById(scan.nextInt()));
+
+                SQLCommandeDAO.getInstance().create(commande);
+                menu2();
+                break;
+            case "2":
+                System.out.println("Prompt the order id :\n");
+                commande = SQLCommandeDAO.getInstance().getById(scan.nextInt());
+                System.out.println("Prompt the order date :\n");
+                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
+                System.out.println("All the order :\n");
+                SQLCommandeDAO.getInstance().findAll();
+                System.out.println("Prompt the order id :\n");
+                commande.setClient(ListMemoireClientDAO.getInstance().getById(scan.nextInt()));
+                SQLCommandeDAO.getInstance().update(commande);
+                break;
+            case "3":
+                System.out.println("Prompt the order id :\n");
+                commande = SQLCommandeDAO.getInstance().getById(scan.nextInt());
+                SQLCommandeDAO.getInstance().delete(commande);
+                break;
+            case "4": SQLCommandeDAO.getInstance().findAll();
+                break;
+            case "5": menu2();
+                break;
+        }
     }
 
     private void menuClientSQL() {
@@ -223,7 +268,7 @@ public class menuTD2 {
         }
     }
 
-    //----------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------------------------------
     public void menuML(){
         System.out.println("Select a type\n\t1. Category\n\t2. Product\n\t3. Client\n\t4. Order\n\t5. Exit");
         String choice;
@@ -264,7 +309,7 @@ public class menuTD2 {
         switch(choice){
             case "1":
                 System.out.println("Prompt the order date :\n");
-                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
+                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
                 System.out.println("All the order :\n");
                 ListMemoireClientDAO.getInstance().findAll();
                 System.out.println("Prompt the order id :\n");
