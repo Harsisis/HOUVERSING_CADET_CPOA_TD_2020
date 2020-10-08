@@ -3,6 +3,7 @@ package main.dao.SQLDAO;
 import main.dao.metiersDAO.CommandeDAO;
 import main.pojo.Client;
 import main.pojo.Commande;
+import main.pojo.Produit;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -132,14 +133,14 @@ public class SQLCommandeDAO implements CommandeDAO {
 
     public boolean ligneCom(Commande objet){
         java.sql.Connection connection = main.modele.Connection.connect();
-
         try{
             for (int i=0; i<objet.getProduits().size(); i++){
                 String request = "INSERT INTO Ligne_Commande(id_commande, id_produit, quantite, tarif_unitaire) VALUES(?, ?, ?, ?)";
                 PreparedStatement ps = connection.prepareStatement(request);
                 ps.setInt(1, objet.getId());
-                ps.setInt(2, (Integer) objet.getProduits().keySet().toArray()[i]);
-                ps.setInt(3, objet.getProduits().get((Integer) objet.getProduits().keySet().toArray()[i]));
+                ps.setString(2, String.valueOf(objet.getProduits().keySet().toArray()[i]));
+                ps.setInt(3, objet.getProduits().get(objet.getProduits().keySet().toArray()[i]));
+                ps.setFloat(4, SQLProduitDAO.getInstance().getById(objet.getProduits().keySet()).getTarif());
                 ps.executeUpdate();
                 connection.close();
             }
