@@ -1,14 +1,9 @@
 package test.ListeMemoire;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
-import main.dao.metiersDAO.ClientDAO;
 import main.dao.metiersDAO.CommandeDAO;
 import main.pojo.Client;
-import main.pojo.Commande;
 import main.pojo.Commande;
 import main.pojo.Produit;
 import org.junit.Assert;
@@ -17,6 +12,9 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 
 public class TestMLCommande {
 

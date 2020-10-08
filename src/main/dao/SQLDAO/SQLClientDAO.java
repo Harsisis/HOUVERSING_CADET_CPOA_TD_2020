@@ -106,10 +106,12 @@ public class SQLClientDAO implements ClientDAO {
             ps.setString(1, nom);
             ps.setString(2, prenom);
             ps.executeUpdate();
+            connection.close();
+            return true;
         }catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
+            return false;
         }
-        return false;
     }
 
     @Override

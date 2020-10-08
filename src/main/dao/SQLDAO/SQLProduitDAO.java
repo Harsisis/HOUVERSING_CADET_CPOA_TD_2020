@@ -148,10 +148,12 @@ public class SQLProduitDAO implements ProduitDAO {
             ps.setString(4, visuel);
             ps.setInt(5, id_category);
             ps.executeUpdate();
+            connection.close();
+            return true;
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
+            return false;
         }
-        return false;
     }
 
     @Override
