@@ -3,6 +3,7 @@ package main.ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import main.dao.SQLDAO.SQLCategorieDAO;
@@ -91,6 +92,8 @@ public class menuTD2 {
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
         int id = 0;
+        String addProd = null;
+        String addProd2 = null;
         Commande commande = new Commande();
 
         switch(choice){
@@ -103,54 +106,57 @@ public class menuTD2 {
                 commande.setClient(SQLClientDAO.getInstance().getById(scan.nextInt()));
 
                 System.out.println("Do you want to add products ? y/n :\n");
-                String addProd = scan.next();
+                addProd = scan.next();
                 if (addProd.equals("y")){
                     boolean notagain = true;
                     while(notagain){
                         SQLProduitDAO.getInstance().findAll();
-                        System.out.println("Prompt the product id :\n");
+                        System.out.println("\nPrompt the product id :\n");
                         int product_id = scan.nextInt();
                         System.out.println("\nPrompt the quantity :\n");
                         int product_qte = scan.nextInt();
-                        commande.getProduits().put(SQLProduitDAO.getInstance().getById(product_id), product_qte);
+                        commande.addProduit(SQLProduitDAO.getInstance().getById(product_id), product_qte);
 
                         System.out.println("another one ? y/n :\n");
-                        if(scan.next() == "n")
+                        addProd2 = scan.next();
+                        if(addProd2.equals("n"))
                             notagain = false;
                     }
                     SQLCommandeDAO.getInstance().create(commande);
                 }
-                else if (addProd == "n")
+                else if (addProd.equals("n"))
                     SQLCommandeDAO.getInstance().create(commande);
                 break;
             case "2":
                 System.out.println("Prompt the order id :\n");
                 commande = SQLCommandeDAO.getInstance().getById(scan.nextInt());
                 System.out.println("Prompt the order date (in this format : yyyy-MM-dd) :\n");
-                commande.setDate(LocalDate.parse( scan.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                System.out.println("All the order :\n");
-                SQLCommandeDAO.getInstance().findAll();
-                System.out.println("Prompt the order id :\n");
-                commande.setClient(ListMemoireClientDAO.getInstance().getById(scan.nextInt()));
+                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                System.out.println("All the client :\n");
+                SQLClientDAO.getInstance().findAll();
+                System.out.println("\nPrompt the client id :\n");
+                commande.setClient(SQLClientDAO.getInstance().getById(scan.nextInt()));
 
                 System.out.println("Do you want to add products ? y/n :\n");
-                if (scan.next() == "y"){
-                    boolean again = true;
-                    while(!again){
+                addProd = scan.next();
+                if (addProd.equals("y")){
+                    boolean notagain = true;
+                    while(notagain){
                         SQLProduitDAO.getInstance().findAll();
-                        System.out.println("Prompt the product id :\n");
+                        System.out.println("\nPrompt the product id :\n");
                         int product_id = scan.nextInt();
-                        System.out.println("Prompt the quantity :\n");
+                        System.out.println("\nPrompt the quantity :\n");
                         int product_qte = scan.nextInt();
-                        commande.getProduits().put(SQLProduitDAO.getInstance().getById(product_id), product_qte);
+                        commande.addProduit(SQLProduitDAO.getInstance().getById(product_id), product_qte);
 
                         System.out.println("another one ? y/n :\n");
-                        if(scan.next() == "n")
-                            again = false;
+                        addProd2 = scan.next();
+                        if(addProd2.equals("n"))
+                            notagain = false;
                     }
                     SQLCommandeDAO.getInstance().update(commande);
                 }
-                else if (scan.next() == "n")
+                else if (addProd.equals("n"))
                     SQLCommandeDAO.getInstance().update(commande);
                 break;
             case "3":
@@ -342,29 +348,72 @@ public class menuTD2 {
             System.out.println(choice);
         } while(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
+        String addProd = null;
+        String addProd2 = null;
         Commande commande = new Commande();
         switch(choice){
             case "1":
-                System.out.println("Prompt the order date :\n");
-                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
-                System.out.println("All the order :\n");
+                System.out.println("Prompt the order date (in this format : yyyy-MM-dd) :\n");
+                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                System.out.println("All the client :\n");
                 ListMemoireClientDAO.getInstance().findAll();
-                System.out.println("Prompt the order id :\n");
+                System.out.println("\nPrompt the client id :\n");
                 commande.setClient(ListMemoireClientDAO.getInstance().getById(scan.nextInt()));
 
-                ListMemoireCommandeDAO.getInstance().create(commande);
+                System.out.println("Do you want to add products ? y/n :\n");
+                addProd = scan.next();
+                if (addProd.equals("y")){
+                    boolean notagain = true;
+                    while(notagain){
+                        ListMemoireProduitDAO.getInstance().findAll();
+                        System.out.println("\nPrompt the product id :\n");
+                        int product_id = scan.nextInt();
+                        System.out.println("\nPrompt the quantity :\n");
+                        int product_qte = scan.nextInt();
+                        commande.addProduit(ListMemoireProduitDAO.getInstance().getById(product_id), product_qte);
+
+                        System.out.println("another one ? y/n :\n");
+                        addProd2 = scan.next();
+                        if(addProd2.equals("n"))
+                            notagain = false;
+                    }
+                    ListMemoireCommandeDAO.getInstance().create(commande);
+                }
+                else if (addProd.equals("n"))
+                    ListMemoireCommandeDAO.getInstance().create(commande);
                 menu2();
                 break;
             case "2":
                 System.out.println("Prompt the order id :\n");
                 commande = ListMemoireCommandeDAO.getInstance().getById(scan.nextInt());
-                System.out.println("Prompt the order date :\n");
-                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
-                System.out.println("All the order :\n");
+                System.out.println("Prompt the order date (in this format : yyyy-MM-dd) :\n");
+                commande.setDate(LocalDate.parse( scan.next(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                System.out.println("All the client :\n");
                 ListMemoireClientDAO.getInstance().findAll();
-                System.out.println("Prompt the order id :\n");
+                System.out.println("\nPrompt the client id :\n");
                 commande.setClient(ListMemoireClientDAO.getInstance().getById(scan.nextInt()));
-                ListMemoireCommandeDAO.getInstance().update(commande);
+
+                System.out.println("Do you want to add products ? y/n :\n");
+                addProd = scan.next();
+                if (addProd.equals("y")){
+                    boolean notagain = true;
+                    while(notagain){
+                        ListMemoireProduitDAO.getInstance().findAll();
+                        System.out.println("\nPrompt the product id :\n");
+                        int product_id = scan.nextInt();
+                        System.out.println("\nPrompt the quantity :\n");
+                        int product_qte = scan.nextInt();
+                        commande.addProduit(ListMemoireProduitDAO.getInstance().getById(product_id), product_qte);
+
+                        System.out.println("another one ? y/n :\n");
+                        addProd2 = scan.next();
+                        if(addProd2.equals("n"))
+                            notagain = false;
+                    }
+                    ListMemoireCommandeDAO.getInstance().update(commande);
+                }
+                else if (addProd.equals("n"))
+                    ListMemoireCommandeDAO.getInstance().update(commande);
                 menu2();
                 break;
             case "3":
