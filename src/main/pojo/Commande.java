@@ -90,6 +90,15 @@ public class Commande {
     }
 
     @Override
+    public String toString() {
+        return "Commande{" +
+                "id=" + id +
+                ", date=" + date +
+                ", client=" + client +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Commande)) return false;

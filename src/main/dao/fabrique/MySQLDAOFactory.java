@@ -2,6 +2,7 @@ package main.dao.fabrique;
 
 import main.dao.SQLDAO.SQLCategorieDAO;
 import main.dao.SQLDAO.SQLClientDAO;
+import main.dao.SQLDAO.SQLCommandeDAO;
 import main.dao.SQLDAO.SQLProduitDAO;
 import main.dao.metiersDAO.CategorieDAO;
 import main.dao.metiersDAO.ClientDAO;
@@ -24,6 +25,6 @@ public class MySQLDAOFactory extends DAOFactory{
     }
     @Override
     public CommandeDAO getCommandeDAO() {
-        return null ;
+        return SQLCommandeDAO.getInstance();
     }
 }
