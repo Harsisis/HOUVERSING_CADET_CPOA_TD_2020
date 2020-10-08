@@ -103,13 +103,14 @@ public class menuTD2 {
                 commande.setClient(SQLClientDAO.getInstance().getById(scan.nextInt()));
 
                 System.out.println("Do you want to add products ? y/n :\n");
-                if (scan.next() == "y"){
+                String addProd = scan.next();
+                if (addProd.equals("y")){
                     boolean notagain = true;
                     while(notagain){
                         SQLProduitDAO.getInstance().findAll();
                         System.out.println("Prompt the product id :\n");
                         int product_id = scan.nextInt();
-                        System.out.println("Prompt the quantity :\n");
+                        System.out.println("\nPrompt the quantity :\n");
                         int product_qte = scan.nextInt();
                         commande.getProduits().put(SQLProduitDAO.getInstance().getById(product_id), product_qte);
 
@@ -119,9 +120,8 @@ public class menuTD2 {
                     }
                     SQLCommandeDAO.getInstance().create(commande);
                 }
-                else if (scan.next() == "n")
+                else if (addProd == "n")
                     SQLCommandeDAO.getInstance().create(commande);
-                menu2();
                 break;
             case "2":
                 System.out.println("Prompt the order id :\n");
