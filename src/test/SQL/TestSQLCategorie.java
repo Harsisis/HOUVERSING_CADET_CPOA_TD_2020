@@ -21,10 +21,14 @@ public class TestSQLCategorie {
 
     private CategorieDAO dao;
     private EPersistence ePersistence = EPersistence.MYSQL;
+    private java.sql.Connection connection;
+    private Statement statement;
 
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
         dao = DAOFactory.getDAOFactory(ePersistence).getCategorieDAO();
+        connection = main.modele.Connection.connect();
+        statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         Assert.assertNotNull(dao);
         Assert.assertNotNull(dao.findAll());
     }
@@ -46,8 +50,6 @@ public class TestSQLCategorie {
         categorie.setTitre("test");
         categorie.setVisuel("test.png");
         dao.create(categorie);
-        java.sql.Connection connection = main.modele.Connection.connect();
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Categorie";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();
