@@ -114,7 +114,7 @@ public class SQLCommandeDAO implements CommandeDAO {
         int id_com = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
-            String request = "UPDATE Categorie SET date_commande = ?, id_client = ? WHERE id_commande =  ?";
+            String request = "UPDATE Commande SET date_commande = ?, id_client = ? WHERE id_commande = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, String.valueOf(objet.getDate()));
             ps.setInt(2, objet.getClient().getId());
