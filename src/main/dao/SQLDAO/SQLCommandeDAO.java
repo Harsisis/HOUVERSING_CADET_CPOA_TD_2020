@@ -34,6 +34,7 @@ public class SQLCommandeDAO implements CommandeDAO {
             ps.setInt(1, id);
             ps.executeUpdate();
             connection.close();
+            clearLigneCom(objet);
             return true;
         } catch (SQLException sqle) {
             System.out.println("Objet n'existe pas");
@@ -135,26 +136,29 @@ public class SQLCommandeDAO implements CommandeDAO {
 
     public boolean ligneCom(Commande objet){
         java.sql.Connection connection = main.modele.Connection.connect();
+
+        Statement statement = null;
+        try {
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            String query = "SELECT * FROM Commande";
+            ResultSet resultSet = statement.executeQuery(query);
+            resultSet.last();
+            objet.setId(resultSet.getInt("id_commande"));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         try{
-//            for (int i=0; i<objet.getProduits().size(); i++){
-//                String request = "INSERT INTO Ligne_Commande(id_commande, id_produit, quantite, tarif_unitaire) VALUES(?, ?, ?, ?)";
-//                PreparedStatement ps = connection.prepareStatement(request);
-//                ps.setInt(1, objet.getId());
-//                ps.setString(2, String.valueOf(objet.getProduits().keySet().toArray()[i]));
-//                ps.setInt(3, objet.getProduits().get(objet.getProduits().keySet().toArray()[i]));
-//                ps.setFloat(4, SQLProduitDAO.getInstance().getById(objet.getProduits().keySet()).getTarif());
-//                ps.executeUpdate();
-//                connection.close();
-//            }
             Iterator iterator = objet.getProduits().entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry)iterator.next();
-                String request = "INSERT INTO Ligne_Commande(id_commande, id_produit, quantite, tarif_unitaire) VALUES(?, ?, ?, ?)";
+                String request = "INSERT INTO Ligne_commande(id_commande, id_produit, quantite, tarif_unitaire) VALUES(?, ?, ?, ?)";
                 PreparedStatement preparedStatement = connection.prepareStatement(request);
                 preparedStatement.setInt(1, objet.getId());
                 preparedStatement.setInt(2, ((Produit) pair.getKey()).getId());
                 preparedStatement.setInt(3, (Integer) pair.getValue());
                 preparedStatement.setFloat(4, ((Produit) pair.getKey()).getTarif());
+                preparedStatement.execute();
             }
             return true;
         } catch (SQLException sqle) {
@@ -167,13 +171,11 @@ public class SQLCommandeDAO implements CommandeDAO {
         java.sql.Connection connection = main.modele.Connection.connect();
 
         try{
-            for (int i=0; i<objet.getProduits().size(); i++){
-                String request = "DELETE FROM Ligne_commande WHERE id_commande = ? ";
-                PreparedStatement ps = connection.prepareStatement(request);
-                ps.setInt(1, objet.getId());
-                ps.executeUpdate();
-                connection.close();
-            }
+            String request = "DELETE FROM Ligne_commande WHERE id_commande = ? ";
+            PreparedStatement ps = connection.prepareStatement(request);
+            ps.setInt(1, objet.getId());
+            ps.executeUpdate();
+            connection.close();
             return true;
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
