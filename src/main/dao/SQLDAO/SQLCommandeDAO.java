@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 public class SQLCommandeDAO implements CommandeDAO {
 
@@ -134,15 +136,25 @@ public class SQLCommandeDAO implements CommandeDAO {
     public boolean ligneCom(Commande objet){
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
-            for (int i=0; i<objet.getProduits().size(); i++){
+//            for (int i=0; i<objet.getProduits().size(); i++){
+//                String request = "INSERT INTO Ligne_Commande(id_commande, id_produit, quantite, tarif_unitaire) VALUES(?, ?, ?, ?)";
+//                PreparedStatement ps = connection.prepareStatement(request);
+//                ps.setInt(1, objet.getId());
+//                ps.setString(2, String.valueOf(objet.getProduits().keySet().toArray()[i]));
+//                ps.setInt(3, objet.getProduits().get(objet.getProduits().keySet().toArray()[i]));
+//                ps.setFloat(4, SQLProduitDAO.getInstance().getById(objet.getProduits().keySet()).getTarif());
+//                ps.executeUpdate();
+//                connection.close();
+//            }
+            Iterator iterator = objet.getProduits().entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry pair = (Map.Entry)iterator.next();
                 String request = "INSERT INTO Ligne_Commande(id_commande, id_produit, quantite, tarif_unitaire) VALUES(?, ?, ?, ?)";
-                PreparedStatement ps = connection.prepareStatement(request);
-                ps.setInt(1, objet.getId());
-                ps.setString(2, String.valueOf(objet.getProduits().keySet().toArray()[i]));
-                ps.setInt(3, objet.getProduits().get(objet.getProduits().keySet().toArray()[i]));
-                ps.setFloat(4, SQLProduitDAO.getInstance().getById(objet.getProduits().keySet()).getTarif());
-                ps.executeUpdate();
-                connection.close();
+                PreparedStatement preparedStatement = connection.prepareStatement(request);
+                preparedStatement.setInt(1, objet.getId());
+                preparedStatement.setInt(2, ((Produit) pair.getKey()).getId());
+                preparedStatement.setInt(3, (Integer) pair.getValue());
+                preparedStatement.setFloat(4, ((Produit) pair.getKey()).getTarif());
             }
             return true;
         } catch (SQLException sqle) {
