@@ -54,7 +54,7 @@ public class SQLCommandeDAO implements CommandeDAO {
             psTitre.setInt(1, id);
             ResultSet rsTitre = psTitre.executeQuery();
             if (rsTitre.next()) {
-                date = LocalDate.parse(rsTitre.getString("date"), DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
+                date = LocalDate.parse(rsTitre.getString("date_commande"), DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
             }
             String rVisuel = "SELECT id_client FROM Commande WHERE id_commande = ?";
             PreparedStatement psVisuel = connection.prepareStatement(rVisuel);
@@ -82,8 +82,8 @@ public class SQLCommandeDAO implements CommandeDAO {
             ResultSet rs = statement.executeQuery(request);
             while (rs.next()) {
                 Commande commande = new Commande();
-                commande.setId(rs.getInt("id_categorie"));
-                commande.setDate(LocalDate.parse(rs.getString("date"), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
+                commande.setId(rs.getInt("id_commande"));
+                commande.setDate(LocalDate.parse(rs.getString("date_commande"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
                 commande.setClient( SQLClientDAO.getInstance().getById(Integer.parseInt(rs.getString("id_client"))));
                 System.out.println(commande);
                 commandes.add(commande);
@@ -99,7 +99,7 @@ public class SQLCommandeDAO implements CommandeDAO {
     public boolean create(Commande objet) {
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
-            String request = "INSERT INTO Commande(date, id_client) VALUES(?, ?)";
+            String request = "INSERT INTO Commande(date_commande, id_client) VALUES(?, ?)";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, String.valueOf(objet.getDate()));
             ps.setInt(2, objet.getClient().getId());
@@ -117,7 +117,7 @@ public class SQLCommandeDAO implements CommandeDAO {
         int id_com = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
-            String request = "UPDATE Categorie SET date = ?, id_client = ? WHERE id_commande =  ?";
+            String request = "UPDATE Categorie SET date_commande = ?, id_client = ? WHERE id_commande =  ?";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, String.valueOf(objet.getDate()));
             ps.setInt(2, objet.getClient().getId());
