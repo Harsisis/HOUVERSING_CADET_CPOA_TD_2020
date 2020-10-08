@@ -53,13 +53,13 @@ public class menuTD2 {
     }
     //----------------------------------------------------------------------------
     public void menuSQL() {
-        System.out.println("Select a type\n\t1. Category\n\t2. Product\n\t3. Client\n\t4. Exit");
+        System.out.println("Select a type\n\t1. Category\n\t2. Product\n\t3. Client\n\t4. Order\n\t5. Exit");
         String choice;
         do {
-            System.out.println("Select a number between 1 and 4 please");
+            System.out.println("Select a number between 1 and 5 please");
             choice = scan.next();
             System.out.println(choice);
-        } while (choice.equals("1") && choice.equals("2") && choice.equals("3"));
+        } while (choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") && choice.equals("5"));
 
         switch (choice) {
             case "1":
@@ -72,9 +72,15 @@ public class menuTD2 {
                 menuClientSQL();
                 break;
             case "4":
+                menuCommandeSQL();
+                break;
+            case "5":
                 return;
 
         }
+    }
+
+    private void menuCommandeSQL() {
     }
 
     private void menuClientSQL() {
