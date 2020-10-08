@@ -39,8 +39,8 @@ public class TestSQLCategorie {
     }
 
     @Test
-    public void testCreateCategorie() throws SQLException {//pas de suppression
-        String id = null;
+    public void testCreateDeleteCategorie() throws SQLException {
+        int id = 0;
         int size = dao.findAll().size();
         Categorie categorie = new Categorie();
         categorie.setTitre("test");
@@ -48,23 +48,12 @@ public class TestSQLCategorie {
         dao.create(categorie);
         java.sql.Connection connection = main.modele.Connection.connect();
         Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-        ResultSet resultSet = statement.executeQuery("SELECT id_commande FROM Commande ORDER BY id_commande DESC LIMIT 1;");
-        while (resultSet.next()) {
-            id = resultSet.getString("id_commande");
-        }
-        connection.close();
-        System.out.println("\n\n" + Integer.parseInt(id) + "\n");
-        dao.delete(dao.getById(Integer.parseInt(id)));
-        Assert.assertEquals(size, dao.findAll().size());
-    }
-
-    @Test
-    public void testDeleteCategorie(){
-        int size = dao.findAll().size();
-        Categorie categorie = new Categorie();
-        dao.create(categorie);
-        categorie = dao.getById(categorie.getId());
-        dao.delete(categorie);
+        String query = "SELECT * FROM Categorie";
+        ResultSet resultSet = statement.executeQuery(query);
+        resultSet.last();
+        id = resultSet.getInt("id_categorie");
+        Categorie categorie1 = dao.getById(id);
+        dao.delete(categorie1);
         Assert.assertEquals(size, dao.findAll().size());
     }
 
