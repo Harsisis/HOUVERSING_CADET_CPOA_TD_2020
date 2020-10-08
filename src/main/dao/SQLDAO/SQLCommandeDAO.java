@@ -134,6 +134,7 @@ public class SQLCommandeDAO implements CommandeDAO {
     public boolean ligneCom(Commande objet){
         java.sql.Connection connection = main.modele.Connection.connect();
         try{
+
             for (int i=0; i<objet.getProduits().size(); i++){
                 String request = "INSERT INTO Ligne_Commande(id_commande, id_produit, quantite, tarif_unitaire) VALUES(?, ?, ?, ?)";
                 PreparedStatement ps = connection.prepareStatement(request);
@@ -155,13 +156,11 @@ public class SQLCommandeDAO implements CommandeDAO {
         java.sql.Connection connection = main.modele.Connection.connect();
 
         try{
-            for (int i=0; i<objet.getProduits().size(); i++){
-                String request = "DELETE FROM Ligne_commande WHERE id_commande = ? ";
-                PreparedStatement ps = connection.prepareStatement(request);
-                ps.setInt(1, objet.getId());
-                ps.executeUpdate();
-                connection.close();
-            }
+            String request = "DELETE FROM Ligne_commande WHERE id_commande = ? ";
+            PreparedStatement ps = connection.prepareStatement(request);
+            ps.setInt(1, objet.getId());
+            ps.executeUpdate();
+            connection.close();
             return true;
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
