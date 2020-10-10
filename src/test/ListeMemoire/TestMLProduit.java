@@ -4,10 +4,13 @@ import main.dao.ListMemoireDAO.ListMemoireProduitDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.ProduitDAO;
+import main.pojo.Client;
 import main.pojo.Produit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,7 +43,14 @@ public class TestMLProduit {
         Assert.assertTrue(dao.create(prodFind));
         assertNotNull(dao.getById(1));
     }
-
+    @Test
+    public void testFindAll() {
+        ArrayList produitArrayList = dao.findAll();
+        Produit produit = new Produit();
+        dao.create(produit);
+        System.out.println(produitArrayList);
+        Assert.assertTrue(produitArrayList.contains(produit));
+    }
     @Test
     public void testCreateProduit() {
         int size = dao.findAll().size();

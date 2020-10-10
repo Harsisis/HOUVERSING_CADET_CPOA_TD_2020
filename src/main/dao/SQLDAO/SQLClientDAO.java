@@ -8,99 +8,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class ClientSQLDAO implements ClientDAO {
-    Scanner scan = new Scanner(System.in);
+public class SQLClientDAO implements ClientDAO {
+    private static SQLClientDAO instance;
 
-    private static ClientSQLDAO instance;
-
-    public static ClientSQLDAO getInstance() {
+    public static ClientDAO getInstance() {
         if (instance == null) {
-            instance = new ClientSQLDAO();
+            instance = new SQLClientDAO();
         }
         return instance;
     }
 
-    public ClientSQLDAO() {
-    }
-
-    public void add_client(){
-        String name_client = null;
-        String surname_client = null;
-        System.out.println("Prompt the client name :\n");
-        name_client = scan.next();
-        System.out.println("Prompt the client surname :\n");
-        surname_client = scan.next();
-        java.sql.Connection connection = main.modele.Connection.connect();
-        try{
-            String request = "INSERT INTO Client(nom, prenom, identifiant, mot_de_passe, adr_numero, adr_voie, adr_code_postal, adr_ville, adr_pays) VALUES(?, ?, 0, 0, 0, 0, 0, 0, 0)";
-            PreparedStatement ps = connection.prepareStatement(request);
-            ps.setString(1, name_client);
-            ps.setString(2, surname_client);
-            ps.executeUpdate();
-            connection.close();
-        } catch (SQLException sqle) {
-            System.out.println("FAIL " + sqle.getMessage());
-        }
-    }
-
-    public void edit_client(){
-        String name_client = null;
-        String surname_client = null;
-        String id_client = null;
-        System.out.println("Which client would you like to change ?\n");
-        id_client = scan.next();
-        System.out.println("Prompt the client name :\n");
-        name_client = scan.next();
-        System.out.println("Prompt the client surname :\n");
-        surname_client = scan.next();
-        java.sql.Connection connection = main.modele.Connection.connect();
-        try{
-            String request = "UPDATE Client SET nom = ?, prenom = ? WHERE id_client = ? ";
-            PreparedStatement ps = connection.prepareStatement(request);
-            ps.setString(1, name_client);
-            ps.setString(2, surname_client);
-            ps.setString(3, id_client);
-            ps.executeUpdate();
-            connection.close();
-        } catch (SQLException sqle) {
-            System.out.println("FAIL " + sqle.getMessage());
-        }
-    }
-
-    public void del_client(){
-        String id_client = null;
-        System.out.println("Which client would you like to delete ?\n");
-        id_client = scan.next();
-        java.sql.Connection connection = main.modele.Connection.connect();
-        try{
-            String request = "DELETE FROM Client WHERE id_client = ? ";
-            PreparedStatement ps = connection.prepareStatement(request);
-            ps.setString(1, id_client);
-            ps.executeUpdate();
-            connection.close();
-        } catch (SQLException sqle) {
-            System.out.println("FAIL " + sqle.getMessage());
-        }
-    }
-    public void all_client() {
-        java.sql.Connection connection = main.modele.Connection.connect();
-        try {
-            String request = "SELECT * FROM Client";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(request);
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id_client");
-                String nom = resultSet.getString("nom");
-                String prenom = resultSet.getString("prenom");
-                System.out.format("%s, %s, %s\n", id, nom, prenom);
-            }
-            statement.close();
-        } catch (SQLException sqle) {
-            System.out.println("FAIL" + sqle.getMessage());
-        }
+    public SQLClientDAO() {
     }
 
     @Override
@@ -187,25 +106,25 @@ public class ClientSQLDAO implements ClientDAO {
             ps.setString(1, nom);
             ps.setString(2, prenom);
             ps.executeUpdate();
+            connection.close();
+            return true;
         }catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
+            return false;
         }
-        return false;
     }
 
     @Override
     public boolean update(Client objet) {
-        System.out.println("Prompt the new client family name :\n");
-        String name_client = scan.next();
-        System.out.println("Prompt the new client name :\n");
-        String surname_client = scan.next();
+        String surname_client = objet.getNom();
+        String name_client = objet.getPrenom();
         int id_client = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
             String request = "UPDATE Client SET nom = ?, prenom = ?,identifiant = 0, mot_de_passe = 0, adr_numero = 0, adr_voie = 0, adr_code_postal = 0, adr_ville = 0, adr_pays = 0 WHERE id_client = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
-            ps.setString(1, name_client);
-            ps.setString(2, surname_client);
+            ps.setString(1, surname_client);
+            ps.setString(2, name_client);
             ps.setInt(3, id_client);
             ps.executeUpdate();
             connection.close();

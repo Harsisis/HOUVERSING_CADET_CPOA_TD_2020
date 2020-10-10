@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class ListMemoireCommandeDAO implements CommandeDAO {
-    Scanner scan = new Scanner(System.in);
 
     private static CommandeDAO instance;
     private List<Commande> donnees = new ArrayList<Commande>();
@@ -30,15 +29,14 @@ public class ListMemoireCommandeDAO implements CommandeDAO {
         } else {
             supprime = this.donnees.remove(idx);
         }
-
         return objet.equals(supprime);
     }
 
     @Override
     public Commande getById(int id) {
-        ListMemoireClientDAO.getInstance().findAll();
-        Client client = ListMemoireClientDAO.getInstance().getById(scan.nextInt());
-        int idx = this.donnees.indexOf(new Commande(id, client));
+        Client client = new Client();
+        LocalDate date = LocalDate.now();
+        int idx = this.donnees.indexOf(new Commande(id, date, client));
         if (idx == -1) {
             throw new IllegalArgumentException("Aucune commande ne possède cet identifiant");
         } else {
@@ -54,6 +52,7 @@ public class ListMemoireCommandeDAO implements CommandeDAO {
 
     @Override
     public boolean create(Commande objet) {
+        objet.setId(1);
         while (this.donnees.contains(objet)) {
             objet.setId(objet.getId() + 1);
         }
@@ -67,7 +66,6 @@ public class ListMemoireCommandeDAO implements CommandeDAO {
         if (idx == -1) {
             throw new IllegalArgumentException("Tentative de modification d'une commande inexistante");
         } else {
-
             this.donnees.set(idx, objet);
         }
         return true;

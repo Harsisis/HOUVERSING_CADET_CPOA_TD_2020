@@ -1,26 +1,30 @@
 package main.dao.fabrique;
 
-import main.dao.SQLDAO.CategorySQLDAO;
-import main.dao.SQLDAO.ClientSQLDAO;
-import main.dao.SQLDAO.ProduitSQLDAO;
-import main.dao.metiersDAO.CategoryDAO;
+import main.dao.SQLDAO.SQLCategorieDAO;
+import main.dao.SQLDAO.SQLClientDAO;
+import main.dao.SQLDAO.SQLCommandeDAO;
+import main.dao.SQLDAO.SQLProduitDAO;
+import main.dao.metiersDAO.CategorieDAO;
 import main.dao.metiersDAO.ClientDAO;
+import main.dao.metiersDAO.CommandeDAO;
 import main.dao.metiersDAO.ProduitDAO;
 
 public class MySQLDAOFactory extends DAOFactory{
 
     @Override
-    public CategoryDAO getCategoryDAO() {
-        return (CategoryDAO) CategorySQLDAO.getInstance();
+    public CategorieDAO getCategorieDAO() {
+        return SQLCategorieDAO.getInstance();
     }
     @Override
     public ClientDAO getClientDAO() {
-        return (ClientDAO) ClientSQLDAO.getInstance();
+        return SQLClientDAO.getInstance();
     }
     @Override
     public ProduitDAO getProduitDAO() {
-        return ProduitSQLDAO.getInstance();
+        return SQLProduitDAO.getInstance();
     }
-
-
+    @Override
+    public CommandeDAO getCommandeDAO() {
+        return SQLCommandeDAO.getInstance();
+    }
 }
