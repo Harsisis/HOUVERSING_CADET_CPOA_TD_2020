@@ -83,7 +83,6 @@ public class SQLClientDAO implements ClientDAO {
                 client.setId(rs.getInt("id_client"));
                 client.setNom(rs.getString("nom"));
                 client.setPrenom(rs.getString("prenom"));
-
                 System.out.println(client);
                 clients.add(client);
             }
