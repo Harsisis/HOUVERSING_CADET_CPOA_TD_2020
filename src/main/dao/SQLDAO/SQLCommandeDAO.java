@@ -89,6 +89,7 @@ public class SQLCommandeDAO implements CommandeDAO {
                 commandes.add(commande);
             }
             statement.close();
+            System.out.println(commandes);
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }
