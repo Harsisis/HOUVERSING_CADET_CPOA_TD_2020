@@ -14,24 +14,22 @@ import java.net.URL;
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage primaryStage) {
         try {
             URL fxmlURL=getClass().getResource("/fenetre.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(fxmlURL);
             Node root = fxmlLoader.load();
             Scene scene = new Scene((VBox) root, 600, 400);
 
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-
-            stage.setScene(scene);
-            stage.setTitle("Ma première fenêtre JavaFX");
-            stage.show();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Ma première fenêtre JavaFX");
+            primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         //create window TD1
         //new menuTD1();
 
