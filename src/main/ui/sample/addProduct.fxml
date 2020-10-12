@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -9,7 +9,10 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.controller_addProduit">
@@ -36,33 +39,49 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Pane prefHeight="285.0" prefWidth="374.0">
+            <GridPane prefHeight="351.0" prefWidth="374.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="19.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.0" minWidth="10.0" prefWidth="82.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="235.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="89.0" minWidth="10.0" prefWidth="39.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="19.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <Pane prefHeight="287.0" prefWidth="375.0">
-                     <children>
-                        <Label layoutX="40.0" layoutY="39.0" text="Nom :" />
-                        <Label layoutX="40.0" layoutY="88.0" text="Description :" />
-                        <Label layoutX="40.0" layoutY="201.0" text="Tarif unitaire :" />
-                        <Label layoutX="43.0" layoutY="249.0" text="Catégorie :" />
-                        <TextArea layoutX="131.0" layoutY="88.0" prefHeight="84.0" prefWidth="200.0" />
-                        <TextField layoutX="131.0" layoutY="35.0" />
-                        <TextField layoutX="131.0" layoutY="197.0" prefHeight="25.0" prefWidth="57.0" />
-                        <ComboBox layoutX="130.0" layoutY="245.0" prefWidth="150.0" />
-                        <Label layoutX="191.0" layoutY="201.0" text="€" />
-                     </children>
-                  </Pane>
+                  <Label text="Nom :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField id="nom" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label text="Description :" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label id="error_cat" prefHeight="17.0" prefWidth="175.0" text="la catégorie doit être renseignée" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                  <Label id="error_tarif" prefHeight="17.0" prefWidth="135.0" text="le tarif doit être rempli" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <Label text="€" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <TextField id="tarif" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Label id="error_nom" prefHeight="17.0" prefWidth="149.0" text="Le nom doit être rempli" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextArea id="description" prefHeight="84.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Label text="Catégorie :" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label text="Tarif unitaire :" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ChoiceBox id="categorie" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
                </children>
-            </Pane>
-            <Pane prefHeight="57.0" prefWidth="374.0">
+            </GridPane>
+            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="285.0" layoutY="14.0" mnemonicParsing="false" text="Ajouter" />
+                  <Button id="add_product" alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" text="Ajouter" />
                </children>
-            </Pane>
-            <Pane prefHeight="58.0" prefWidth="374.0">
+            </FlowPane>
+            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label alignment="TOP_LEFT" layoutX="28.0" layoutY="21.0" prefHeight="17.0" prefWidth="314.0" text="Label" />
+                  <Label id="display_product" alignment="TOP_LEFT" prefHeight="17.0" prefWidth="314.0" />
                </children>
-            </Pane>
+            </FlowPane>
          </children>
       </VBox>
    </children>
