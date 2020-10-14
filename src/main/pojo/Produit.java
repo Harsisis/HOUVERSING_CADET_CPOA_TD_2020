@@ -76,9 +76,9 @@ public class Produit {
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", description='" + description + '\'' +
-                ", tarif=" + tarif +
+                ",\n tarif=" + tarif +
                 ", visuel='" + visuel + '\'' +
-                ", category=" + categorie +
+                ",\n category=" + categorie +
                 '}';
     }
 

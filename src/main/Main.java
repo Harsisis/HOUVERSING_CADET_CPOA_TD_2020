@@ -6,11 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import main.ui.menuTD2;
-
-import java.net.URL;
 
 public class Main extends Application {
 
@@ -18,10 +16,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("ui/sample/addProduct.fxml"));
-            Scene scene = new Scene(root, 350, 374);
+            Scene scene = new Scene(root, 374, 400);
 
             primaryStage.setScene(scene);
             primaryStage.setTitle("Ajouter un Produit");
+            Image icon = new Image(getClass().getResourceAsStream("ui/images/iconTest.png"));
+            primaryStage.getIcons().add(icon);
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

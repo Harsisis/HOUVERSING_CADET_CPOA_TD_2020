@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -49,37 +50,42 @@
               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="19.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Nom :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField id="nom" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="41.0" text="Nom :" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField id="nom" fx:id="inputName" promptText="saisir le nom du produit" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Label text="Description :" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label id="error_cat" prefHeight="17.0" prefWidth="175.0" text="la catégorie doit être renseignée" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                  <Label id="error_tarif" prefHeight="17.0" prefWidth="135.0" text="le tarif doit être rempli" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                  <Label text="€" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                  <TextField id="tarif" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <Label id="error_nom" prefHeight="17.0" prefWidth="149.0" text="Le nom doit être rempli" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <TextArea id="description" prefHeight="84.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Label id="error_tarif" fx:id="errorPrice" prefHeight="17.0" prefWidth="210.0" text="le tarif doit être rempli ou est incorrect" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <Label id="error_nom" fx:id="errorName" prefHeight="17.0" prefWidth="149.0" text="Le nom doit être rempli" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextArea id="description" fx:id="inputDesc" prefHeight="84.0" prefWidth="200.0" promptText="saisir la description du produit" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                   <Label text="Catégorie :" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label text="Tarif unitaire :" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <ChoiceBox id="categorie" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <ChoiceBox id="categorie" fx:id="cbxCategorie" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <Label id="error_nom" fx:id="errorDesc" prefHeight="17.0" prefWidth="208.0" text="La description doit être remplie" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <HBox prefHeight="7.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <children>
+                        <TextField id="tarif" fx:id="inputPrice" prefHeight="25.0" prefWidth="137.0" promptText="saisir le prix du produit" />
+                        <Label alignment="BOTTOM_CENTER" prefHeight="21.0" prefWidth="18.0" text="€" />
+                     </children>
+                  </HBox>
                </children>
             </GridPane>
-            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+            <FlowPane alignment="CENTER" prefHeight="55.0" prefWidth="374.0">
                <children>
-                  <Button id="add_product" alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" text="Ajouter" />
+                  <Button id="add_product" alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" onAction="#onClickCreateProduct" text="Ajouter" />
                </children>
             </FlowPane>
-            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" rowValignment="TOP">
                <children>
-                  <Label id="display_product" alignment="TOP_LEFT" prefHeight="17.0" prefWidth="314.0" />
+                  <Label id="display_product" fx:id="outputProduct" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="374.0" textAlignment="CENTER" textOverrun="CLIP" />
                </children>
             </FlowPane>
          </children>

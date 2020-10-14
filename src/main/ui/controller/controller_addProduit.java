@@ -1,14 +1,23 @@
 package main.ui.controller;
 
-import com.gluonhq.charm.glisten.control.TextArea;
+
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import main.dao.SQLDAO.SQLCategorieDAO;
+import main.pojo.Categorie;
 import main.pojo.Produit;
+import main.ui.util.util_isFloat;
 
-import java.awt.event.MouseEvent;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class controller_addProduit {
+public class controller_addProduit extends util_isFloat implements Initializable {
 
     @FXML
     private TextField inputName;
@@ -20,36 +29,76 @@ public class controller_addProduit {
     private TextArea inputDesc;
 
     @FXML
+    private ChoiceBox<?> cbxCategorie;
+
+    @FXML
     private Label outputProduct;
 
-    public boolean checkProd(String nom_prod, String desc_prod, float tarif_prod, String categ_prod){
-        if (nom_prod!=""){
-            System.out.println("nom != null");
-            boolean b_nom = true;
-        }
-        else {
-            //set visible error label
-        }
-        return false;
-    }
     @FXML
-    void onClickCreateProduct(MouseEvent event) {
+    private Label errorPrice;
+
+    @FXML
+    private Label errorName;
+
+    @FXML
+    private Label errorDesc;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        errorName.setVisible(false);
+        errorPrice.setVisible(false);
+        errorDesc.setVisible(false);
+        outputProduct.setText("");
+
+        //populate the categories comboBox
+        //cbxCategorie.setItems(SQLCategorieDAO.getInstance().findAll());
+    }
+
+    @FXML
+    void onClickCreateProduct(ActionEvent event) {
+
+        boolean isCorrect = true;
         //read textfields to setup variables
         String nom_prod = inputName.getText();
-        String desc_prod = null;
+        if (nom_prod == ""){
+            errorName.setVisible(true);
+            isCorrect = false;
+        }
+        else {
+            inputName.setText("");
+        }
+
         float tarif_prod = 0;
-        String categ_prod = null;
+        if (!isFloat(inputPrice.getText()) || inputPrice.getText() == "") {
+            errorPrice.setVisible(true);
+            isCorrect = false;
+        }
+        else{
+            tarif_prod = Float.parseFloat(inputPrice.getText());
+            inputPrice.setText("");
+        }
 
-        outputProduct.setText(nom_prod);
+        String desc_prod = inputDesc.getText();
+        if (desc_prod == ""){
+            errorDesc.setVisible(true);
+            isCorrect = false;
+        }
+        else{
+            inputDesc.setText("");
+        }
 
-        //optionnal for now but check the entries
-        //checkProd(nom_prod, desc_prod, tarif_prod, categ_prod);
+        String categ_prod = "";
+
 
         //if check is ok create product
-        Produit produit = new Produit();
-
-        //display in display label the newest product with toString()
-
+        if (isCorrect){
+            Produit produit = new Produit(1, nom_prod, desc_prod, tarif_prod, "visuel", new Categorie());
+            //display in display label the newest product with toString()
+            outputProduct.setText(produit.toString());
+            //reset text error
+            errorName.setVisible(false);
+            errorPrice.setVisible(false);
+            errorDesc.setVisible(false);
+        }
     }
-
 }
