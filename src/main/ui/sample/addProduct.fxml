@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.controller_addProduit">
+<GridPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.controller_addProduit">
    <children>
       <VBox prefHeight="400.0" prefWidth="374.0">
          <children>
@@ -85,4 +85,4 @@
          </children>
       </VBox>
    </children>
-</AnchorPane>
+</GridPane>
