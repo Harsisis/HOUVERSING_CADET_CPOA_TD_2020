@@ -67,6 +67,7 @@ public class controller_addProduit extends util_isFloat implements Initializable
         }
         else {
             inputName.setText("");
+            errorName.setVisible(false);
         }
 
         float tarif_prod = 0;
@@ -77,6 +78,7 @@ public class controller_addProduit extends util_isFloat implements Initializable
         else{
             tarif_prod = Float.parseFloat(inputPrice.getText());
             inputPrice.setText("");
+            errorPrice.setVisible(false);
         }
 
         String desc_prod = inputDesc.getText();
@@ -86,6 +88,8 @@ public class controller_addProduit extends util_isFloat implements Initializable
         }
         else{
             inputDesc.setText("");
+            errorDesc.setVisible(false);
+
         }
 
         String categ_prod = "";
@@ -96,13 +100,9 @@ public class controller_addProduit extends util_isFloat implements Initializable
             //create object product
             Produit produit = new Produit(1, nom_prod, desc_prod, tarif_prod, "visuel", new Categorie());
             //insert the object in the database
-            //SQLProduitDAO.getInstance().create(produit);
+            SQLProduitDAO.getInstance().create(produit);
             //display in display label the newest product with toString()
             outputProduct.setText(produit.toString());
-            //reset text error
-            errorName.setVisible(false);
-            errorPrice.setVisible(false);
-            errorDesc.setVisible(false);
         }
     }
 }
