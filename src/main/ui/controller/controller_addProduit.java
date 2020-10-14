@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import main.dao.SQLDAO.SQLCategorieDAO;
+import main.dao.SQLDAO.SQLProduitDAO;
 import main.pojo.Categorie;
 import main.pojo.Produit;
 import main.ui.util.util_isFloat;
@@ -92,7 +93,10 @@ public class controller_addProduit extends util_isFloat implements Initializable
 
         //if check is ok create product
         if (isCorrect){
+            //create object product
             Produit produit = new Produit(1, nom_prod, desc_prod, tarif_prod, "visuel", new Categorie());
+            //insert the object in the database
+            //SQLProduitDAO.getInstance().create(produit);
             //display in display label the newest product with toString()
             outputProduct.setText(produit.toString());
             //reset text error
