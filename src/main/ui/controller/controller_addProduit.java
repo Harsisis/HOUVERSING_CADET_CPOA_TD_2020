@@ -1,14 +1,12 @@
 package main.ui.controller;
 
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import main.dao.SQLDAO.SQLCategorieDAO;
 import main.dao.SQLDAO.SQLProduitDAO;
 import main.pojo.Categorie;
@@ -16,33 +14,41 @@ import main.pojo.Produit;
 import main.ui.util.util_isFloat;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class controller_addProduit extends util_isFloat implements Initializable {
 
+    //menu declaration
+    @FXML
+    private MenuItem mnuQuit;
+    @FXML
+    private MenuItem mnuAbout;
+    @FXML
+    private MenuItem mnuHome;
+
+    //textfields and input
     @FXML
     private TextField inputName;
-
     @FXML
     private TextField inputPrice;
-
     @FXML
     private TextArea inputDesc;
-
     @FXML
     private ChoiceBox<?> cbxCategorie;
 
+    //output label
     @FXML
     private Label outputProduct;
 
+    //labels for prompt error
     @FXML
     private Label errorPrice;
-
     @FXML
     private Label errorName;
-
     @FXML
     private Label errorDesc;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -52,7 +58,35 @@ public class controller_addProduit extends util_isFloat implements Initializable
         outputProduct.setText("");
 
         //populate the categories comboBox
-        //cbxCategorie.setItems(SQLCategorieDAO.getInstance().findAll());
+        ArrayList<Categorie> cat = SQLCategorieDAO.getInstance().findAll();
+        String [] stockArr = (String[]) cat.toArray();
+        //cbxCategorie.setItems(FXCollections.observableArrayList(stockArr));
+
+    }
+
+    @FXML
+    void mnuHome_onClick(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("message informatif");
+        alert.setHeaderText(null);
+        alert.setContentText("Cette partie n'existe pas encore");
+
+        alert.showAndWait();
+    }
+
+    @FXML
+    void mnuQuit_onClick(ActionEvent event) {
+        Platform.exit();
+    }
+
+    @FXML
+    void mnuAbout_onClick(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("message informatif");
+        alert.setHeaderText(null);
+        alert.setContentText("Cette partie n'existe pas encore");
+
+        alert.showAndWait();
     }
 
     @FXML
@@ -69,7 +103,6 @@ public class controller_addProduit extends util_isFloat implements Initializable
             inputName.setText("");
             errorName.setVisible(false);
         }
-
         float tarif_prod = 0;
         if (!isFloat(inputPrice.getText()) || inputPrice.getText() == "") {
             errorPrice.setVisible(true);
@@ -80,7 +113,6 @@ public class controller_addProduit extends util_isFloat implements Initializable
             inputPrice.setText("");
             errorPrice.setVisible(false);
         }
-
         String desc_prod = inputDesc.getText();
         if (desc_prod == ""){
             errorDesc.setVisible(true);
@@ -92,8 +124,9 @@ public class controller_addProduit extends util_isFloat implements Initializable
 
         }
 
-        String categ_prod = "";
+        cbxCategorie.getValue();
 
+        String categ_prod = "";
 
         //if check is ok create product
         if (isCorrect){

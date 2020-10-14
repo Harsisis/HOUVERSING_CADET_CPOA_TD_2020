@@ -24,18 +24,13 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Fichier">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Accueil" />
-                        <MenuItem mnemonicParsing="false" text="Quitter l'application" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem fx:id="mnuHome" mnemonicParsing="false" onAction="#mnuHome_onClick" text="Accueil" />
+                        <MenuItem fx:id="mnuQuit" mnemonicParsing="false" onAction="#mnuQuit_onClick" text="Quitter l'application" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Aide">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem fx:id="mnuAbout" mnemonicParsing="false" onAction="#mnuAbout_onClick" text="A propos" />
                   </items>
                 </Menu>
               </menus>
