@@ -15,9 +15,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.controller_addProduit">
    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="220.0" layoutX="6.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" width="361.0" />
       <VBox prefHeight="400.0" prefWidth="374.0">
          <children>
             <MenuBar prefHeight="26.0" prefWidth="375.0">
