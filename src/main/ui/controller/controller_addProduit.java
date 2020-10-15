@@ -35,7 +35,7 @@ public class controller_addProduit extends util_isFloat implements Initializable
     @FXML
     private TextArea inputDesc;
     @FXML
-    private ChoiceBox<?> cbxCategorie;
+    private ComboBox<Categorie> cbxCategorie;
 
     //output label
     @FXML
@@ -58,7 +58,8 @@ public class controller_addProduit extends util_isFloat implements Initializable
         outputProduct.setText("");
 
         //populate the categories comboBox
-        //ArrayList<Categorie> cat = SQLCategorieDAO.getInstance().findAll();
+        ArrayList<Categorie> cat = SQLCategorieDAO.getInstance().findAll();
+        cbxCategorie.getItems().addAll(cat);
         //String [] stockArr = (String[]) cat.toArray();
         //cbxCategorie.setItems(FXCollections.observableArrayList(stockArr));
 

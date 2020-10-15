@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -65,7 +65,6 @@
                   <TextArea id="description" fx:id="inputDesc" prefHeight="84.0" prefWidth="200.0" promptText="saisir la description du produit" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                   <Label text="Catégorie :" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label text="Tarif unitaire :" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <ChoiceBox id="categorie" fx:id="cbxCategorie" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
                   <Label id="error_nom" fx:id="errorDesc" prefHeight="17.0" prefWidth="208.0" text="La description doit être remplie" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                   <HBox prefHeight="7.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                      <children>
@@ -73,6 +72,7 @@
                         <Label alignment="BOTTOM_CENTER" prefHeight="21.0" prefWidth="18.0" text="€" />
                      </children>
                   </HBox>
+                  <ComboBox fx:id="cbxCategorie" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
                </children>
             </GridPane>
             <FlowPane alignment="CENTER" prefHeight="55.0" prefWidth="374.0">
