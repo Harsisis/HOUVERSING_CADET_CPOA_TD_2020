@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
+<?import javafx.scene.control.ChoiceBox?>
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.controller_addProduit">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="220.0" layoutX="6.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" width="361.0" />
@@ -72,7 +73,7 @@
                         <Label alignment="BOTTOM_CENTER" prefHeight="21.0" prefWidth="18.0" text="€" />
                      </children>
                   </HBox>
-                  <ComboBox fx:id="cbxCategorie" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <ChoiceBox fx:id="cbxCategorie" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
                </children>
             </GridPane>
             <FlowPane alignment="CENTER" prefHeight="55.0" prefWidth="374.0">
