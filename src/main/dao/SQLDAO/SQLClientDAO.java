@@ -140,6 +140,13 @@ public class SQLClientDAO implements ClientDAO {
                 client.setId(rs.getInt("id_client"));
                 client.setNom(rs.getString("nom"));
                 client.setPrenom(rs.getString("prenom"));
+                client.setIdentifiant(rs.getString("identifiant"));
+                client.setMdp(rs.getString("mot_de_passe"));
+                client.setAdrNumero(rs.getString("adr_numero"));
+                client.setAdrVoie(rs.getString("adr_voie"));
+                client.setAdrCP(rs.getString("adr_code_postal"));
+                client.setAdrVille(rs.getString("adr_ville"));
+                client.setAdrPays(rs.getString("adr_pays"));
                 System.out.println(client);
                 clients.add(client);
             }
@@ -155,12 +162,26 @@ public class SQLClientDAO implements ClientDAO {
         java.sql.Connection connection = main.modele.Connection.connect();
         String nom = objet.getNom();
         String prenom = objet.getPrenom();
+        String identifiant = objet.getIdentifiant();
+        String mdp = objet.getMdp();
+        String numero = objet.getAdrNumero();
+        String voie = objet.getAdrVoie();
+        String codePostal = objet.getAdrCP();
+        String ville = objet.getAdrVille();
+        String pays = objet.getAdrPays();
         //new ArrayList<Client>() = objet.getCommandeList();
         try{
-            String rAdd = ("INSERT INTO Client(nom, prenom, identifiant, mot_de_passe, adr_numero, adr_voie, adr_code_postal, adr_ville, adr_pays) VALUES(?, ?, 0, 0, 0, 0, 0, 0, 0)");
+            String rAdd = ("INSERT INTO Client(nom, prenom, identifiant, mot_de_passe, adr_numero, adr_voie, adr_code_postal, adr_ville, adr_pays) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
             PreparedStatement ps = connection.prepareStatement(rAdd);
             ps.setString(1, nom);
             ps.setString(2, prenom);
+            ps.setString(3, identifiant);
+            ps.setString(4, mdp);
+            ps.setString(5, numero);
+            ps.setString(6, voie);
+            ps.setString(7, codePostal);
+            ps.setString(8, ville);
+            ps.setString(9, pays);
             ps.executeUpdate();
             connection.close();
             return true;
@@ -174,14 +195,28 @@ public class SQLClientDAO implements ClientDAO {
     public boolean update(Client objet) {
         String nom = objet.getNom();
         String prenom = objet.getPrenom();
+        String identifiant = objet.getIdentifiant();
+        String mdp = objet.getMdp();
+        String numero = objet.getAdrNumero();
+        String voie = objet.getAdrVoie();
+        String codePostal = objet.getAdrCP();
+        String ville = objet.getAdrVille();
+        String pays = objet.getAdrPays();
         int id_client = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
-            String request = "UPDATE Client SET nom = ?, prenom = ?,identifiant = 0, mot_de_passe = 0, adr_numero = 0, adr_voie = 0, adr_code_postal = 0, adr_ville = 0, adr_pays = 0 WHERE id_client = ? ";
+            String request = "UPDATE Client SET nom = ?, prenom = ?,identifiant = ?, mot_de_passe = ?, adr_numero = ?, adr_voie = ?, adr_code_postal = ?, adr_ville = ?, adr_pays = ? WHERE id_client = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, nom);
             ps.setString(2, prenom);
-            ps.setInt(3, id_client);
+            ps.setString(3, identifiant);
+            ps.setString(4, mdp);
+            ps.setString(5, numero);
+            ps.setString(6, voie);
+            ps.setString(7, codePostal);
+            ps.setString(8, ville);
+            ps.setString(9, pays);
+            ps.setInt(10, id_client);
             ps.executeUpdate();
             connection.close();
             return true;
