@@ -1,25 +1,28 @@
 package main.ui.controller;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 import main.dao.SQLDAO.SQLCategorieDAO;
+import main.dao.SQLDAO.SQLClientDAO;
 import main.dao.SQLDAO.SQLProduitDAO;
 import main.pojo.Categorie;
+import main.pojo.Client;
 import main.pojo.Produit;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,6 +65,10 @@ public class controller_addClient implements Initializable {
     @FXML
     private TextField inputSurname;
 
+    //ComboBox
+    @FXML
+    private ComboBox cbxCountry;
+
     //output label
     @FXML
     private Label outputClient;
@@ -69,6 +76,33 @@ public class controller_addClient implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //empty the fields
+        inputName.setText("");
+        inputSurname.setText("");
+        inputPassword.setText("");
+        inputAdrNumber.setText("");
+        inputAdrRue.setText("");
+        inputAdrVille.setText("");
+        inputAdrCp.setText("");
+
+        // set unvisible error label
+        errorSurname.setVisible(false);
+        errorAdr.setVisible(false);
+        errorMdp.setVisible(false);
+        errorName.setVisible(false);
+
+        //populate ComboBox
+        ObservableList<String> cities = FXCollections.observableArrayList();
+
+        String[] locales1 = Locale.getISOCountries();
+        for (String countrylist : locales1) {
+            Locale obj = new Locale("", countrylist);
+            String[] city = {obj.getDisplayCountry()};
+            for (int x = 0; x < city.length; x++) {
+                cities.add(obj.getDisplayCountry());
+            }
+        }
+        cbxCountry.setItems(cities);
 
     }
 
@@ -153,27 +187,32 @@ public class controller_addClient implements Initializable {
         String ville_adrCl = inputAdrVille.getText();
         String cp_adrCL = inputAdrCp.getText();
         if (no_adrCl == "" || rue_adrCl == "" || ville_adrCl == "" || cp_adrCL == ""){
-            errorAdr.setVisible(false);
+            errorAdr.setVisible(true);
             isCorrect = false;
         }
         else {
             errorAdr.setVisible(false);
         }
 
-        //
+        //Country error
+
 
         //if check is ok create product
         if (isCorrect){
             //create object product
-            Produit produit = new Produit(1, nom_prod, desc_prod, tarif_prod, "visuel", cbxCategorie.getValue());
+            Client client = new Client(1, nom_client, prenom_client);
             //insert the object in the database
-            SQLProduitDAO.getInstance().create(produit);
+            SQLClientDAO.getInstance().create(client);
             //display in display label the newest product with toString()
-            outputProduct.setText("Le produit : " + produit.toString() + "\n a bien été créé");
-            //empty fields
+            outputClient.setText("Le client : " + client.toString() + "\n a bien été créé");
+            //empty the fields
             inputName.setText("");
-            inputPrice.setText("");
-            inputDesc.setText("");
+            inputSurname.setText("");
+            inputPassword.setText("");
+            inputAdrNumber.setText("");
+            inputAdrRue.setText("");
+            inputAdrVille.setText("");
+            inputAdrCp.setText("");
         }
     }
 

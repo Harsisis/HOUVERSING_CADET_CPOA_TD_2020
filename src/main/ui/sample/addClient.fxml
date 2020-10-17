@@ -82,7 +82,7 @@
                         <TextField id="nom" fx:id="inputAdrCp" promptText="saisir le code postal" />
                      </children>
                   </VBox>
-                  <ComboBox prefHeight="26.0" prefWidth="234.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                  <ComboBox fx:id="cbxCountry" prefHeight="26.0" prefWidth="234.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
                     </children>
                 </GridPane>
                 <FlowPane alignment="CENTER" prefHeight="55.0" prefWidth="374.0">
