@@ -18,7 +18,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.controller_addClient">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="358.0" layoutX="6.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" width="361.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="386.0" layoutX="6.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" width="361.0" />
         <VBox prefHeight="544.0" prefWidth="374.0">
             <children>
                 <MenuBar prefHeight="26.0" prefWidth="375.0">
@@ -37,7 +37,7 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-                <GridPane prefHeight="343.0" prefWidth="374.0">
+                <GridPane prefHeight="377.0" prefWidth="374.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="19.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.0" minWidth="10.0" prefWidth="82.0" />
@@ -45,36 +45,38 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="89.0" minWidth="10.0" prefWidth="39.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="36.799993896484374" minHeight="10.0" prefHeight="23.19998779296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="41.60001220703124" minHeight="10.0" prefHeight="16.60000305175781" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="59.0" minHeight="0.6000122070312557" prefHeight="22.999996948242185" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="109.59996795654297" minHeight="7.9999755859374915" prefHeight="19.199987792968756" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="112.99999237060547" minHeight="10.0" prefHeight="21.59998168945313" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="101.80000610351561" minHeight="3.1999999999999886" prefHeight="20.599989318847662" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="184.80000610351564" minHeight="10.0" prefHeight="102.40001220703124" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="113.59998779296876" minHeight="0.0" prefHeight="19.20001220703125" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="125.60001220703123" minHeight="10.0" prefHeight="24.800006103515614" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="124.39998168945311" minHeight="10.0" prefHeight="20.800006103515614" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="26.599996948242186" minHeight="8.199987792968749" prefHeight="14.599996948242186" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="47.400012207031246" minHeight="10.0" prefHeight="22.599999999999998" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="41.60001220703124" minHeight="10.0" prefHeight="18.4" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="59.0" minHeight="0.6000122070312557" prefHeight="28.000018310546878" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="109.59996795654297" minHeight="7.9999755859374915" prefHeight="18.400000000000006" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="112.99999237060547" minHeight="10.0" prefHeight="26.400012207031253" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="112.99999237060547" minHeight="10.0" prefHeight="17.600012207031256" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="112.99999237060547" minHeight="10.0" prefHeight="25.600012207031256" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="101.80000610351561" minHeight="3.1999999999999886" prefHeight="19.19999999999999" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="184.80000610351564" minHeight="10.0" prefHeight="101.59999389648436" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="113.59998779296876" minHeight="0.0" prefHeight="19.200006103515648" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="125.60001220703123" minHeight="10.0" prefHeight="24.000024414062523" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="124.39998168945311" minHeight="10.0" prefHeight="19.999975585937477" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <Label prefHeight="17.0" prefWidth="41.0" text="Nom :" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField id="nom" fx:id="inputSurname" promptText="saisir le nom du client" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Label text="Prénom :" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label id="error_cat" fx:id="errorAdr" prefHeight="18.0" prefWidth="226.0" text="l'adresse est incomplète ou est incorrecte" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                        <Label id="error_tarif" fx:id="errorMdp" prefHeight="17.0" prefWidth="210.0" text="le mot de passe doit être rempli" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <Label id="error_cat" fx:id="errorAdr" prefHeight="18.0" prefWidth="226.0" text="l'adresse est incomplète ou est incorrecte" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                        <Label id="error_tarif" fx:id="errorMdp" prefHeight="17.0" prefWidth="210.0" text="le mot de passe doit être rempli" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="8" />
                         <Label id="error_nom" fx:id="errorSurname" prefHeight="17.0" prefWidth="149.0" text="Le nom doit être rempli" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <Label prefHeight="18.0" prefWidth="66.0" text="Adresse :" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Label text="Mot de passe :" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label prefHeight="18.0" prefWidth="66.0" text="Adresse :" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label text="Mot de passe :" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label id="error_nom" fx:id="errorName" prefHeight="17.0" prefWidth="208.0" text="le prénom doit être rempli" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <HBox prefHeight="7.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                        <HBox prefHeight="7.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
                             <children>
                                 <TextField id="tarif" fx:id="inputPassword" prefHeight="26.0" prefWidth="238.0" promptText="saisir le mot de passe" />
                             </children>
                         </HBox>
-                  <Label text="Pays :" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Label text="Pays :" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                   <TextField id="nom" fx:id="inputName" promptText="saisir le prénom du client" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="9">
                      <children>
                         <TextField id="nom" fx:id="inputAdrNumber" promptText="saisir le numéro" />
                         <TextField id="nom" fx:id="inputAdrRue" promptText="saisir la rue" />
@@ -82,7 +84,10 @@
                         <TextField id="nom" fx:id="inputAdrCp" promptText="saisir le code postal" />
                      </children>
                   </VBox>
-                  <ComboBox fx:id="cbxCountry" prefHeight="26.0" prefWidth="234.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                  <ComboBox fx:id="cbxCountry" prefHeight="26.0" prefWidth="234.0" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                  <Label text="Identifiant :" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField id="tarif" fx:id="inputIdent" prefHeight="26.0" prefWidth="238.0" promptText="saisir l'identifiant" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Label id="error_cat" fx:id="errorIdent" prefHeight="18.0" prefWidth="226.0" text="l'identifiant doit être rempli" textFill="#b51616" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                     </children>
                 </GridPane>
                 <FlowPane alignment="CENTER" prefHeight="55.0" prefWidth="374.0">

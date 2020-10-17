@@ -48,10 +48,14 @@ public class controller_addClient implements Initializable {
     private Label errorSurname;
     @FXML
     private Label errorName;
+    @FXML
+    private Label errorIdent;
 
     //input
     @FXML
     private TextField inputPassword;
+    @FXML
+    private TextField inputIdent;
     @FXML
     private TextField inputName;
     @FXML
@@ -79,6 +83,7 @@ public class controller_addClient implements Initializable {
         //empty the fields
         inputName.setText("");
         inputSurname.setText("");
+        inputIdent.setText("");
         inputPassword.setText("");
         inputAdrNumber.setText("");
         inputAdrRue.setText("");
@@ -88,6 +93,7 @@ public class controller_addClient implements Initializable {
         // set unvisible error label
         errorSurname.setVisible(false);
         errorAdr.setVisible(false);
+        errorIdent.setVisible(false);
         errorMdp.setVisible(false);
         errorName.setVisible(false);
 
@@ -172,6 +178,15 @@ public class controller_addClient implements Initializable {
         else{
             errorName.setVisible(false);
         }
+        //identificiation error
+        String ident_client = inputIdent.getText();
+        if (ident_client == ""){
+            errorIdent.setVisible(true);
+            isCorrect = false;
+        }
+        else{
+            errorIdent.setVisible(false);
+        }
         //password error
         String mdp_client = inputPassword.getText();
         if (mdp_client == ""){
@@ -193,14 +208,10 @@ public class controller_addClient implements Initializable {
         else {
             errorAdr.setVisible(false);
         }
-
-        //Country error
-
-
-        //if check is ok create product
+        //if check is ok create client
         if (isCorrect){
             //create object product
-            Client client = new Client(1, nom_client, prenom_client);
+            Client client = new Client(1, nom_client, prenom_client, ident_client, mdp_client, no_adrCl, rue_adrCl, cp_adrCL, ville_adrCl, cbxCountry.getValue().toString());
             //insert the object in the database
             SQLClientDAO.getInstance().create(client);
             //display in display label the newest product with toString()
@@ -208,6 +219,7 @@ public class controller_addClient implements Initializable {
             //empty the fields
             inputName.setText("");
             inputSurname.setText("");
+            inputIdent.setText("");
             inputPassword.setText("");
             inputAdrNumber.setText("");
             inputAdrRue.setText("");

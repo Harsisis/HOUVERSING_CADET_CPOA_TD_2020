@@ -36,7 +36,7 @@ public class ListMemoireClientDAO implements ClientDAO {
 
     @Override
     public Client getById(int id) {
-        int idx = this.donnees.indexOf(new Client(id, "test", "test"));
+        int idx = this.donnees.indexOf(new Client(id, "test", "test", "test", "test", "test", "test", "test", "test", "test"));
         if (idx == -1) {
             throw new IllegalArgumentException("Aucun client ne possède cet identifiant");
         } else {

@@ -129,10 +129,6 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                '}';
+        return id + " | " + nom + " | " + prenom + "\n " + adrNumero + " " + adrVoie + ", " + adrVille + " " + adrCP + ", " + adrPays;
     }
 }
