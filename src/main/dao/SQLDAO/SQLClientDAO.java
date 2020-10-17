@@ -44,24 +44,81 @@ public class SQLClientDAO implements ClientDAO {
     public Client getById(int id) {
         java.sql.Connection connection = main.modele.Connection.connect();
         Client client = null;
-        String name_client = null;
-        String surname_client = null;
+        String nom = null;
+        String prenom = null;
+        String identifiant = null;
+        String mdp = null;
+        String numero = null;
+        String voie = null;
+        String codePostal = null;
+        String ville = null;
+        String pays = null;
+
         try {
             String rNom = "SELECT nom FROM Client WHERE id_client = ?";
             PreparedStatement psNom = connection.prepareStatement(rNom);
             psNom.setInt(1, id);
             ResultSet rsNom = psNom.executeQuery();
             if(rsNom.next()) {
-                name_client = rsNom.getString("nom");
+                nom = rsNom.getString("nom");
             }
-            String rSurname = "SELECT prenom FROM Client WHERE id_client = ?";
-            PreparedStatement psSurname = connection.prepareStatement(rSurname);
-            psSurname.setInt(1, id);
-            ResultSet rsSurname = psSurname.executeQuery();
-            if(rsSurname.next()) {
-                surname_client = rsSurname.getString("prenom");
+            String rPrenom = "SELECT prenom FROM Client WHERE id_client = ?";
+            PreparedStatement psPrenom = connection.prepareStatement(rPrenom);
+            psPrenom.setInt(1, id);
+            ResultSet rsPrenom = psPrenom.executeQuery();
+            if(rsPrenom.next()) {
+                prenom = rsPrenom.getString("prenom");
             }
-            client = new Client(id, name_client, surname_client);
+            String rIdentifiant = "SELECT identifiant FROM Client WHERE id_client = ?";
+            PreparedStatement psIdentifiant = connection.prepareStatement(rIdentifiant);
+            psIdentifiant.setInt(1, id);
+            ResultSet rsIdentifiant = psIdentifiant.executeQuery();
+            if(rsIdentifiant.next()) {
+                identifiant = rsIdentifiant.getString("identifiant");
+            }
+            String rMdp = "SELECT mot_de_passe FROM Client WHERE id_client = ?";
+            PreparedStatement psMdp = connection.prepareStatement(rMdp);
+            psMdp.setInt(1, id);
+            ResultSet rsMdp = psMdp.executeQuery();
+            if(rsMdp.next()) {
+                mdp = rsMdp.getString("mot_de_passe");
+            }
+            String rNumero = "SELECT adr_numero FROM Client WHERE id_client = ?";
+            PreparedStatement psNumero = connection.prepareStatement(rNumero);
+            psNumero.setInt(1, id);
+            ResultSet rsNumero = psMdp.executeQuery();
+            if(rsNumero.next()) {
+                numero = rsNumero.getString("adr_numero");
+            }
+            String rVoie = "SELECT adr_voie FROM Client WHERE id_client = ?";
+            PreparedStatement psVoie = connection.prepareStatement(rVoie);
+            psVoie.setInt(1, id);
+            ResultSet rsVoie = psMdp.executeQuery();
+            if(rsVoie.next()) {
+                voie = rsVoie.getString("adr_voie");
+            }
+            String rCP = "SELECT adr_code_postal FROM Client WHERE id_client = ?";
+            PreparedStatement psCP = connection.prepareStatement(rCP);
+            psCP.setInt(1, id);
+            ResultSet rsCP = psCP.executeQuery();
+            if(rsMdp.next()) {
+                codePostal = rsCP.getString("adr_code_postal");
+            }
+            String rVille = "SELECT adr_ville FROM Client WHERE id_client = ?";
+            PreparedStatement psVille = connection.prepareStatement(rVille);
+            psVille.setInt(1, id);
+            ResultSet rsVille = psMdp.executeQuery();
+            if(rsVille.next()) {
+                ville = rsVille.getString("adr_ville");
+            }
+            String rPays = "SELECT adr_pays FROM Client WHERE id_client = ?";
+            PreparedStatement psPays = connection.prepareStatement(rPays);
+            psPays.setInt(1, id);
+            ResultSet rsPays = psMdp.executeQuery();
+            if(rsPays.next()) {
+                pays = rsPays.getString("adr_pays");
+            }
+            client = new Client(id, nom, prenom, identifiant, mdp, numero, voie, codePostal, ville, pays);
             connection.close();
 
         } catch (SQLException sqle) {
@@ -115,15 +172,15 @@ public class SQLClientDAO implements ClientDAO {
 
     @Override
     public boolean update(Client objet) {
-        String surname_client = objet.getNom();
-        String name_client = objet.getPrenom();
+        String nom = objet.getNom();
+        String prenom = objet.getPrenom();
         int id_client = objet.getId();
         java.sql.Connection connection = main.modele.Connection.connect();
         try {
             String request = "UPDATE Client SET nom = ?, prenom = ?,identifiant = 0, mot_de_passe = 0, adr_numero = 0, adr_voie = 0, adr_code_postal = 0, adr_ville = 0, adr_pays = 0 WHERE id_client = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
-            ps.setString(1, surname_client);
-            ps.setString(2, name_client);
+            ps.setString(1, nom);
+            ps.setString(2, prenom);
             ps.setInt(3, id_client);
             ps.executeUpdate();
             connection.close();
