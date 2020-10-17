@@ -2,10 +2,12 @@ package test.SQL;
 
 import main.dao.SQLDAO.SQLClientDAO;
 import main.dao.SQLDAO.SQLCommandeDAO;
+import main.dao.SQLDAO.SQLProduitDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.CommandeDAO;
 import main.pojo.Commande;
+import main.pojo.Produit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +47,8 @@ public class TestSQLCommande {
         Commande commande = new Commande();
         commande.setClient(SQLClientDAO.getInstance().getById(1));
         commande.setDate(LocalDate.now());
+        Produit produit = SQLProduitDAO.getInstance().getById(1);
+        commande.addProduit(produit, 1);
         Assert.assertTrue(dao.create(commande));
         Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Commande";
@@ -98,6 +102,8 @@ public class TestSQLCommande {
         Commande commande = new Commande();
         commande.setClient(SQLClientDAO.getInstance().getById(1));
         commande.setDate(LocalDate.now());
+        Produit produit = SQLProduitDAO.getInstance().getById(1);
+        commande.addProduit(produit, 1);
         dao.create(commande);
         Assert.assertEquals(size + 1, dao.findAll().size());
         Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
