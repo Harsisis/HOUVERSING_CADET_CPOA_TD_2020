@@ -1,4 +1,4 @@
-package test.ListeMemoire;
+package test.listeMemoire;
 
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;

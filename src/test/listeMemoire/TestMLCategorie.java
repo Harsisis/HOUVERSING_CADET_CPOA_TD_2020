@@ -1,4 +1,4 @@
-package test.ListeMemoire;
+package test.listeMemoire;
 
 import main.dao.ListMemoireDAO.ListMemoireCategorieDAO;
 import main.dao.fabrique.DAOFactory;
