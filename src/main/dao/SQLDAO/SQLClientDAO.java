@@ -86,14 +86,14 @@ public class SQLClientDAO implements ClientDAO {
             String rNumero = "SELECT adr_numero FROM Client WHERE id_client = ?";
             PreparedStatement psNumero = connection.prepareStatement(rNumero);
             psNumero.setInt(1, id);
-            ResultSet rsNumero = psMdp.executeQuery();
+            ResultSet rsNumero = psNumero.executeQuery();
             if(rsNumero.next()) {
                 numero = rsNumero.getString("adr_numero");
             }
             String rVoie = "SELECT adr_voie FROM Client WHERE id_client = ?";
             PreparedStatement psVoie = connection.prepareStatement(rVoie);
             psVoie.setInt(1, id);
-            ResultSet rsVoie = psMdp.executeQuery();
+            ResultSet rsVoie = psVoie.executeQuery();
             if(rsVoie.next()) {
                 voie = rsVoie.getString("adr_voie");
             }
@@ -101,24 +101,25 @@ public class SQLClientDAO implements ClientDAO {
             PreparedStatement psCP = connection.prepareStatement(rCP);
             psCP.setInt(1, id);
             ResultSet rsCP = psCP.executeQuery();
-            if(rsMdp.next()) {
+            if(rsCP.next()) {
                 codePostal = rsCP.getString("adr_code_postal");
             }
             String rVille = "SELECT adr_ville FROM Client WHERE id_client = ?";
             PreparedStatement psVille = connection.prepareStatement(rVille);
             psVille.setInt(1, id);
-            ResultSet rsVille = psMdp.executeQuery();
+            ResultSet rsVille = psVille.executeQuery();
             if(rsVille.next()) {
                 ville = rsVille.getString("adr_ville");
             }
             String rPays = "SELECT adr_pays FROM Client WHERE id_client = ?";
             PreparedStatement psPays = connection.prepareStatement(rPays);
             psPays.setInt(1, id);
-            ResultSet rsPays = psMdp.executeQuery();
+            ResultSet rsPays = psPays.executeQuery();
             if(rsPays.next()) {
                 pays = rsPays.getString("adr_pays");
             }
             client = new Client(id, nom, prenom, identifiant, mdp, numero, voie, codePostal, ville, pays);
+            System.out.println(client);
             connection.close();
 
         } catch (SQLException sqle) {
