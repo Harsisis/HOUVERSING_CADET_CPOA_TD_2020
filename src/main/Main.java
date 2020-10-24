@@ -15,9 +15,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("ui/sample/addProduct.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("ui/sample/addCategorie.fxml"));
             Scene scene = new Scene(root, 374, 400);
-
             primaryStage.setScene(scene);
             primaryStage.setTitle("Ajouter un Produit");
             Image icon = new Image(getClass().getResourceAsStream("ui/images/iconTest.png"));

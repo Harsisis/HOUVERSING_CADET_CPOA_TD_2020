@@ -10,18 +10,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Box;
 import javafx.stage.Stage;
-import main.dao.SQLDAO.SQLCategorieDAO;
 import main.dao.SQLDAO.SQLClientDAO;
-import main.dao.SQLDAO.SQLProduitDAO;
-import main.pojo.Categorie;
 import main.pojo.Client;
-import main.pojo.Produit;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -115,8 +109,7 @@ public class controller_addClient implements Initializable {
     @FXML
     void mnuAddProd_onClick(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("../sample/addProduit.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addProduct.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 374, 400);
             Stage stage = new Stage();
             stage.setTitle("Ajouter un Produit");
