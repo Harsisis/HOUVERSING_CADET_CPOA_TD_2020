@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -28,8 +27,6 @@ public class controller_addCategorie implements Initializable {
     @FXML
     private Label labelUpload;
 
-    private ImageView myImageView = new ImageView();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         inputTitle.setText("");
@@ -41,14 +38,13 @@ public class controller_addCategorie implements Initializable {
         FileChooser fileChooser = new FileChooser();
 
         //Set extension filter
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG", "*.PNG");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG);
 
         //Show open file dialog
         File file = fileChooser.showOpenDialog(null);
 
-        labelUpload.setText(file.toString());
+        labelUpload.setText(file.getName());
     }
 
     @FXML

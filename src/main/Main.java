@@ -15,10 +15,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-                Parent root = FXMLLoader.load(getClass().getResource("ui/sample/addCategorie.fxml"));
-            Scene scene = new Scene(root, 374, 400);
+                Parent root = FXMLLoader.load(getClass().getResource("ui/sample/accueil.fxml"));
+            Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Ajouter un Produit");
+            primaryStage.setTitle("Titre");
             Image icon = new Image(getClass().getResourceAsStream("ui/images/iconTest.png"));
             primaryStage.getIcons().add(icon);
             primaryStage.show();
