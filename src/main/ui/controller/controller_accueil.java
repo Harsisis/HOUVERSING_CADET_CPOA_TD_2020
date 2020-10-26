@@ -66,7 +66,7 @@ public class controller_accueil implements Initializable {
         colProdDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colProdTarif.setCellValueFactory(new PropertyValueFactory<>("tarif"));
         colProdVisuel.setCellValueFactory(new PropertyValueFactory<>("visuel"));
-        colProdIdCat.setCellValueFactory(new PropertyValueFactory<>("categorie"));
+        colProdIdCat.setCellValueFactory(new PropertyValueFactory<>("category"));
         this.tableProduit.getColumns().setAll(colProdId, colProdNom, colProdDescription, colProdTarif, colProdVisuel, colProdIdCat);
         this.tableProduit.getItems().addAll(DAOFactory.getDAOFactory(EPersistence.MYSQL).getProduitDAO().findAll());
     }
