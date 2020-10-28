@@ -148,7 +148,6 @@ public class SQLClientDAO implements ClientDAO {
                 client.setAdrCP(rs.getString("adr_code_postal"));
                 client.setAdrVille(rs.getString("adr_ville"));
                 client.setAdrPays(rs.getString("adr_pays"));
-                System.out.println(client);
                 clients.add(client);
             }
             statement.close();

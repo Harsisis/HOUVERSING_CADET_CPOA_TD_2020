@@ -83,7 +83,6 @@ public class SQLCategorieDAO implements CategorieDAO {
                 categorie.setTitre(rs.getString("titre"));
                 categorie.setVisuel(rs.getString("visuel"));
 
-                System.out.println(categorie);
                 categories.add(categorie);
             }
             statement.close();

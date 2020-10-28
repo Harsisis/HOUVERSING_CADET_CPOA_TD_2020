@@ -118,7 +118,6 @@ public class SQLProduitDAO implements ProduitDAO {
 
                 produit.setCategory(categorie);
 
-                System.out.println(produit);
                 produits.add(produit);
             }
             statement.close();
