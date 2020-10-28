@@ -1,11 +1,16 @@
 package main.ui.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.pojo.Categorie;
@@ -13,11 +18,35 @@ import main.pojo.Client;
 import main.pojo.Commande;
 import main.pojo.Produit;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class controller_accueil implements Initializable {
+
+    //boutons CRUD
+    @FXML
+    private Button btnAdd;
+
+    @FXML
+    private Button btnSuppr;
+
+    @FXML
+    private Button btnEdit;
+
+    int visible = 0;
+
+    //radio bouttons Epersistance
+    @FXML
+    private RadioButton rbDatab;
+
+    @FXML
+    private RadioButton rbListeM;
+
+    private ToggleGroup persistanceToggleGroup;
 
     //table des categories
     @FXML
@@ -136,6 +165,17 @@ public class controller_accueil implements Initializable {
         colCommandeClient.setCellValueFactory(new PropertyValueFactory<>("client"));
         this.tableCommande.getColumns().setAll(colCommandeId, colCommandeDate, colCommandeClient);
         this.tableCommande.getItems().addAll(DAOFactory.getDAOFactory(EPersistence.MYSQL).getCommandeDAO().findAll());
+
+        //definition radio group
+        persistanceToggleGroup = new ToggleGroup();
+        this.rbDatab.setToggleGroup(persistanceToggleGroup);
+        this.rbListeM.setToggleGroup(persistanceToggleGroup);
+
+        //bouttons CRUD
+        btnAdd.setDisable(true);
+        btnEdit.setDisable(true);
+        btnSuppr.setDisable(true);
+
     }
 
     @FXML
@@ -145,6 +185,8 @@ public class controller_accueil implements Initializable {
         tableClient.setVisible(false);
         tableCommande.setVisible(false);
         tableCategorie.setVisible(true);
+        visible = 1;
+        btnAdd.setDisable(false);
     }
 
     @FXML
@@ -154,6 +196,8 @@ public class controller_accueil implements Initializable {
         tableCommande.setVisible(false);
         tableClient.setVisible(false);
         tableProduit.setVisible(true);
+        visible = 2;
+        btnAdd.setDisable(false);
     }
 
     @FXML
@@ -163,6 +207,8 @@ public class controller_accueil implements Initializable {
         tableProduit.setVisible(false);
         tableCategorie.setVisible(false);
         tableClient.setVisible(true);
+        visible = 3;
+        btnAdd.setDisable(false);
     }
 
     @FXML
@@ -172,5 +218,67 @@ public class controller_accueil implements Initializable {
         tableCategorie.setVisible(false);
         tableProduit.setVisible(false);
         tableCommande.setVisible(true);
+        visible = 4;
+        btnAdd.setDisable(false);
+    }
+
+    public void radioButtonChanged(){
+        EPersistence choix;
+        if (this.persistanceToggleGroup.getSelectedToggle().equals(this.rbDatab)){
+            choix = EPersistence.MYSQL;
+        }
+        else{
+            choix = EPersistence.LISTEMEMORY;
+        }
+        DAOFactory daoFactory = DAOFactory.getDAOFactory(choix);
+    }
+
+    @FXML
+    void btnAdd_onClick(MouseEvent event) {
+        Scene scene = null;
+        Stage stage = null;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            switch (visible){
+                case 1:
+                    scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addCategorie.fxml")));
+                    stage = new Stage();
+                    stage.setTitle("Ajouter une Catégorie");
+                    break;
+                case 2:
+                    scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addProduct.fxml")));
+                    stage = new Stage();
+                    stage.setTitle("Ajouter un Produit");
+                    break;
+                case 3:
+                    scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addClient.fxml")));
+                    stage = new Stage();
+                    stage.setTitle("Ajouter un Client");
+                    break;
+                case 4:
+                    scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addCommande.fxml")));
+                    stage = new Stage();
+                    stage.setTitle("Ajouter une Commande");
+                    break;
+            }
+
+            Image icon = new Image(getClass().getResourceAsStream("../images/iconTest.png"));
+            stage.getIcons().add(icon);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
+    }
+
+    @FXML
+    void btnEdit_onClick(MouseEvent event) {
+
+    }
+
+    @FXML
+    void btnSuppr_onClick(MouseEvent event) {
+
     }
 }

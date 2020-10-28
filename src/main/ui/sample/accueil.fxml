@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,6 +13,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1109.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ui.controller.controller_accueil">
    <children>
@@ -37,9 +40,9 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="132.0">
                <children>
-                  <SplitPane dividerPositions="0.5026881720430108" layoutX="-1.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="374.0" prefWidth="175.0">
+                  <SplitPane dividerPositions="0.510752688172043" layoutY="167.0" orientation="VERTICAL" prefHeight="507.0" prefWidth="175.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="273.0" prefWidth="173.0">
                            <children>
                               <GridPane prefHeight="184.0" prefWidth="175.0">
                                 <columnConstraints>
@@ -85,15 +88,23 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button mnemonicParsing="false" text="Ajouter" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Button mnemonicParsing="false" text="Supprimer" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Button mnemonicParsing="false" text="Modifier" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Button fx:id="btnAdd" mnemonicParsing="false" onMousePressed="#btnAdd_onClick" text="Ajouter" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Button fx:id="btnSuppr" mnemonicParsing="false" onMouseClicked="#btnSuppr_onClick" text="Supprimer" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Button fx:id="btnEdit" mnemonicParsing="false" onMouseClicked="#btnEdit_onClick" text="Modifier" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                  </children>
                               </GridPane>
                            </children>
                         </AnchorPane>
                     </items>
                   </SplitPane>
+                  <RadioButton fx:id="rbDatab" layoutX="32.0" layoutY="116.0" mnemonicParsing="false" text="Base de Données" />
+                  <RadioButton fx:id="rbListeM" layoutX="31.0" layoutY="140.0" mnemonicParsing="false" text="Liste Mémoire" />
+                  <Label layoutX="19.0" layoutY="14.0" prefHeight="17.0" prefWidth="136.0" text="Bienvenue !">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="19.0" layoutY="83.0" prefHeight="17.0" prefWidth="97.0" text="Choix du mode :" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="438.0">
