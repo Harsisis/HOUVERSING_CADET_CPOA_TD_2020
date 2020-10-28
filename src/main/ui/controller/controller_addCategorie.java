@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import main.dao.SQLDAO.SQLCategorieDAO;
@@ -19,20 +18,25 @@ public class controller_addCategorie implements Initializable {
     private TextField inputTitle;
 
     @FXML
-    private TextField inputVisuel;
-
-    @FXML
     private Label outputCategory;
 
     @FXML
     private Label labelUpload;
 
+    @FXML
+    private Label errorTitre;
+
+    @FXML
+    private Label errorFichier;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         inputTitle.setText("");
-        inputVisuel.setText("");
+        errorTitre.setVisible(false);
+        errorFichier.setVisible(false);
     }
 
+    File file;
     @FXML
     void uploadFile(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -42,7 +46,7 @@ public class controller_addCategorie implements Initializable {
         fileChooser.getExtensionFilters().addAll(extFilterJPG);
 
         //Show open file dialog
-        File file = fileChooser.showOpenDialog(null);
+        file = fileChooser.showOpenDialog(null);
 
         labelUpload.setText(file.getName());
     }
@@ -51,21 +55,26 @@ public class controller_addCategorie implements Initializable {
     void CreateCategory(MouseEvent event) {
         boolean isCorrect = true;
         //read textfields to setup variables
-        //Surname error
         if (inputTitle.getText() == ""){
-            //errorSurname.setVisible(true);
+            errorTitre.setVisible(true);
             isCorrect = false;
         }
-        //Name error
-        if (inputVisuel.getText() == "") {
-            //errorName.setVisible(true);
+        else{
+            errorTitre.setVisible(false);
+        }
+
+        if (file == null){
+            errorFichier.setVisible(true);
             isCorrect = false;
+        }
+        else{
+            errorFichier.setVisible(false);
         }
 
         if(isCorrect){
-            Categorie categorie = new Categorie(1, inputTitle.getText(), inputVisuel.getText());
+            Categorie categorie = new Categorie(1, inputTitle.getText(), file.getName());
             SQLCategorieDAO.getInstance().create(categorie);
-            outputCategory.setText("La catégorie : " + categorie.toString() + "\n a bien été créé");
+            outputCategory.setText("La catégorie : " + categorie.toString() + " a bien été créé");
         }
     }
 }
