@@ -356,21 +356,21 @@ public class controller_accueil implements Initializable {
         alert.setHeaderText("Êtes-vous sûr de supprimer cette donnée ?");
 
         Optional<ButtonType> result = alert.showAndWait();
-//        if (result.get() == ButtonType.OK) {
-//            if (tableClient.getSelectionModel().getSelectedItem() != null) {
-//                Client client = DAOFactory.getDAOFactory(choix).getClientDAO().getById(tableClient.getSelectionModel().getSelectedItem().getId());
-//                DAOFactory.getDAOFactory(choix).getClientDAO().delete(client);
-//            } else if (tableCommande.getSelectionModel().getSelectedItem() != null) {
-//                Commande commande = DAOFactory.getDAOFactory(choix).getCommandeDAO().getById(tableCommande.getSelectionModel().getSelectedItem().getId());
-//                DAOFactory.getDAOFactory(choix).getCommandeDAO().delete(commande);
-//            } else if (tableProduit.getSelectionModel().getSelectedItem() != null) {
-//                Produit produit = DAOFactory.getDAOFactory(choix).getProduitDAO().getById(tableProduit.getSelectionModel().getSelectedItem().getId());
-//                DAOFactory.getDAOFactory(choix).getProduitDAO().delete(produit);
-//            } else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
-//                Categorie categorie = DAOFactory.getDAOFactory(choix).getCategorieDAO().getById(tableCategorie.getSelectionModel().getSelectedItem().getId());
-//                DAOFactory.getDAOFactory(choix).getCategorieDAO().delete(categorie);
-//            }
-//        }
+        if (result.get() == ButtonType.OK) {
+            if (tableClient.getSelectionModel().getSelectedItem() != null) {
+                Client client = DAOFactory.getDAOFactory(choix).getClientDAO().getById(tableClient.getSelectionModel().getSelectedItem().getId());
+                DAOFactory.getDAOFactory(choix).getClientDAO().delete(client);
+            } else if (tableCommande.getSelectionModel().getSelectedItem() != null) {
+                Commande commande = DAOFactory.getDAOFactory(choix).getCommandeDAO().getById(tableCommande.getSelectionModel().getSelectedItem().getId());
+                DAOFactory.getDAOFactory(choix).getCommandeDAO().delete(commande);
+            } else if (tableProduit.getSelectionModel().getSelectedItem() != null) {
+                Produit produit = DAOFactory.getDAOFactory(choix).getProduitDAO().getById(tableProduit.getSelectionModel().getSelectedItem().getId());
+                DAOFactory.getDAOFactory(choix).getProduitDAO().delete(produit);
+            } else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
+                Categorie categorie = DAOFactory.getDAOFactory(choix).getCategorieDAO().getById(tableCategorie.getSelectionModel().getSelectedItem().getId());
+                DAOFactory.getDAOFactory(choix).getCategorieDAO().delete(categorie);
+            }
+        }
         refreshTable(choix);
     }
 
