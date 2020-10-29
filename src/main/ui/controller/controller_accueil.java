@@ -296,9 +296,17 @@ public class controller_accueil implements Initializable {
                     stage.setTitle("Ajouter une Catégorie");
                     break;
                 case 2:
-                    scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addProduct.fxml")));
-                    stage = new Stage();
-                    stage.setTitle("Ajouter un Produit");
+                    if (DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll() != null){
+                        scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addProduct.fxml")));
+                        stage = new Stage();
+                        stage.setTitle("Ajouter un Produit");
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Attention");
+                        alert.setHeaderText("Impossible de créer le produit !");
+                        alert.setContentText("il faut au moins une catégorie pour créer un produit");
+                        alert.showAndWait();
+                    }
                     break;
                 case 3:
                     scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addClient.fxml")));
@@ -306,9 +314,17 @@ public class controller_accueil implements Initializable {
                     stage.setTitle("Ajouter un Client");
                     break;
                 case 4:
-                    scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addCommande.fxml")));
-                    stage = new Stage();
-                    stage.setTitle("Ajouter une Commande");
+                    if (DAOFactory.getDAOFactory(choix).getProduitDAO().findAll() != null && DAOFactory.getDAOFactory(choix).getClientDAO().findAll() != null){
+                        scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addCommande.fxml")));
+                        stage = new Stage();
+                        stage.setTitle("Ajouter une Commande");
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Attention");
+                        alert.setHeaderText("Impossible de créer la commande !");
+                        alert.setContentText("il faut au moins un produit et un client pour créer une commande");
+                        alert.showAndWait();
+                    }
                     break;
             }
 
