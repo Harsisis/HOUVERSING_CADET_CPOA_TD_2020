@@ -29,9 +29,9 @@
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Aide">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#mnuAbout_onClick" text="A propos" />
             </items>
           </Menu>
         </menus>
@@ -40,9 +40,9 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="132.0">
                <children>
-                  <SplitPane dividerPositions="0.510752688172043" layoutY="167.0" orientation="VERTICAL" prefHeight="507.0" prefWidth="175.0">
+                  <SplitPane dividerPositions="0.510752688172043" layoutY="170.0" orientation="VERTICAL" prefHeight="502.0" prefWidth="175.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="273.0" prefWidth="173.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="275.0" prefWidth="173.0">
                            <children>
                               <GridPane prefHeight="184.0" prefWidth="175.0">
                                 <columnConstraints>
@@ -62,10 +62,10 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showTableCommande" text="Commandes" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                    <Button mnemonicParsing="false" onMouseClicked="#showTableCategorie" text="Catégories" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Button mnemonicParsing="false" onMouseClicked="#showTableProduit" text="Produits" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <Button mnemonicParsing="false" onMouseClicked="#showTableClient" text="Clients" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Button fx:id="btnCommande" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showTableCommande" text="Commandes" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Button fx:id="btnCategorie" mnemonicParsing="false" onMouseClicked="#showTableCategorie" text="Catégories" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Button fx:id="btnProduit" mnemonicParsing="false" onMouseClicked="#showTableProduit" text="Produits" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Button fx:id="btnClient" mnemonicParsing="false" onMouseClicked="#showTableClient" text="Clients" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                            </children>
@@ -97,14 +97,15 @@
                         </AnchorPane>
                     </items>
                   </SplitPane>
-                  <RadioButton fx:id="rbDatab" layoutX="32.0" layoutY="116.0" mnemonicParsing="false" text="Base de Données" />
-                  <RadioButton fx:id="rbListeM" layoutX="31.0" layoutY="140.0" mnemonicParsing="false" text="Liste Mémoire" />
+                  <RadioButton fx:id="rbDatab" layoutX="39.0" layoutY="79.0" mnemonicParsing="false" text="Base de Données" />
+                  <RadioButton fx:id="rbListeM" layoutX="39.0" layoutY="105.0" mnemonicParsing="false" text="Liste Mémoire" />
                   <Label layoutX="19.0" layoutY="14.0" prefHeight="17.0" prefWidth="136.0" text="Bienvenue !">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="19.0" layoutY="83.0" prefHeight="17.0" prefWidth="97.0" text="Choix du mode :" />
+                  <Label layoutX="19.0" layoutY="54.0" prefHeight="17.0" prefWidth="97.0" text="Choix du mode :" />
+                  <Button layoutX="19.0" layoutY="129.0" mnemonicParsing="false" onMouseClicked="#persistance_onClick" text="Confirmer le choix" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="438.0">

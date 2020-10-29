@@ -47,6 +47,21 @@ public class controller_accueil implements Initializable {
     private RadioButton rbListeM;
 
     private ToggleGroup persistanceToggleGroup;
+    //set default to Mysql, can be change after
+    EPersistence choix = EPersistence.MYSQL;
+
+    //boutons affichage
+    @FXML
+    private Button btnCommande;
+
+    @FXML
+    private Button btnCategorie;
+
+    @FXML
+    private Button btnProduit;
+
+    @FXML
+    private Button btnClient;
 
     //table des categories
     @FXML
@@ -126,13 +141,35 @@ public class controller_accueil implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //disable, wait for the persistance
+        btnCommande.setDisable(true);
+        btnCategorie.setDisable(true);
+        btnProduit.setDisable(true);
+        btnClient.setDisable(true);
+
+        //create tables
+        createTable(choix);
+
+        //definition radio group
+        persistanceToggleGroup = new ToggleGroup();
+        this.rbDatab.setToggleGroup(persistanceToggleGroup);
+        this.rbListeM.setToggleGroup(persistanceToggleGroup);
+
+        //bouttons CRUD
+        btnAdd.setDisable(true);
+        btnEdit.setDisable(true);
+        btnSuppr.setDisable(false);
+
+    }
+
+    private void createTable(EPersistence choix){
         //definition de la table des categories
         tableCategorie.setVisible(false);
         colCatId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colCatTitre.setCellValueFactory(new PropertyValueFactory<>("titre"));
         colCatVisuel.setCellValueFactory(new PropertyValueFactory<>("visuel"));
         this.tableCategorie.getColumns().setAll(colCatId, colCatTitre, colCatVisuel);
-        this.tableCategorie.getItems().addAll(DAOFactory.getDAOFactory(EPersistence.MYSQL).getCategorieDAO().findAll());
+        this.tableCategorie.getItems().addAll(DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll());
 
         //definition de la table des produits
         tableProduit.setVisible(false);
@@ -143,7 +180,7 @@ public class controller_accueil implements Initializable {
         colProdVisuel.setCellValueFactory(new PropertyValueFactory<>("visuel"));
         colProdIdCat.setCellValueFactory(new PropertyValueFactory<>("category"));
         this.tableProduit.getColumns().setAll(colProdId, colProdNom, colProdDescription, colProdTarif, colProdVisuel, colProdIdCat);
-        this.tableProduit.getItems().addAll(DAOFactory.getDAOFactory(EPersistence.MYSQL).getProduitDAO().findAll());
+        this.tableProduit.getItems().addAll(DAOFactory.getDAOFactory(choix).getProduitDAO().findAll());
 
         //defintion de la table des clients
         tableClient.setVisible(false);
@@ -156,7 +193,7 @@ public class controller_accueil implements Initializable {
         colClientVille.setCellValueFactory(new PropertyValueFactory<>("adrVille"));
         colClientPays.setCellValueFactory(new PropertyValueFactory<>("adrPays"));
         this.tableClient.getColumns().setAll(colClientId, colClientNom, colClientPrenom, colClientNumero, colClientVoie, colClientCP, colClientVille, colClientPays);
-        this.tableClient.getItems().addAll(DAOFactory.getDAOFactory(EPersistence.MYSQL).getClientDAO().findAll());
+        this.tableClient.getItems().addAll(DAOFactory.getDAOFactory(choix).getClientDAO().findAll());
 
         //definition de la table des commandes
         tableCommande.setVisible(false);
@@ -164,18 +201,24 @@ public class controller_accueil implements Initializable {
         colCommandeDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colCommandeClient.setCellValueFactory(new PropertyValueFactory<>("client"));
         this.tableCommande.getColumns().setAll(colCommandeId, colCommandeDate, colCommandeClient);
-        this.tableCommande.getItems().addAll(DAOFactory.getDAOFactory(EPersistence.MYSQL).getCommandeDAO().findAll());
+        this.tableCommande.getItems().addAll(DAOFactory.getDAOFactory(choix).getCommandeDAO().findAll());
+    }
 
-        //definition radio group
-        persistanceToggleGroup = new ToggleGroup();
-        this.rbDatab.setToggleGroup(persistanceToggleGroup);
-        this.rbListeM.setToggleGroup(persistanceToggleGroup);
+    private void refreshTable(EPersistence choix){
+        //clear all the table
+        tableProduit.getItems().removeAll();
+        tableCategorie.getItems().removeAll();
+        tableCommande.getItems().removeAll();
+        tableClient.getItems().removeAll();
 
-        //bouttons CRUD
-        btnAdd.setDisable(true);
-        btnEdit.setDisable(true);
-        btnSuppr.setDisable(true);
-
+//        //refresh table client
+//        this.tableClient.getItems().addAll(DAOFactory.getDAOFactory(choix).getClientDAO().findAll());
+//        //refresh table categorie
+//        this.tableCategorie.getItems().addAll(DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll());
+//        //refresh table produit
+//        this.tableProduit.getItems().addAll(DAOFactory.getDAOFactory(choix).getProduitDAO().findAll());
+//        //refresh table commande
+//        this.tableCommande.getItems().addAll(DAOFactory.getDAOFactory(choix).getCommandeDAO().findAll());
     }
 
     @FXML
@@ -222,15 +265,20 @@ public class controller_accueil implements Initializable {
         btnAdd.setDisable(false);
     }
 
-    public void radioButtonChanged(){
-        EPersistence choix;
-        if (this.persistanceToggleGroup.getSelectedToggle().equals(this.rbDatab)){
+    @FXML
+    void persistance_onClick(MouseEvent event) {
+        btnCommande.setDisable(false);
+        btnCategorie.setDisable(false);
+        btnProduit.setDisable(false);
+        btnClient.setDisable(false);
+        if (persistanceToggleGroup.getSelectedToggle().equals(rbDatab)){
             choix = EPersistence.MYSQL;
         }
         else{
             choix = EPersistence.LISTEMEMORY;
         }
         DAOFactory daoFactory = DAOFactory.getDAOFactory(choix);
+        refreshTable(choix);
     }
 
     @FXML
@@ -279,6 +327,32 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void btnSuppr_onClick(MouseEvent event) {
+        if (tableClient.getSelectionModel().getSelectedItem() != null) {
+            Client client = DAOFactory.getDAOFactory(choix).getClientDAO().getById(tableClient.getSelectionModel().getSelectedItem().getId());
+            DAOFactory.getDAOFactory(choix).getClientDAO().delete(client);
+        }
+        else if (tableCommande.getSelectionModel().getSelectedItem() != null) {
+            Commande commande = DAOFactory.getDAOFactory(choix).getCommandeDAO().getById(tableCommande.getSelectionModel().getSelectedItem().getId());
+            DAOFactory.getDAOFactory(choix).getCommandeDAO().delete(commande);
+        }
+        else if (tableProduit.getSelectionModel().getSelectedItem() != null) {
+            Produit produit = DAOFactory.getDAOFactory(choix).getProduitDAO().getById(tableProduit.getSelectionModel().getSelectedItem().getId());
+            DAOFactory.getDAOFactory(choix).getProduitDAO().delete(produit);
+        }
+        else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
+            Categorie categorie = DAOFactory.getDAOFactory(choix).getCategorieDAO().getById(tableCategorie.getSelectionModel().getSelectedItem().getId());
+            DAOFactory.getDAOFactory(choix).getCategorieDAO().delete(categorie);
+        }
+        refreshTable(choix);
+    }
 
+    @FXML
+    void mnuAbout_onClick(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("message informatif");
+        alert.setHeaderText(null);
+        alert.setContentText("Application développée par Irma Houver Sing et Gauthier Cadet.\nEn cas de problème veuillez nous contacter.");
+
+        alert.showAndWait();
     }
 }
