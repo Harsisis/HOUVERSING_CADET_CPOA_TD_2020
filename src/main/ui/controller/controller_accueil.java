@@ -276,6 +276,10 @@ public class controller_accueil implements Initializable {
         btnPersistance.setDisable(true);
     }
 
+    private void deleteTableData(TableView table) {
+        table.getItems().clear();
+    }
+
     public static controller_addClient createControllerClient(EPersistence choix){
         try {
             URL fxmlUrl = controller_addClient.class.getResource("../sample/addClient.fxml");
