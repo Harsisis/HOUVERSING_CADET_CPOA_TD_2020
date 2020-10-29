@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -49,8 +48,8 @@ public class controller_accueil implements Initializable {
     private RadioButton rbListeM;
 
     private ToggleGroup persistanceToggleGroup;
-    //set default to Mysql, can be change after
-    EPersistence choix = EPersistence.MYSQL;
+
+    public static EPersistence choix;
 
     //boutons affichage
     @FXML
@@ -149,9 +148,7 @@ public class controller_accueil implements Initializable {
         btnProduit.setDisable(true);
         btnClient.setDisable(true);
 
-        //create tables
-        createTable(choix);
-
+        createTable();
         //definition radio group
         persistanceToggleGroup = new ToggleGroup();
         this.rbDatab.setToggleGroup(persistanceToggleGroup);
@@ -164,14 +161,13 @@ public class controller_accueil implements Initializable {
 
     }
 
-    private void createTable(EPersistence choix){
+    private void createTable(){
         //definition de la table des categories
         tableCategorie.setVisible(false);
         colCatId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colCatTitre.setCellValueFactory(new PropertyValueFactory<>("titre"));
         colCatVisuel.setCellValueFactory(new PropertyValueFactory<>("visuel"));
         this.tableCategorie.getColumns().setAll(colCatId, colCatTitre, colCatVisuel);
-        this.tableCategorie.getItems().addAll(DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll());
 
         //definition de la table des produits
         tableProduit.setVisible(false);
@@ -182,7 +178,6 @@ public class controller_accueil implements Initializable {
         colProdVisuel.setCellValueFactory(new PropertyValueFactory<>("visuel"));
         colProdIdCat.setCellValueFactory(new PropertyValueFactory<>("category"));
         this.tableProduit.getColumns().setAll(colProdId, colProdNom, colProdDescription, colProdTarif, colProdVisuel, colProdIdCat);
-        this.tableProduit.getItems().addAll(DAOFactory.getDAOFactory(choix).getProduitDAO().findAll());
 
         //defintion de la table des clients
         tableClient.setVisible(false);
@@ -195,7 +190,6 @@ public class controller_accueil implements Initializable {
         colClientVille.setCellValueFactory(new PropertyValueFactory<>("adrVille"));
         colClientPays.setCellValueFactory(new PropertyValueFactory<>("adrPays"));
         this.tableClient.getColumns().setAll(colClientId, colClientNom, colClientPrenom, colClientNumero, colClientVoie, colClientCP, colClientVille, colClientPays);
-        this.tableClient.getItems().addAll(DAOFactory.getDAOFactory(choix).getClientDAO().findAll());
 
         //definition de la table des commandes
         tableCommande.setVisible(false);
@@ -203,7 +197,6 @@ public class controller_accueil implements Initializable {
         colCommandeDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colCommandeClient.setCellValueFactory(new PropertyValueFactory<>("client"));
         this.tableCommande.getColumns().setAll(colCommandeId, colCommandeDate, colCommandeClient);
-        this.tableCommande.getItems().addAll(DAOFactory.getDAOFactory(choix).getCommandeDAO().findAll());
     }
 
     private void refreshTable(EPersistence choix){
@@ -276,10 +269,13 @@ public class controller_accueil implements Initializable {
         if (persistanceToggleGroup.getSelectedToggle().equals(rbDatab)){
             choix = EPersistence.MYSQL;
         }
-        else{
+        else {
             choix = EPersistence.LISTEMEMORY;
         }
-        DAOFactory daoFactory = DAOFactory.getDAOFactory(choix);
+        this.tableCategorie.getItems().addAll(DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll());
+        this.tableCommande.getItems().addAll(DAOFactory.getDAOFactory(choix).getCommandeDAO().findAll());
+        this.tableClient.getItems().addAll(DAOFactory.getDAOFactory(choix).getClientDAO().findAll());
+        this.tableProduit.getItems().addAll(DAOFactory.getDAOFactory(choix).getProduitDAO().findAll());
         refreshTable(choix);
     }
 
@@ -360,21 +356,21 @@ public class controller_accueil implements Initializable {
         alert.setHeaderText("Êtes-vous sûr de supprimer cette donnée ?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            if (tableClient.getSelectionModel().getSelectedItem() != null) {
-                Client client = DAOFactory.getDAOFactory(choix).getClientDAO().getById(tableClient.getSelectionModel().getSelectedItem().getId());
-                DAOFactory.getDAOFactory(choix).getClientDAO().delete(client);
-            } else if (tableCommande.getSelectionModel().getSelectedItem() != null) {
-                Commande commande = DAOFactory.getDAOFactory(choix).getCommandeDAO().getById(tableCommande.getSelectionModel().getSelectedItem().getId());
-                DAOFactory.getDAOFactory(choix).getCommandeDAO().delete(commande);
-            } else if (tableProduit.getSelectionModel().getSelectedItem() != null) {
-                Produit produit = DAOFactory.getDAOFactory(choix).getProduitDAO().getById(tableProduit.getSelectionModel().getSelectedItem().getId());
-                DAOFactory.getDAOFactory(choix).getProduitDAO().delete(produit);
-            } else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
-                Categorie categorie = DAOFactory.getDAOFactory(choix).getCategorieDAO().getById(tableCategorie.getSelectionModel().getSelectedItem().getId());
-                DAOFactory.getDAOFactory(choix).getCategorieDAO().delete(categorie);
-            }
-        }
+//        if (result.get() == ButtonType.OK) {
+//            if (tableClient.getSelectionModel().getSelectedItem() != null) {
+//                Client client = DAOFactory.getDAOFactory(choix).getClientDAO().getById(tableClient.getSelectionModel().getSelectedItem().getId());
+//                DAOFactory.getDAOFactory(choix).getClientDAO().delete(client);
+//            } else if (tableCommande.getSelectionModel().getSelectedItem() != null) {
+//                Commande commande = DAOFactory.getDAOFactory(choix).getCommandeDAO().getById(tableCommande.getSelectionModel().getSelectedItem().getId());
+//                DAOFactory.getDAOFactory(choix).getCommandeDAO().delete(commande);
+//            } else if (tableProduit.getSelectionModel().getSelectedItem() != null) {
+//                Produit produit = DAOFactory.getDAOFactory(choix).getProduitDAO().getById(tableProduit.getSelectionModel().getSelectedItem().getId());
+//                DAOFactory.getDAOFactory(choix).getProduitDAO().delete(produit);
+//            } else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
+//                Categorie categorie = DAOFactory.getDAOFactory(choix).getCategorieDAO().getById(tableCategorie.getSelectionModel().getSelectedItem().getId());
+//                DAOFactory.getDAOFactory(choix).getCategorieDAO().delete(categorie);
+//            }
+//        }
         refreshTable(choix);
     }
 
