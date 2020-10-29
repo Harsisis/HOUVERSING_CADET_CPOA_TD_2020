@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,23 +20,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="220.0" layoutX="6.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" width="361.0" />
       <VBox prefHeight="400.0" prefWidth="374.0">
          <children>
-            <MenuBar prefHeight="26.0" prefWidth="375.0">
-              <menus>
-                <Menu mnemonicParsing="false" text="Fichier">
-                  <items>
-                    <MenuItem fx:id="mnuHome" mnemonicParsing="false" onAction="#mnuHome_onClick" text="Accueil" />
-                        <MenuItem fx:id="mnuAddClient" mnemonicParsing="false" onAction="#mnuAddClient_onClick" text="Ajouter un client" />
-                        <MenuItem fx:id="mnuQuit" mnemonicParsing="false" onAction="#mnuQuit_onClick" text="Quitter l'application" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Aide">
-                  <items>
-                    <MenuItem fx:id="mnuAbout" mnemonicParsing="false" onAction="#mnuAbout_onClick" text="A propos" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-            <GridPane prefHeight="351.0" prefWidth="374.0">
+            <GridPane prefHeight="370.0" prefWidth="374.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="19.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.0" minWidth="10.0" prefWidth="82.0" />
@@ -75,6 +57,12 @@
                   </HBox>
                   <ChoiceBox fx:id="cbxCategorie" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets top="25.0" />
+               </padding>
             </GridPane>
             <FlowPane alignment="CENTER" prefHeight="55.0" prefWidth="374.0">
                <children>

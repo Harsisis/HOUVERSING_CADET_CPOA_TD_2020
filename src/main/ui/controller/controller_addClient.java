@@ -23,16 +23,6 @@ import java.util.logging.Logger;
 
 public class controller_addClient implements Initializable {
 
-    //menu declaration
-    @FXML
-    private MenuItem mnuQuit;
-    @FXML
-    private MenuItem mnuAddProd;
-    @FXML
-    private MenuItem mnuAbout;
-    @FXML
-    private MenuItem mnuHome;
-
     //label error
     @FXML
     private Label errorAdr;
@@ -104,48 +94,6 @@ public class controller_addClient implements Initializable {
         }
         cbxCountry.setItems(cities);
 
-    }
-
-    @FXML
-    void mnuAddProd_onClick(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addProduct.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 374, 400);
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter un Produit");
-            Image icon = new Image(getClass().getResourceAsStream("../images/iconTest.png"));
-            stage.getIcons().add(icon);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger(getClass().getName());
-            logger.log(Level.SEVERE, "Failed to create new Window.", e);
-        }
-    }
-
-    @FXML
-    void mnuHome_onClick(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("message informatif");
-        alert.setHeaderText(null);
-        alert.setContentText("Cette partie n'existe pas encore");
-
-        alert.showAndWait();
-    }
-
-    @FXML
-    void mnuQuit_onClick(ActionEvent event) {
-        Platform.exit();
-    }
-
-    @FXML
-    void mnuAbout_onClick(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("message informatif");
-        alert.setHeaderText(null);
-        alert.setContentText("Application développée par Irma Houver Sing et Gauthier Cadet.\nEn cas de problème veuillez nous contacter");
-
-        alert.showAndWait();
     }
 
     @FXML

@@ -365,7 +365,7 @@ public class controller_accueil implements Initializable {
     @FXML
     void mnuAbout_onClick(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("message informatif");
+        alert.setTitle("Message informatif");
         alert.setHeaderText(null);
         alert.setContentText("Application développée par Irma Houver Sing et Gauthier Cadet.\nEn cas de problème veuillez nous contacter.");
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();

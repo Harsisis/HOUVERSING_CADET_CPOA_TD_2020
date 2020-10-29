@@ -3,15 +3,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -21,22 +19,7 @@
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="386.0" layoutX="6.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" width="361.0" />
         <VBox prefHeight="544.0" prefWidth="374.0">
             <children>
-                <MenuBar prefHeight="26.0" prefWidth="375.0">
-                    <menus>
-                        <Menu mnemonicParsing="false" text="Fichier">
-                            <items>
-                                <MenuItem fx:id="mnuHome" mnemonicParsing="false" onAction="#mnuHome_onClick" text="Accueil" />
-                        <MenuItem fx:id="mnuAddProd" mnemonicParsing="false" onAction="#mnuAddProd_onClick" text="Ajouter un produit" />
-                                <MenuItem fx:id="mnuQuit" mnemonicParsing="false" onAction="#mnuQuit_onClick" text="Quitter l'application" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Aide">
-                            <items>
-                                <MenuItem fx:id="mnuAbout" mnemonicParsing="false" onAction="#mnuAbout_onClick" text="A propos" />
-                            </items>
-                        </Menu>
-                    </menus>
-                </MenuBar>
+            <Pane prefHeight="56.0" prefWidth="374.0" />
                 <GridPane prefHeight="377.0" prefWidth="374.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="19.0" />
