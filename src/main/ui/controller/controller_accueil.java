@@ -21,9 +21,7 @@ import main.pojo.Produit;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -353,33 +351,64 @@ public class controller_accueil implements Initializable {
         Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
         informationAlert.setTitle("Information");
 
+        if (tableClient.getSelectionModel().getSelectedItem() != null) {
             Client client = daoFactory.getClientDAO().getById(tableClient.getSelectionModel().getSelectedItem().getId());
             if (containsClient(client, daoFactory.getCommandeDAO().findAll())) {
                 informationAlert.setHeaderText("Ce client appartient à une commande");
                 informationAlert.showAndWait();
-            }
-            else {
+            } else {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     daoFactory.getClientDAO().delete(client);
                     deleteTableData(tableClient);
                     this.tableClient.getItems().addAll(daoFactory.getClientDAO().findAll());
+                    tableClient.getSelectionModel().clearSelection();
                 }
-//        } else if (tableCommande.getSelectionModel().getSelectedItem() != null) {
-//            Commande commande = daoFactory.getCommandeDAO().getById(tableCommande.getSelectionModel().getSelectedItem().getId());
-//            daoFactory.getCommandeDAO().delete(commande);
-//            deleteTableData(tableCommande);
-//            this.tableCommande.getItems().addAll(daoFactory.getCommandeDAO().findAll());
-//        } else if (tableProduit.getSelectionModel().getSelectedItem() != null) {
-//            Produit produit = daoFactory.getProduitDAO().getById(tableProduit.getSelectionModel().getSelectedItem().getId());
-//            daoFactory.getProduitDAO().delete(produit);
-//            deleteTableData(tableProduit);
-//            this.tableProduit.getItems().addAll(daoFactory.getProduitDAO().findAll());
-//        } else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
-//            Categorie categorie = daoFactory.getCategorieDAO().getById(tableCategorie.getSelectionModel().getSelectedItem().getId());
-//            daoFactory.getCategorieDAO().delete(categorie);
-//            deleteTableData(tableCategorie);
-//            this.tableCategorie.getItems().addAll(daoFactory.getCategorieDAO().findAll());
+            }
+        }
+
+        if (tableCommande.getSelectionModel().getSelectedItem() != null) {
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Commande commande = daoFactory.getCommandeDAO().getById(tableCommande.getSelectionModel().getSelectedItem().getId());
+                daoFactory.getCommandeDAO().delete(commande);
+                deleteTableData(tableCommande);
+                this.tableCommande.getItems().addAll(daoFactory.getCommandeDAO().findAll());
+                tableCommande.getSelectionModel().clearSelection();
+            }
+        }
+
+        if (tableProduit.getSelectionModel().getSelectedItem() != null) {
+            Produit produit = daoFactory.getProduitDAO().getById(tableProduit.getSelectionModel().getSelectedItem().getId());
+            if (containsProduit(produit, daoFactory.getCommandeDAO().findAll())) {
+                informationAlert.setHeaderText("Ce produit appartient à des commandes");
+                informationAlert.showAndWait();
+            } else {
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    daoFactory.getProduitDAO().delete(produit);
+                    deleteTableData(tableProduit);
+                    this.tableProduit.getItems().addAll(daoFactory.getProduitDAO().findAll());
+                    this.tableProduit.getSelectionModel().clearSelection();
+                }
+            }
+        }
+
+        if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
+            Categorie categorie = daoFactory.getCategorieDAO().getById(tableCategorie.getSelectionModel().getSelectedItem().getId());
+            if (containsCategorie(categorie, daoFactory.getProduitDAO().findAll())) {
+                informationAlert.setHeaderText("Cette catégorie appartient à des produits");
+                informationAlert.showAndWait();
+            }
+            else {
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    daoFactory.getCategorieDAO().delete(categorie);
+                    deleteTableData(tableCategorie);
+                    this.tableCategorie.getItems().addAll(daoFactory.getCategorieDAO().findAll());
+                    this.tableCategorie.getSelectionModel().clearSelection();
+                }
+            }
         }
     }
 
@@ -388,6 +417,31 @@ public class controller_accueil implements Initializable {
         for (Commande commande : listCommande) {
             if (commande.getClient().equals(client)) {
                 res = true;
+            }
+        }
+        return res;
+    }
+
+    private boolean containsCategorie(Categorie categorie, ArrayList<Produit> listProduit) {
+        boolean res = false;
+        for (Produit produit : listProduit) {
+            if (produit.getCategory().equals(categorie)) {
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    private boolean containsProduit(Produit produit, ArrayList<Commande> listCommande) {
+        boolean res = false;
+        for (Commande commande : listCommande) {
+            Map<Produit, Integer> listProduit = commande.getProduits();
+            Iterator iterator = listProduit.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry pair = (Map.Entry)iterator.next();
+                if (pair.getKey().equals(produit)) {
+                    res = true;
+                }
             }
         }
         return res;
