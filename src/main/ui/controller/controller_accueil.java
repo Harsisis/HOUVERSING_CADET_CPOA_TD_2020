@@ -368,7 +368,8 @@ public class controller_accueil implements Initializable {
         alert.setTitle("message informatif");
         alert.setHeaderText(null);
         alert.setContentText("Application développée par Irma Houver Sing et Gauthier Cadet.\nEn cas de problème veuillez nous contacter.");
-
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(this.getClass().getResource("../images/iconTest.png").toString()));
         alert.showAndWait();
     }
 
@@ -377,7 +378,9 @@ public class controller_accueil implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Quitter la fenêtre");
         alert.setHeaderText("Êtes-vous sûr de vouloir quitter l'application ?");
-        alert.setContentText("Toute donnée non sauvegardée sera supprimée");
+        alert.setContentText("Toute progression non sauvegardée sera perdue");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(this.getClass().getResource("../images/iconTest.png").toString()));
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
