@@ -74,6 +74,7 @@ public class controller_addClient implements Initializable {
         inputAdrNumber.setText("");
         inputAdrRue.setText("");
         inputAdrVille.setText("");
+        inputAdrCp.setText("");
 
 
         // set unvisible error label
@@ -99,14 +100,12 @@ public class controller_addClient implements Initializable {
     }
 
     EPersistence choix;
-    public void setupFields(EPersistence choix) {
+    public void setupEnum(EPersistence choix) {
         this.choix = choix;
-        inputAdrCp.setText("persistance setup");
     }
 
     @FXML
     void onClickCreateClient(ActionEvent event) {
-
         boolean isCorrect = true;
         //read textfields to setup variables
         //Surname error

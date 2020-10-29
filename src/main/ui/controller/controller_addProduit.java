@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import main.dao.SQLDAO.SQLCategorieDAO;
 import main.dao.SQLDAO.SQLProduitDAO;
+import main.dao.fabrique.DAOFactory;
+import main.dao.fabrique.EPersistence;
 import main.pojo.Categorie;
 import main.pojo.Produit;
 import main.ui.util.util_isFloat;
@@ -53,6 +55,10 @@ public class controller_addProduit extends util_isFloat implements Initializable
         cbxCategorie.getItems().addAll(cat);
 
     }
+    EPersistence choix;
+    public void setupEnum(EPersistence choix) {
+        this.choix = choix;
+    }
 
     @FXML
     void onClickCreateProduct(ActionEvent event) {
@@ -90,7 +96,7 @@ public class controller_addProduit extends util_isFloat implements Initializable
             //create object product
             Produit produit = new Produit(1, nom_prod, desc_prod, tarif_prod, "visuel", cbxCategorie.getValue());
             //insert the object in the database
-            SQLProduitDAO.getInstance().create(produit);
+            DAOFactory.getDAOFactory(choix).getProduitDAO().create(produit);
             //display in display label the newest product with toString()
             outputProduct.setText("Le produit : " + produit.toString() + "\n a bien été créé");
             //empty fields
@@ -99,4 +105,5 @@ public class controller_addProduit extends util_isFloat implements Initializable
             inputDesc.setText("");
         }
     }
+
 }

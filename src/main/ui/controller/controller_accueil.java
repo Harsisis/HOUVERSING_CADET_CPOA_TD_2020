@@ -202,17 +202,6 @@ public class controller_accueil implements Initializable {
         this.tableCommande.getColumns().setAll(colCommandeId, colCommandeDate, colCommandeClient);
     }
 
-    private void refreshTable(EPersistence choix){
-        //refresh table client
-        this.tableClient.refresh();
-        //refresh table categorie
-        this.tableCategorie.refresh();
-        //refresh table produit
-        this.tableProduit.refresh();
-        //refresh table commande
-        this.tableCommande.refresh();
-    }
-
     @FXML
     void showTableCategorie(MouseEvent event) {
         tableProduit.setVisible(false);
@@ -269,7 +258,6 @@ public class controller_accueil implements Initializable {
         this.tableCommande.getItems().addAll(DAOFactory.getDAOFactory(choix).getCommandeDAO().findAll());
         this.tableClient.getItems().addAll(DAOFactory.getDAOFactory(choix).getClientDAO().findAll());
         this.tableProduit.getItems().addAll(DAOFactory.getDAOFactory(choix).getProduitDAO().findAll());
-        refreshTable(choix);
 
         rbListeM.setDisable(true);
         rbDatab.setDisable(true);
@@ -278,21 +266,6 @@ public class controller_accueil implements Initializable {
 
     private void deleteTableData(TableView table) {
         table.getItems().clear();
-    }
-
-    public static controller_addClient createControllerClient(EPersistence choix){
-        try {
-            URL fxmlUrl = controller_addClient.class.getResource("../sample/addClient.fxml");
-            FXMLLoader fxmlLoader = new FXMLLoader(fxmlUrl);
-            fxmlLoader.load();
-            var controller = fxmlLoader.<controller_addClient>getController();
-            controller.setupFields(choix);
-            return controller;
-        }catch (IOException e){
-            e.printStackTrace();
-            System.exit(0);
-            return null;
-        }
     }
 
     @FXML
@@ -311,6 +284,8 @@ public class controller_accueil implements Initializable {
                     if (DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll() != null){
                         scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addProduct.fxml")));
                         stage = new Stage();
+                        controller_addProduit controller = fxmlLoader.getController();
+                        controller.setupEnum(choix);
                         stage.setTitle("Ajouter un Produit");
                     } else {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -362,7 +337,6 @@ public class controller_accueil implements Initializable {
         } else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
 
         }
-        refreshTable(choix);
     }
 
     @FXML
