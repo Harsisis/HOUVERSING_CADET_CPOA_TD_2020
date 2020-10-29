@@ -157,7 +157,7 @@ public class controller_accueil implements Initializable {
         this.rbDatab.setToggleGroup(persistanceToggleGroup);
         this.rbListeM.setToggleGroup(persistanceToggleGroup);
 
-        //buttons CRUD
+        //bouttons CRUD
         btnAdd.setDisable(true);
         btnEdit.setDisable(true);
         btnSuppr.setDisable(false);
@@ -215,7 +215,6 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableCategorie(MouseEvent event) {
-        this.tableCategorie.refresh();
         tableProduit.setVisible(false);
         tableClient.setVisible(false);
         tableCommande.setVisible(false);
@@ -226,7 +225,6 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableProduit(MouseEvent event) {
-        this.tableProduit.refresh();
         tableCategorie.setVisible(false);
         tableCommande.setVisible(false);
         tableClient.setVisible(false);
@@ -237,7 +235,6 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableClient(MouseEvent event) {
-        this.tableClient.refresh();
         tableCommande.setVisible(false);
         tableProduit.setVisible(false);
         tableCategorie.setVisible(false);
@@ -248,7 +245,6 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableCommande(MouseEvent event) {
-        this.tableCommande.refresh();
         tableClient.setVisible(false);
         tableCategorie.setVisible(false);
         tableProduit.setVisible(false);
@@ -382,12 +378,13 @@ public class controller_accueil implements Initializable {
             } else if (tableProduit.getSelectionModel().getSelectedItem() != null) {
                 Produit produit = DAOFactory.getDAOFactory(choix).getProduitDAO().getById(tableProduit.getSelectionModel().getSelectedItem().getId());
                 DAOFactory.getDAOFactory(choix).getProduitDAO().delete(produit);
+                this.tableProduit.refresh();
             } else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
                 Categorie categorie = DAOFactory.getDAOFactory(choix).getCategorieDAO().getById(tableCategorie.getSelectionModel().getSelectedItem().getId());
                 DAOFactory.getDAOFactory(choix).getCategorieDAO().delete(categorie);
+                deleteTableData(tableCategorie);
             }
         }
-        refreshTable(choix);
     }
 
     @FXML
