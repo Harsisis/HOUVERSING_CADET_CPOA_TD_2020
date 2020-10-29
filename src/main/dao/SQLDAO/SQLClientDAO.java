@@ -119,7 +119,6 @@ public class SQLClientDAO implements ClientDAO {
                 pays = rsPays.getString("adr_pays");
             }
             client = new Client(id, nom, prenom, identifiant, mdp, numero, voie, codePostal, ville, pays);
-            System.out.println(client);
             connection.close();
 
         } catch (SQLException sqle) {

@@ -218,7 +218,6 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableCategorie(MouseEvent event) {
-        this.tableCategorie.refresh();
         tableProduit.setVisible(false);
         tableClient.setVisible(false);
         tableCommande.setVisible(false);
@@ -229,7 +228,6 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableProduit(MouseEvent event) {
-        this.tableProduit.refresh();
         tableCategorie.setVisible(false);
         tableCommande.setVisible(false);
         tableClient.setVisible(false);
@@ -240,7 +238,6 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableClient(MouseEvent event) {
-        this.tableClient.refresh();
         tableCommande.setVisible(false);
         tableProduit.setVisible(false);
         tableCategorie.setVisible(false);
@@ -251,7 +248,6 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableCommande(MouseEvent event) {
-        this.tableCommande.refresh();
         tableClient.setVisible(false);
         tableCategorie.setVisible(false);
         tableProduit.setVisible(false);
@@ -272,11 +268,17 @@ public class controller_accueil implements Initializable {
         else {
             choix = EPersistence.LISTEMEMORY;
         }
+        insertIntoTable();
+    }
+
+    private void insertIntoTable() {
         this.tableCategorie.getItems().addAll(DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll());
         this.tableCommande.getItems().addAll(DAOFactory.getDAOFactory(choix).getCommandeDAO().findAll());
         this.tableClient.getItems().addAll(DAOFactory.getDAOFactory(choix).getClientDAO().findAll());
         this.tableProduit.getItems().addAll(DAOFactory.getDAOFactory(choix).getProduitDAO().findAll());
-        refreshTable(choix);
+    }
+    void deleteTableData(TableView table) {
+        table.getItems().clear();
     }
 
     @FXML
@@ -366,12 +368,13 @@ public class controller_accueil implements Initializable {
             } else if (tableProduit.getSelectionModel().getSelectedItem() != null) {
                 Produit produit = DAOFactory.getDAOFactory(choix).getProduitDAO().getById(tableProduit.getSelectionModel().getSelectedItem().getId());
                 DAOFactory.getDAOFactory(choix).getProduitDAO().delete(produit);
+                this.tableProduit.refresh();
             } else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
                 Categorie categorie = DAOFactory.getDAOFactory(choix).getCategorieDAO().getById(tableCategorie.getSelectionModel().getSelectedItem().getId());
                 DAOFactory.getDAOFactory(choix).getCategorieDAO().delete(categorie);
+                deleteTableData(tableCategorie);
             }
         }
-        refreshTable(choix);
     }
 
     @FXML
