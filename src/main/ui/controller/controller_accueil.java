@@ -1,5 +1,6 @@
 package main.ui.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -370,4 +371,18 @@ public class controller_accueil implements Initializable {
 
         alert.showAndWait();
     }
+
+    @FXML
+    void mnuQuitter_onClick(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Quitter la fenêtre");
+        alert.setHeaderText("Êtes-vous sûr de vouloir quitter l'application ?");
+        alert.setContentText("Toute donnée non sauvegardée sera supprimée");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Platform.exit();
+        }
+    }
+
 }
