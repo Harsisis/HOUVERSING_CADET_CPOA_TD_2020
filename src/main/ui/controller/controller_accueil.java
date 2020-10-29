@@ -284,6 +284,7 @@ public class controller_accueil implements Initializable {
                     if (DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll() != null){
                         scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addProduct.fxml")));
                         stage = new Stage();
+                        //fxmlLoader.setController(); instance of the controller here
                         controller_addProduit controller = fxmlLoader.getController();
                         controller.setupEnum(choix);
                         stage.setTitle("Ajouter un Produit");

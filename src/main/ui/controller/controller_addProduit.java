@@ -42,7 +42,6 @@ public class controller_addProduit extends util_isFloat implements Initializable
     @FXML
     private Label errorDesc;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         errorName.setVisible(false);
