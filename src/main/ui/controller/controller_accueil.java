@@ -47,6 +47,9 @@ public class controller_accueil implements Initializable {
     @FXML
     private RadioButton rbListeM;
 
+    @FXML
+    private Button btnPersistance;
+
     private ToggleGroup persistanceToggleGroup;
 
     public static EPersistence choix;
@@ -154,7 +157,7 @@ public class controller_accueil implements Initializable {
         this.rbDatab.setToggleGroup(persistanceToggleGroup);
         this.rbListeM.setToggleGroup(persistanceToggleGroup);
 
-        //bouttons CRUD
+        //buttons CRUD
         btnAdd.setDisable(true);
         btnEdit.setDisable(true);
         btnSuppr.setDisable(false);
@@ -200,12 +203,6 @@ public class controller_accueil implements Initializable {
     }
 
     private void refreshTable(EPersistence choix){
-//        //clear all the table
-//        tableProduit.getItems().removeAll();
-//        tableCategorie.getItems().removeAll();
-//        tableCommande.getItems().removeAll();
-//        tableClient.getItems().removeAll();
-
         //refresh table client
         this.tableClient.refresh();
         //refresh table categorie
@@ -277,6 +274,25 @@ public class controller_accueil implements Initializable {
         this.tableClient.getItems().addAll(DAOFactory.getDAOFactory(choix).getClientDAO().findAll());
         this.tableProduit.getItems().addAll(DAOFactory.getDAOFactory(choix).getProduitDAO().findAll());
         refreshTable(choix);
+
+        rbListeM.setDisable(true);
+        rbDatab.setDisable(true);
+        btnPersistance.setDisable(true);
+    }
+
+    public static controller_addClient createControllerClient(EPersistence choix){
+        try {
+            URL fxmlUrl = controller_addClient.class.getResource("../sample/addClient.fxml");
+            FXMLLoader fxmlLoader = new FXMLLoader(fxmlUrl);
+            fxmlLoader.load();
+            var controller = fxmlLoader.<controller_addClient>getController();
+            controller.setupFields(choix);
+            return controller;
+        }catch (IOException e){
+            e.printStackTrace();
+            System.exit(0);
+            return null;
+        }
     }
 
     @FXML

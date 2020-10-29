@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import main.dao.SQLDAO.SQLClientDAO;
+import main.dao.fabrique.DAOFactory;
+import main.dao.fabrique.EPersistence;
 import main.pojo.Client;
 
 import java.io.IOException;
@@ -72,7 +74,7 @@ public class controller_addClient implements Initializable {
         inputAdrNumber.setText("");
         inputAdrRue.setText("");
         inputAdrVille.setText("");
-        inputAdrCp.setText("");
+
 
         // set unvisible error label
         errorSurname.setVisible(false);
@@ -94,6 +96,12 @@ public class controller_addClient implements Initializable {
         }
         cbxCountry.setItems(cities);
 
+    }
+
+    EPersistence choix;
+    public void setupFields(EPersistence choix) {
+        this.choix = choix;
+        inputAdrCp.setText("persistance setup");
     }
 
     @FXML
@@ -153,8 +161,8 @@ public class controller_addClient implements Initializable {
         if (isCorrect){
             //create object product
             Client client = new Client(1, nom_client, prenom_client, ident_client, mdp_client, no_adrCl, rue_adrCl, cp_adrCL, ville_adrCl, cbxCountry.getValue().toString());
-            //insert the object in the database
-            SQLClientDAO.getInstance().create(client);
+            //insert the object in the database or memoryListe
+            DAOFactory.getDAOFactory(choix).getClientDAO().create(client);
             //display in display label the newest product with toString()
             outputClient.setText("Le client : " + client.toString() + "\n a bien été créé");
             //empty the fields
@@ -168,5 +176,4 @@ public class controller_addClient implements Initializable {
             inputAdrCp.setText("");
         }
     }
-
 }
