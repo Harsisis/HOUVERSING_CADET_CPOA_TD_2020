@@ -21,6 +21,7 @@ import main.pojo.Produit;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -143,6 +144,8 @@ public class controller_accueil implements Initializable {
     @FXML
     private TableColumn<Commande, Client> colCommandeClient;
 
+    private static DAOFactory daoFactory;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //disable, wait for the persistance
@@ -254,10 +257,11 @@ public class controller_accueil implements Initializable {
         else {
             choix = EPersistence.LISTEMEMORY;
         }
-        this.tableCategorie.getItems().addAll(DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll());
-        this.tableCommande.getItems().addAll(DAOFactory.getDAOFactory(choix).getCommandeDAO().findAll());
-        this.tableClient.getItems().addAll(DAOFactory.getDAOFactory(choix).getClientDAO().findAll());
-        this.tableProduit.getItems().addAll(DAOFactory.getDAOFactory(choix).getProduitDAO().findAll());
+        daoFactory = DAOFactory.getDAOFactory(choix);
+        this.tableCategorie.getItems().addAll(daoFactory.getCategorieDAO().findAll());
+        this.tableCommande.getItems().addAll(daoFactory.getCommandeDAO().findAll());
+        this.tableClient.getItems().addAll(daoFactory.getClientDAO().findAll());
+        this.tableProduit.getItems().addAll(daoFactory.getProduitDAO().findAll());
 
         rbListeM.setDisable(true);
         rbDatab.setDisable(true);
@@ -345,24 +349,47 @@ public class controller_accueil implements Initializable {
         alert.setTitle("Confirmer la suppression");
         alert.setHeaderText("Êtes-vous sûr de supprimer cette donnée ?");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            if (tableClient.getSelectionModel().getSelectedItem() != null) {
-                Client client = DAOFactory.getDAOFactory(choix).getClientDAO().getById(tableClient.getSelectionModel().getSelectedItem().getId());
-                DAOFactory.getDAOFactory(choix).getClientDAO().delete(client);
-            } else if (tableCommande.getSelectionModel().getSelectedItem() != null) {
-                Commande commande = DAOFactory.getDAOFactory(choix).getCommandeDAO().getById(tableCommande.getSelectionModel().getSelectedItem().getId());
-                DAOFactory.getDAOFactory(choix).getCommandeDAO().delete(commande);
-            } else if (tableProduit.getSelectionModel().getSelectedItem() != null) {
-                Produit produit = DAOFactory.getDAOFactory(choix).getProduitDAO().getById(tableProduit.getSelectionModel().getSelectedItem().getId());
-                DAOFactory.getDAOFactory(choix).getProduitDAO().delete(produit);
-                this.tableProduit.refresh();
-            } else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
-                Categorie categorie = DAOFactory.getDAOFactory(choix).getCategorieDAO().getById(tableCategorie.getSelectionModel().getSelectedItem().getId());
-                DAOFactory.getDAOFactory(choix).getCategorieDAO().delete(categorie);
-                deleteTableData(tableCategorie);
+        Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
+        informationAlert.setTitle("Information");
+
+            Client client = daoFactory.getClientDAO().getById(tableClient.getSelectionModel().getSelectedItem().getId());
+            if (containsClient(client, daoFactory.getCommandeDAO().findAll())) {
+                informationAlert.setHeaderText("Ce client appartient à une commande");
+                informationAlert.showAndWait();
+            }
+            else {
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    daoFactory.getClientDAO().delete(client);
+                    deleteTableData(tableClient);
+                    this.tableClient.getItems().addAll(daoFactory.getClientDAO().findAll());
+                }
+//        } else if (tableCommande.getSelectionModel().getSelectedItem() != null) {
+//            Commande commande = daoFactory.getCommandeDAO().getById(tableCommande.getSelectionModel().getSelectedItem().getId());
+//            daoFactory.getCommandeDAO().delete(commande);
+//            deleteTableData(tableCommande);
+//            this.tableCommande.getItems().addAll(daoFactory.getCommandeDAO().findAll());
+//        } else if (tableProduit.getSelectionModel().getSelectedItem() != null) {
+//            Produit produit = daoFactory.getProduitDAO().getById(tableProduit.getSelectionModel().getSelectedItem().getId());
+//            daoFactory.getProduitDAO().delete(produit);
+//            deleteTableData(tableProduit);
+//            this.tableProduit.getItems().addAll(daoFactory.getProduitDAO().findAll());
+//        } else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
+//            Categorie categorie = daoFactory.getCategorieDAO().getById(tableCategorie.getSelectionModel().getSelectedItem().getId());
+//            daoFactory.getCategorieDAO().delete(categorie);
+//            deleteTableData(tableCategorie);
+//            this.tableCategorie.getItems().addAll(daoFactory.getCategorieDAO().findAll());
+        }
+    }
+
+    private boolean containsClient(Client client, ArrayList<Commande> listCommande) {
+        boolean res = false;
+        for (Commande commande : listCommande) {
+            if (commande.getClient().equals(client)) {
+                res = true;
             }
         }
+        return res;
     }
 
     @FXML
