@@ -65,6 +65,7 @@ public class controller_addClient implements Initializable {
 
     private EPersistence choix;
 
+    private Client client;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -96,6 +97,8 @@ public class controller_addClient implements Initializable {
     public void setupEnum(EPersistence choix) {
         this.choix = choix;
     }
+
+    public void setupClient(Client client) {this.client = client;}
 
     @FXML
     void onClickCreateClient(ActionEvent event) {

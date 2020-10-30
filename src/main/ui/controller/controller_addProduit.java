@@ -47,6 +47,9 @@ public class controller_addProduit extends util_isFloat implements Initializable
         this.choix = choix;
     }
 
+    private Produit produit;
+    public void setupProduit(Produit produit) {this.produit = produit;}
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         errorName.setVisible(false);

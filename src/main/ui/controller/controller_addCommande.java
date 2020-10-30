@@ -53,6 +53,7 @@ public class controller_addCommande implements Initializable {
     }
 
     Commande commande;
+    public void setupCommande(Commande commande) { this.commande = commande;}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -34,6 +34,10 @@ public class controller_addCategorie implements Initializable {
     public void setupEnum(EPersistence choix) {
         this.choix = choix;
     }
+    private Categorie categorie;
+    public void setupCateg(Categorie categorie) {
+        this.categorie = categorie;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

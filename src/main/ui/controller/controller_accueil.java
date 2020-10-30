@@ -278,8 +278,7 @@ public class controller_accueil implements Initializable {
     @FXML
     void btnAdd_onClick(MouseEvent event) {
         Scene scene = null;
-        Stage stage = null;
-        stage = new Stage();
+        Stage stage = new Stage();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Attention");
         try {
@@ -367,14 +366,100 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void btnEdit_onClick(MouseEvent event) {
-        if (tableClient.getSelectionModel().getSelectedItem() != null) {
+        /*ok so this function looks like btnAdd_onClick(MouseEvent event)
+        * But we send 2 parameters to the object controller :
+        * persistance choix and the object
+        * In the other controller we can check at the initialization if the object is empty --> it means create a new one
+        * Else --> it means : i need to fill the textFields with the information of this object
+        *
+        * at the end when we call create() function we can check with an if previously created (during the empty test for the object)
+        * if we want to create a new one or update an old one
+        *
+        * Now we must fill the object with the one selected in the table view*/
 
-        } else if (tableCommande.getSelectionModel().getSelectedItem() != null) {
+        Scene scene = null;
+        Stage stage = new Stage();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root;
+            switch (visible){
+                case 1:
+                    //PRODUIT
 
-        } else if (tableProduit.getSelectionModel().getSelectedItem() != null) {
+                    if (DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll() != null){
+                        Produit produit = new Produit();
+                        fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addProduit.fxml"));
+                        root = fxmlLoader.load();
+                        controller_addProduit controller_addProduit = fxmlLoader.getController();
+                        controller_addProduit.setupEnum(choix);
+                        controller_addProduit.setupProduit(produit);
+                        scene = new Scene(root);
+                        stage = new Stage();
+                        stage.setTitle("Modifier un produit");
+                        refreshProduit();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Attention");
+                        alert.setHeaderText("Impossible de créer le produit !");
+                        alert.setContentText("il faut au moins une catégorie pour créer un produit");
+                        alert.showAndWait();
+                    }
+                    break;
+                case 2:
+                    //CATEGORIE
+                    Categorie categorie = new Categorie();
+                    fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addCategorie.fxml"));
+                    root = fxmlLoader.load();
+                    controller_addCategorie controller_addCategorie = fxmlLoader.getController();
+                    controller_addCategorie.setupEnum(choix);
+                    controller_addCategorie.setupCateg(categorie);
+                    scene = new Scene(root);
+                    stage.setTitle("Modifier une catégorie");
+                    refreshCategorie();
+                    break;
+                case 3:
+                    //CLIENT
+                    Client client = new Client();
+                    fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addClient.fxml"));
+                    root = fxmlLoader.load();
+                    controller_addClient controller_addClient = fxmlLoader.getController();
+                    controller_addClient.setupEnum(choix);
+                    controller_addClient.setupClient(client);
+                    scene = new Scene(root);
+                    stage.setTitle("Modifier un client");
+                    refreshClient();
+                    break;
+                case 4:
+                    //COMMANDE
+                    Commande commande = new Commande();
+                    if (DAOFactory.getDAOFactory(choix).getProduitDAO().findAll() != null && DAOFactory.getDAOFactory(choix).getClientDAO().findAll() != null){
+                        fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addCommande.fxml"));
+                        root = fxmlLoader.load();
+                        controller_addCommande controller_addCommande = fxmlLoader.getController();
+                        controller_addCommande.setupEnum(choix);
+                        controller_addCommande.setupCommande(commande);
+                        scene = new Scene(root);
+                        stage = new Stage();
+                        stage.setTitle("Modifier une commande");
+                        refreshCommande();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Attention");
+                        alert.setHeaderText("Impossible de créer la commande !");
+                        alert.setContentText("il faut au moins un produit et un client pour créer une commande");
+                        alert.showAndWait();
+                    }
+                    break;
+            }
 
-        } else if (tableCategorie.getSelectionModel().getSelectedItem() != null) {
-
+            Image icon = new Image(getClass().getResourceAsStream("../images/iconTest.png"));
+            assert stage != null;
+            stage.getIcons().add(icon);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
     }
 
