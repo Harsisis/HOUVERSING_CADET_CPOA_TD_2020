@@ -39,6 +39,10 @@ public class Commande {
     public Commande() {
     }
 
+    public void setProduits(Map<Produit, Integer> produits) {
+        this.produits = produits;
+    }
+
     /* @return le montant total du panier (ligne de commande). */
     public Double getMontantTotal() {
         // Parcours de la table des produits ...ligne de commande.
@@ -95,6 +99,7 @@ public class Commande {
                 "id=" + id +
                 ", date=" + date +
                 ", client=" + client +
+                ", produits=" + produits +
                 '}';
     }
 

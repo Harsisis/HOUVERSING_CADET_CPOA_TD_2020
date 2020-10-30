@@ -80,12 +80,20 @@ public class SQLCommandeDAO implements CommandeDAO {
         try {
             String request = "SELECT * FROM Commande";
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(request);
-            while (rs.next()) {
+            ResultSet resultSet = statement.executeQuery(request);
+            while (resultSet.next()) {
                 Commande commande = new Commande();
-                commande.setId(rs.getInt("id_commande"));
-                commande.setDate(LocalDate.parse(rs.getString("date_commande"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-                commande.setClient( SQLClientDAO.getInstance().getById(Integer.parseInt(rs.getString("id_client"))));
+                commande.setId(resultSet.getInt("id_commande"));
+                commande.setDate(LocalDate.parse(resultSet.getString("date_commande"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
+                commande.setClient( SQLClientDAO.getInstance().getById(Integer.parseInt(resultSet.getString("id_client"))));
+                String requestProduit = "SELECT * FROM Ligne_commande WHERE id_commande = ?";
+                PreparedStatement preparedStatementProduit = connection.prepareStatement(requestProduit);
+                preparedStatementProduit.setInt(1, commande.getId());
+                ResultSet resultSetProduit = preparedStatementProduit.executeQuery();
+                if (resultSetProduit.next()) {
+                    commande.addProduit(SQLProduitDAO.getInstance().getById(resultSetProduit.getInt("id_produit")), resultSetProduit.getInt("quantite"));
+                }
                 commandes.add(commande);
             }
             statement.close();
