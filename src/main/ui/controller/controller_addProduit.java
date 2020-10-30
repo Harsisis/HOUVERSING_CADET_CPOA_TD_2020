@@ -42,6 +42,11 @@ public class controller_addProduit extends util_isFloat implements Initializable
     @FXML
     private Label errorDesc;
 
+    private EPersistence choix;
+    public void setupEnum(EPersistence choix) {
+        this.choix = choix;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         errorName.setVisible(false);
@@ -53,10 +58,6 @@ public class controller_addProduit extends util_isFloat implements Initializable
         ArrayList<Categorie> cat = SQLCategorieDAO.getInstance().findAll();
         cbxCategorie.getItems().addAll(cat);
 
-    }
-    EPersistence choix;
-    public void setupEnum(EPersistence choix) {
-        this.choix = choix;
     }
 
     @FXML

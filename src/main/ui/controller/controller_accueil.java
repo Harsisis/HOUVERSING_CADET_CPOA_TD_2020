@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -244,7 +245,7 @@ public class controller_accueil implements Initializable {
     }
 
     @FXML
-    void persistance_onClick(MouseEvent event) {
+    void persistance_onClick(MouseEvent event){
         btnCommande.setDisable(false);
         btnCategorie.setDisable(false);
         btnProduit.setDisable(false);
@@ -255,6 +256,7 @@ public class controller_accueil implements Initializable {
         else {
             choix = EPersistence.LISTEMEMORY;
         }
+
         daoFactory = DAOFactory.getDAOFactory(choix);
         this.tableCategorie.getItems().addAll(daoFactory.getCategorieDAO().findAll());
         this.tableCommande.getItems().addAll(daoFactory.getCommandeDAO().findAll());
@@ -274,21 +276,21 @@ public class controller_accueil implements Initializable {
     void btnAdd_onClick(MouseEvent event) {
         Scene scene = null;
         Stage stage = null;
+        stage = new Stage();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             switch (visible){
                 case 1:
                     scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addCategorie.fxml")));
-                    stage = new Stage();
                     stage.setTitle("Ajouter une Catégorie");
                     break;
                 case 2:
                     if (DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll() != null){
-                        scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addProduct.fxml")));
-                        stage = new Stage();
-                        //fxmlLoader.setController(); instance of the controller here
-                        controller_addProduit controller = fxmlLoader.getController();
-                        controller.setupEnum(choix);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("../sample/addProduct.fxml"));
+                        scene = new Scene(loader.load());
+                        controller_addProduit ctrProd = loader.getController();
+                        ctrProd.setupEnum(choix);
+                        //((controller_addProduit)fxmlLoader.getController()).setupEnum(choix);
                         stage.setTitle("Ajouter un Produit");
                     } else {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -300,7 +302,6 @@ public class controller_accueil implements Initializable {
                     break;
                 case 3:
                     scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addClient.fxml")));
-                    stage = new Stage();
                     stage.setTitle("Ajouter un Client");
                     break;
                 case 4:
