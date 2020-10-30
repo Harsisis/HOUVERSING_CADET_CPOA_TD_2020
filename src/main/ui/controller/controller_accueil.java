@@ -161,7 +161,7 @@ public class controller_accueil implements Initializable {
 
         //bouttons CRUD
         btnAdd.setDisable(true);
-        btnEdit.setDisable(true);
+        btnEdit.setDisable(false);
         btnSuppr.setDisable(true);
     }
 
@@ -399,7 +399,7 @@ public class controller_accueil implements Initializable {
                     refreshProduit();
                     break;
                 case 2:
-                    Categorie categorie = new Categorie();
+                    Categorie categorie = tableCategorie.getSelectionModel().getSelectedItem();
                     FXMLLoader fxmlLoaderCategorie = new FXMLLoader();
                     Parent rootCategorie;
                     //CATEGORIE

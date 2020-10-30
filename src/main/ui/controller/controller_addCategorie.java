@@ -36,8 +36,10 @@ public class controller_addCategorie implements Initializable {
         this.choix = choix;
     }
     private Categorie categorie;
+    Boolean update = false;
     public void setupCateg(Categorie categorie) {
         this.categorie = categorie;
+        update = true;
     }
 
     @Override
@@ -45,6 +47,15 @@ public class controller_addCategorie implements Initializable {
         inputTitle.setText("");
         errorTitre.setVisible(false);
         errorFichier.setVisible(false);
+
+        if(update == true){
+            //populate textFields
+            inputTitle.setText(categorie.getTitre());
+            labelUpload.setText(categorie.getVisuel());
+        }
+        if(categorie.equals(null)){
+            inputTitle.setText("march po");
+        }
     }
 
     File file;
@@ -83,8 +94,12 @@ public class controller_addCategorie implements Initializable {
         }
 
         if(isCorrect){
-            Categorie categorie = new Categorie(1, inputTitle.getText(), file.getName());
-            DAOFactory.getDAOFactory(choix).getCategorieDAO().create(categorie);
+            categorie = new Categorie(1, inputTitle.getText(), file.getName());
+            if(update == true){
+                DAOFactory.getDAOFactory(choix).getCategorieDAO().update(categorie);
+            }else {
+                DAOFactory.getDAOFactory(choix).getCategorieDAO().create(categorie);
+            }
             outputCategory.setText("La catégorie : " + categorie.toString() + " a bien été créé");
         }
     }
