@@ -105,5 +105,4 @@ public class controller_addProduit extends util_isFloat implements Initializable
             inputDesc.setText("");
         }
     }
-
 }

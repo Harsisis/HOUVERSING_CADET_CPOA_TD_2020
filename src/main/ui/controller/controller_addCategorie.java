@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import main.dao.SQLDAO.SQLCategorieDAO;
+import main.dao.fabrique.EPersistence;
 import main.pojo.Categorie;
 
 import java.io.File;
@@ -28,6 +29,11 @@ public class controller_addCategorie implements Initializable {
 
     @FXML
     private Label errorFichier;
+
+    private EPersistence choix;
+    public void setupEnum(EPersistence choix) {
+        this.choix = choix;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

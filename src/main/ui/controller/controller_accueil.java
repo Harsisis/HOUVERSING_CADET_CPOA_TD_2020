@@ -281,17 +281,15 @@ public class controller_accueil implements Initializable {
             Parent root;
             switch (visible){
                 case 1:
-                    scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addCategorie.fxml")));
-                    stage.setTitle("Ajouter une Catégorie");
-                    break;
-                case 2:
+                    //PRODUIT
                     if (DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll() != null){
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("../sample/addProduct.fxml"));
-                        scene = new Scene(loader.load());
-                        controller_addProduit ctrProd = loader.getController();
-                        ctrProd.setupEnum(choix);
-                        //((controller_addProduit)fxmlLoader.getController()).setupEnum(choix);
-                        stage.setTitle("Ajouter un Produit");
+                        fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addProduit.fxml"));
+                        root = fxmlLoader.load();
+                        controller_addProduit controller_addProduit = fxmlLoader.getController();
+                        controller_addProduit.setupEnum(choix);
+                        scene = new Scene(root);
+                        stage = new Stage();
+                        stage.setTitle("Ajouter un produit");
                     } else {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Attention");
@@ -300,19 +298,34 @@ public class controller_accueil implements Initializable {
                         alert.showAndWait();
                     }
                     break;
+                case 2:
+                    //CATEGORIE
+                        fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addCategorie.fxml"));
+                        root = fxmlLoader.load();
+                        controller_addCategorie controller_addCategorie = fxmlLoader.getController();
+                        controller_addCategorie.setupEnum(choix);
+                        scene = new Scene(root);
+                        stage.setTitle("Ajouter une catégorie");
+                    break;
                 case 3:
+                    //CLIENT
                     fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addClient.fxml"));
                     root = fxmlLoader.load();
                     controller_addClient controller_addClient = fxmlLoader.getController();
                     controller_addClient.setupEnum(choix);
                     scene = new Scene(root);
-                    stage.setTitle("Ajouter un Client");
+                    stage.setTitle("Ajouter un client");
                     break;
                 case 4:
+                    //COMMANDE
                     if (DAOFactory.getDAOFactory(choix).getProduitDAO().findAll() != null && DAOFactory.getDAOFactory(choix).getClientDAO().findAll() != null){
-                        scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addCommande.fxml")));
+                        fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addCommande.fxml"));
+                        root = fxmlLoader.load();
+                        controller_addCommande controller_addCommande = fxmlLoader.getController();
+                        controller_addCommande.setupEnum(choix);
+                        scene = new Scene(root);
                         stage = new Stage();
-                        stage.setTitle("Ajouter une Commande");
+                        stage.setTitle("Ajouter une commande");
                     } else {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Attention");

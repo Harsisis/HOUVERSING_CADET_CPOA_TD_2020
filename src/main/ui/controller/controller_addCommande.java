@@ -47,6 +47,11 @@ public class controller_addCommande implements Initializable {
     @FXML
     private TextArea taProduit;//for the list of product
 
+    private EPersistence choix;
+    public void setupEnum(EPersistence choix) {
+        this.choix = choix;
+    }
+
     Commande commande;
 
     @Override
