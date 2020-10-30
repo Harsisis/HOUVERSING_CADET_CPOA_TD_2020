@@ -63,19 +63,13 @@ public class controller_addClient implements Initializable {
     @FXML
     private Label outputClient;
 
+    private EPersistence choix;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //empty the fields
-        inputName.setText("");
-        inputSurname.setText("");
-        inputIdent.setText("");
-        inputPassword.setText("");
-        inputAdrNumber.setText("");
-        inputAdrRue.setText("");
-        inputAdrVille.setText("");
-        inputAdrCp.setText("");
-
+        emptyFields();
 
         // set unvisible error label
         errorSurname.setVisible(false);
@@ -99,7 +93,6 @@ public class controller_addClient implements Initializable {
 
     }
 
-    EPersistence choix;
     public void setupEnum(EPersistence choix) {
         this.choix = choix;
     }
@@ -165,14 +158,18 @@ public class controller_addClient implements Initializable {
             //display in display label the newest product with toString()
             outputClient.setText("Le client : " + client.toString() + "\n a bien été créé");
             //empty the fields
-            inputName.setText("");
-            inputSurname.setText("");
-            inputIdent.setText("");
-            inputPassword.setText("");
-            inputAdrNumber.setText("");
-            inputAdrRue.setText("");
-            inputAdrVille.setText("");
-            inputAdrCp.setText("");
+            emptyFields();
         }
+    }
+
+    private void emptyFields() {
+        inputName.setText("");
+        inputSurname.setText("");
+        inputIdent.setText("");
+        inputPassword.setText("");
+        inputAdrNumber.setText("");
+        inputAdrRue.setText("");
+        inputAdrVille.setText("");
+        inputAdrCp.setText("");
     }
 }

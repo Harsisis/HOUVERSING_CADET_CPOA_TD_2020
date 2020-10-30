@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -277,6 +278,7 @@ public class controller_accueil implements Initializable {
         stage = new Stage();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root;
             switch (visible){
                 case 1:
                     scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addCategorie.fxml")));
@@ -299,7 +301,11 @@ public class controller_accueil implements Initializable {
                     }
                     break;
                 case 3:
-                    scene = new Scene(FXMLLoader.load(getClass().getResource("../sample/addClient.fxml")));
+                    fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addClient.fxml"));
+                    root = fxmlLoader.load();
+                    controller_addClient controller_addClient = fxmlLoader.getController();
+                    controller_addClient.setupEnum(choix);
+                    scene = new Scene(root);
                     stage.setTitle("Ajouter un Client");
                     break;
                 case 4:
