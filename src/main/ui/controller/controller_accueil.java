@@ -205,6 +205,7 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableCategorie(MouseEvent event) {
+        refreshCategorie();
         tableProduit.setVisible(false);
         tableClient.setVisible(false);
         tableCommande.setVisible(false);
@@ -216,6 +217,7 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableProduit(MouseEvent event) {
+        refreshProduit();
         tableCategorie.setVisible(false);
         tableCommande.setVisible(false);
         tableClient.setVisible(false);
@@ -227,6 +229,7 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableClient(MouseEvent event) {
+        refreshClient();
         tableCommande.setVisible(false);
         tableProduit.setVisible(false);
         tableCategorie.setVisible(false);
@@ -238,6 +241,7 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void showTableCommande(MouseEvent event) {
+        refreshCommande();
         tableClient.setVisible(false);
         tableCategorie.setVisible(false);
         tableProduit.setVisible(false);
@@ -261,10 +265,10 @@ public class controller_accueil implements Initializable {
         }
 
         daoFactory = DAOFactory.getDAOFactory(choix);
-        this.tableCategorie.getItems().addAll(daoFactory.getCategorieDAO().findAll());
-        this.tableCommande.getItems().addAll(daoFactory.getCommandeDAO().findAll());
-        this.tableClient.getItems().addAll(daoFactory.getClientDAO().findAll());
-        this.tableProduit.getItems().addAll(daoFactory.getProduitDAO().findAll());
+        refreshCategorie();
+        refreshCommande();
+        refreshClient();
+        refreshProduit();
 
         rbListeM.setDisable(true);
         rbDatab.setDisable(true);
@@ -290,6 +294,7 @@ public class controller_accueil implements Initializable {
                         scene = new Scene(root);
                         stage = new Stage();
                         stage.setTitle("Ajouter un produit");
+                        refreshProduit();
                     } else {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Attention");
@@ -306,6 +311,7 @@ public class controller_accueil implements Initializable {
                         controller_addCategorie.setupEnum(choix);
                         scene = new Scene(root);
                         stage.setTitle("Ajouter une catégorie");
+                        refreshCategorie();
                     break;
                 case 3:
                     //CLIENT
@@ -315,6 +321,7 @@ public class controller_accueil implements Initializable {
                     controller_addClient.setupEnum(choix);
                     scene = new Scene(root);
                     stage.setTitle("Ajouter un client");
+                    refreshClient();
                     break;
                 case 4:
                     //COMMANDE
@@ -326,6 +333,7 @@ public class controller_accueil implements Initializable {
                         scene = new Scene(root);
                         stage = new Stage();
                         stage.setTitle("Ajouter une commande");
+                        refreshCommande();
                     } else {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Attention");
@@ -378,9 +386,7 @@ public class controller_accueil implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     daoFactory.getClientDAO().delete(client);
-                    deleteTableData(tableClient);
-                    this.tableClient.getItems().addAll(daoFactory.getClientDAO().findAll());
-                    tableClient.getSelectionModel().clearSelection();
+                    refreshClient();
                 }
             }
         }
@@ -390,9 +396,7 @@ public class controller_accueil implements Initializable {
             if (result.get() == ButtonType.OK) {
                 Commande commande = daoFactory.getCommandeDAO().getById(tableCommande.getSelectionModel().getSelectedItem().getId());
                 daoFactory.getCommandeDAO().delete(commande);
-                deleteTableData(tableCommande);
-                this.tableCommande.getItems().addAll(daoFactory.getCommandeDAO().findAll());
-                tableCommande.getSelectionModel().clearSelection();
+                refreshCommande();
             }
         }
 
@@ -405,9 +409,7 @@ public class controller_accueil implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     daoFactory.getProduitDAO().delete(produit);
-                    deleteTableData(tableProduit);
-                    this.tableProduit.getItems().addAll(daoFactory.getProduitDAO().findAll());
-                    this.tableProduit.getSelectionModel().clearSelection();
+                    refreshProduit();
                 }
             }
         }
@@ -422,9 +424,7 @@ public class controller_accueil implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     daoFactory.getCategorieDAO().delete(categorie);
-                    deleteTableData(tableCategorie);
-                    this.tableCategorie.getItems().addAll(daoFactory.getCategorieDAO().findAll());
-                    this.tableCategorie.getSelectionModel().clearSelection();
+                    refreshCategorie();
                 }
             }
         }
@@ -495,5 +495,30 @@ public class controller_accueil implements Initializable {
             }
         }
         return res;
+    }
+
+    //refresh table
+    private void refreshClient() {
+        deleteTableData(tableClient);
+        this.tableClient.getItems().addAll(daoFactory.getClientDAO().findAll());
+        tableClient.getSelectionModel().clearSelection();
+    }
+
+    private void refreshCommande() {
+        deleteTableData(tableCommande);
+        this.tableCommande.getItems().addAll(daoFactory.getCommandeDAO().findAll());
+        tableCommande.getSelectionModel().clearSelection();
+    }
+
+    private void refreshProduit() {
+        deleteTableData(tableProduit);
+        this.tableProduit.getItems().addAll(daoFactory.getProduitDAO().findAll());
+        this.tableProduit.getSelectionModel().clearSelection();
+    }
+
+    private void refreshCategorie() {
+        deleteTableData(tableCategorie);
+        this.tableCategorie.getItems().addAll(daoFactory.getCategorieDAO().findAll());
+        this.tableCategorie.getSelectionModel().clearSelection();
     }
 }
