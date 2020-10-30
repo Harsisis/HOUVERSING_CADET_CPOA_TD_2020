@@ -204,24 +204,24 @@ public class controller_accueil implements Initializable {
     }
 
     @FXML
-    void showTableCategorie(MouseEvent event) {
-        refreshCategorie();
-        tableProduit.setVisible(false);
-        tableClient.setVisible(false);
-        tableCommande.setVisible(false);
-        tableCategorie.setVisible(true);
-        visible = 1;
-        btnAdd.setDisable(false);
-        btnSuppr.setDisable(false);
-    }
-
-    @FXML
     void showTableProduit(MouseEvent event) {
         refreshProduit();
         tableCategorie.setVisible(false);
         tableCommande.setVisible(false);
         tableClient.setVisible(false);
         tableProduit.setVisible(true);
+        visible = 1;
+        btnAdd.setDisable(false);
+        btnSuppr.setDisable(false);
+    }
+
+    @FXML
+    void showTableCategorie(MouseEvent event) {
+        refreshCategorie();
+        tableProduit.setVisible(false);
+        tableClient.setVisible(false);
+        tableCommande.setVisible(false);
+        tableCategorie.setVisible(true);
         visible = 2;
         btnAdd.setDisable(false);
         btnSuppr.setDisable(false);
@@ -287,15 +287,14 @@ public class controller_accueil implements Initializable {
                 case 1:
                     //PRODUIT
                     if (DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll() != null){
-                        fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addProduit.fxml"));
+                        fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addProduct.fxml"));
                         root = fxmlLoader.load();
                         controller_addProduit controller_addProduit = fxmlLoader.getController();
                         controller_addProduit.setupEnum(choix);
                         scene = new Scene(root);
-                        stage = new Stage();
                         stage.setTitle("Ajouter un produit");
                         refreshProduit();
-                    } else {
+                    } else if (DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll() == null){
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Attention");
                         alert.setHeaderText("Impossible de créer le produit !");

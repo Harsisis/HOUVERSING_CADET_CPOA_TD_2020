@@ -55,7 +55,7 @@ public class controller_addProduit extends util_isFloat implements Initializable
         outputProduct.setText("");
 
         //populate the categories comboBox
-        ArrayList<Categorie> cat = SQLCategorieDAO.getInstance().findAll();
+        ArrayList<Categorie> cat = DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll();
         cbxCategorie.getItems().addAll(cat);
 
     }
