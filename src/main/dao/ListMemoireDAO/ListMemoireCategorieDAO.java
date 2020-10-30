@@ -43,7 +43,6 @@ public class ListMemoireCategorieDAO implements CategorieDAO {
 
     @Override
     public ArrayList<Categorie> findAll() {
-        System.out.println(this.donnees);
         return (ArrayList<Categorie>) this.donnees;
     }
 

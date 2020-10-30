@@ -44,7 +44,6 @@ public class ListMemoireProduitDAO implements ProduitDAO {
 
     @Override
     public ArrayList<Produit> findAll() {
-        System.out.println(this.donnees);
         return (ArrayList<Produit>) this.donnees;
     }
 
