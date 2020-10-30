@@ -379,84 +379,71 @@ public class controller_accueil implements Initializable {
 
         Scene scene = null;
         Stage stage = new Stage();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Attention");
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            Parent root;
             switch (visible){
                 case 1:
+                    Produit produit = new Produit();
+                    FXMLLoader fxmlLoaderProduit = new FXMLLoader();
+                    Parent rootProduit;
                     //PRODUIT
-
-                    if (DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll() != null){
-                        Produit produit = new Produit();
-                        fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addProduit.fxml"));
-                        root = fxmlLoader.load();
-                        controller_addProduit controller_addProduit = fxmlLoader.getController();
+                        fxmlLoaderProduit = new FXMLLoader(getClass().getResource("../sample/addProduct.fxml"));
+                        rootProduit = fxmlLoaderProduit.load();
+                        controller_addProduit controller_addProduit = fxmlLoaderProduit.getController();
                         controller_addProduit.setupEnum(choix);
-                        controller_addProduit.setupProduit(produit);
-                        scene = new Scene(root);
-                        stage = new Stage();
+                    controller_addProduit.setupProduit(produit);
+                        scene = new Scene(rootProduit);
                         stage.setTitle("Modifier un produit");
+                        addFenetre(scene, stage);
                         refreshProduit();
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("Attention");
-                        alert.setHeaderText("Impossible de créer le produit !");
-                        alert.setContentText("il faut au moins une catégorie pour créer un produit");
-                        alert.showAndWait();
-                    }
                     break;
                 case 2:
-                    //CATEGORIE
                     Categorie categorie = new Categorie();
-                    fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addCategorie.fxml"));
-                    root = fxmlLoader.load();
-                    controller_addCategorie controller_addCategorie = fxmlLoader.getController();
+                    FXMLLoader fxmlLoaderCategorie = new FXMLLoader();
+                    Parent rootCategorie;
+                    //CATEGORIE
+                    fxmlLoaderCategorie = new FXMLLoader(getClass().getResource("../sample/addCategorie.fxml"));
+                    rootCategorie = fxmlLoaderCategorie.load();
+                    controller_addCategorie controller_addCategorie = fxmlLoaderCategorie.getController();
                     controller_addCategorie.setupEnum(choix);
                     controller_addCategorie.setupCateg(categorie);
-                    scene = new Scene(root);
+                    scene = new Scene(rootCategorie);
                     stage.setTitle("Modifier une catégorie");
+                    addFenetre(scene, stage);
                     refreshCategorie();
                     break;
                 case 3:
-                    //CLIENT
                     Client client = new Client();
-                    fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addClient.fxml"));
-                    root = fxmlLoader.load();
-                    controller_addClient controller_addClient = fxmlLoader.getController();
+                    FXMLLoader fxmlLoaderClient = new FXMLLoader();
+                    Parent rootClient;
+                    //CLIENT
+                    fxmlLoaderClient = new FXMLLoader(getClass().getResource("../sample/addClient.fxml"));
+                    rootClient = fxmlLoaderClient.load();
+                    controller_addClient controller_addClient = fxmlLoaderClient.getController();
                     controller_addClient.setupEnum(choix);
                     controller_addClient.setupClient(client);
-                    scene = new Scene(root);
+                    scene = new Scene(rootClient);
                     stage.setTitle("Modifier un client");
+                    addFenetre(scene, stage);
                     refreshClient();
                     break;
                 case 4:
-                    //COMMANDE
                     Commande commande = new Commande();
-                    if (DAOFactory.getDAOFactory(choix).getProduitDAO().findAll() != null && DAOFactory.getDAOFactory(choix).getClientDAO().findAll() != null){
-                        fxmlLoader = new FXMLLoader(getClass().getResource("../sample/addCommande.fxml"));
-                        root = fxmlLoader.load();
-                        controller_addCommande controller_addCommande = fxmlLoader.getController();
+                    FXMLLoader fxmlLoaderCommande = new FXMLLoader();
+                    Parent rootCommande;
+                    //COMMANDE
+                        fxmlLoaderCommande = new FXMLLoader(getClass().getResource("../sample/addCommande.fxml"));
+                        rootCommande = fxmlLoaderCommande.load();
+                        controller_addCommande controller_addCommande = fxmlLoaderCommande.getController();
                         controller_addCommande.setupEnum(choix);
-                        controller_addCommande.setupCommande(commande);
-                        scene = new Scene(root);
-                        stage = new Stage();
+                    controller_addCommande.setupCommande(commande);
+                        scene = new Scene(rootCommande);
                         stage.setTitle("Modifier une commande");
+                        addFenetre(scene, stage);
                         refreshCommande();
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("Attention");
-                        alert.setHeaderText("Impossible de créer la commande !");
-                        alert.setContentText("il faut au moins un produit et un client pour créer une commande");
-                        alert.showAndWait();
-                    }
                     break;
             }
-
-            Image icon = new Image(getClass().getResourceAsStream("../images/iconTest.png"));
-            assert stage != null;
-            stage.getIcons().add(icon);
-            stage.setScene(scene);
-            stage.show();
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
