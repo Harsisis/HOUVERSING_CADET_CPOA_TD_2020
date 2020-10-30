@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -162,8 +161,7 @@ public class controller_accueil implements Initializable {
         //bouttons CRUD
         btnAdd.setDisable(true);
         btnEdit.setDisable(true);
-        btnSuppr.setDisable(false);
-
+        btnSuppr.setDisable(true);
     }
 
     private void createTable(){
@@ -212,6 +210,7 @@ public class controller_accueil implements Initializable {
         tableCategorie.setVisible(true);
         visible = 1;
         btnAdd.setDisable(false);
+        btnSuppr.setDisable(false);
     }
 
     @FXML
@@ -222,6 +221,7 @@ public class controller_accueil implements Initializable {
         tableProduit.setVisible(true);
         visible = 2;
         btnAdd.setDisable(false);
+        btnSuppr.setDisable(false);
     }
 
     @FXML
@@ -232,6 +232,7 @@ public class controller_accueil implements Initializable {
         tableClient.setVisible(true);
         visible = 3;
         btnAdd.setDisable(false);
+        btnSuppr.setDisable(false);
     }
 
     @FXML
@@ -242,6 +243,7 @@ public class controller_accueil implements Initializable {
         tableCommande.setVisible(true);
         visible = 4;
         btnAdd.setDisable(false);
+        btnSuppr.setDisable(false);
     }
 
     @FXML
@@ -266,10 +268,6 @@ public class controller_accueil implements Initializable {
         rbListeM.setDisable(true);
         rbDatab.setDisable(true);
         btnPersistance.setDisable(true);
-    }
-
-    private void deleteTableData(TableView table) {
-        table.getItems().clear();
     }
 
     @FXML
@@ -413,6 +411,38 @@ public class controller_accueil implements Initializable {
         }
     }
 
+    @FXML
+    void mnuAbout_onClick(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Message informatif");
+        alert.setHeaderText(null);
+        alert.setContentText("Application développée par Irma Houver Sing et Gauthier Cadet.\nEn cas de problème veuillez nous contacter.");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(this.getClass().getResource("../images/iconTest.png").toString()));
+        alert.showAndWait();
+    }
+
+    @FXML
+    void mnuQuitter_onClick(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Quitter la fenêtre");
+        alert.setHeaderText("Êtes-vous sûr de vouloir quitter l'application ?");
+        alert.setContentText("Toute progression non sauvegardée sera perdue");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(this.getClass().getResource("../images/iconTest.png").toString()));
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Platform.exit();
+        }
+    }
+
+    //tools
+    private void deleteTableData(TableView table) {
+        table.getItems().clear();
+    }
+
+    //functions boolean
     private boolean containsClient(Client client, ArrayList<Commande> listCommande) {
         boolean res = false;
         for (Commande commande : listCommande) {
@@ -447,31 +477,4 @@ public class controller_accueil implements Initializable {
         }
         return res;
     }
-
-    @FXML
-    void mnuAbout_onClick(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Message informatif");
-        alert.setHeaderText(null);
-        alert.setContentText("Application développée par Irma Houver Sing et Gauthier Cadet.\nEn cas de problème veuillez nous contacter.");
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image(this.getClass().getResource("../images/iconTest.png").toString()));
-        alert.showAndWait();
-    }
-
-    @FXML
-    void mnuQuitter_onClick(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Quitter la fenêtre");
-        alert.setHeaderText("Êtes-vous sûr de vouloir quitter l'application ?");
-        alert.setContentText("Toute progression non sauvegardée sera perdue");
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image(this.getClass().getResource("../images/iconTest.png").toString()));
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            Platform.exit();
-        }
-    }
-
 }
