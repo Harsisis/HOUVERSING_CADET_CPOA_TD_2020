@@ -367,15 +367,15 @@ public class controller_accueil implements Initializable {
     @FXML
     void btnEdit_onClick(MouseEvent event) {
         /*ok so this function looks like btnAdd_onClick(MouseEvent event)
-        * But we send 2 parameters to the object controller :
-        * persistance choix and the object
-        * In the other controller we can check at the initialization if the object is empty --> it means create a new one
-        * Else --> it means : i need to fill the textFields with the information of this object
-        *
-        * at the end when we call create() function we can check with an if previously created (during the empty test for the object)
-        * if we want to create a new one or update an old one
-        *
-        * Now we must fill the object with the one selected in the table view*/
+         * But we send 2 parameters to the object controller :
+         * persistance choix and the object
+         * In the other controller we can check at the initialization if the object is empty --> it means create a new one
+         * Else --> it means : i need to fill the textFields with the information of this object
+         *
+         * at the end when we call create() function we can check with an if previously created (during the empty test for the object)
+         * if we want to create a new one or update an old one
+         *
+         * Now we must fill the object with the one selected in the table view*/
 
         Scene scene = null;
         Stage stage = new Stage();
@@ -388,15 +388,15 @@ public class controller_accueil implements Initializable {
                     FXMLLoader fxmlLoaderProduit = new FXMLLoader();
                     Parent rootProduit;
                     //PRODUIT
-                        fxmlLoaderProduit = new FXMLLoader(getClass().getResource("../sample/addProduct.fxml"));
-                        rootProduit = fxmlLoaderProduit.load();
-                        controller_addProduit controller_addProduit = fxmlLoaderProduit.getController();
-                        controller_addProduit.setupEnum(choix);
+                    fxmlLoaderProduit = new FXMLLoader(getClass().getResource("../sample/addProduct.fxml"));
+                    rootProduit = fxmlLoaderProduit.load();
+                    controller_addProduit controller_addProduit = fxmlLoaderProduit.getController();
+                    controller_addProduit.setupEnum(choix);
                     controller_addProduit.setupProduit(produit);
-                        scene = new Scene(rootProduit);
-                        stage.setTitle("Modifier un produit");
-                        addFenetre(scene, stage);
-                        refreshProduit();
+                    scene = new Scene(rootProduit);
+                    stage.setTitle("Modifier un produit");
+                    addFenetre(scene, stage);
+                    refreshProduit();
                     break;
                 case 2:
                     Categorie categorie = new Categorie();
@@ -433,15 +433,15 @@ public class controller_accueil implements Initializable {
                     FXMLLoader fxmlLoaderCommande = new FXMLLoader();
                     Parent rootCommande;
                     //COMMANDE
-                        fxmlLoaderCommande = new FXMLLoader(getClass().getResource("../sample/addCommande.fxml"));
-                        rootCommande = fxmlLoaderCommande.load();
-                        controller_addCommande controller_addCommande = fxmlLoaderCommande.getController();
-                        controller_addCommande.setupEnum(choix);
+                    fxmlLoaderCommande = new FXMLLoader(getClass().getResource("../sample/addCommande.fxml"));
+                    rootCommande = fxmlLoaderCommande.load();
+                    controller_addCommande controller_addCommande = fxmlLoaderCommande.getController();
+                    controller_addCommande.setupEnum(choix);
                     controller_addCommande.setupCommande(commande);
-                        scene = new Scene(rootCommande);
-                        stage.setTitle("Modifier une commande");
-                        addFenetre(scene, stage);
-                        refreshCommande();
+                    scene = new Scene(rootCommande);
+                    stage.setTitle("Modifier une commande");
+                    addFenetre(scene, stage);
+                    refreshCommande();
                     break;
             }
         } catch (IOException e) {

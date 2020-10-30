@@ -27,8 +27,8 @@ public class SQLCommandeDAO implements CommandeDAO {
     @Override
     public boolean delete(Commande objet) {
         int id = objet.getId();
-        java.sql.Connection connection = main.modele.Connection.connect();
         try {
+            java.sql.Connection connection = main.modele.Connection.getConnexion();
             String request = "DELETE FROM Commande WHERE id_commande = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setInt(1, id);
@@ -45,11 +45,11 @@ public class SQLCommandeDAO implements CommandeDAO {
 
     @Override
     public Commande getById(int id) {
-        java.sql.Connection connection = main.modele.Connection.connect();
         Commande commande = null;
         LocalDate date = null;
         String id_client = null;
         try {
+            java.sql.Connection connection = main.modele.Connection.getConnexion();
             String rDate = "SELECT date_commande FROM Commande WHERE id_commande = ?";
             PreparedStatement psDate = connection.prepareStatement(rDate);
             psDate.setInt(1, id);
@@ -76,8 +76,8 @@ public class SQLCommandeDAO implements CommandeDAO {
     @Override
     public ArrayList<Commande> findAll() {
         ArrayList<Commande> commandes = new ArrayList<Commande>();
-        java.sql.Connection connection = main.modele.Connection.connect();
         try {
+            java.sql.Connection connection = main.modele.Connection.getConnexion();
             String request = "SELECT * FROM Commande";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(request);
@@ -105,8 +105,8 @@ public class SQLCommandeDAO implements CommandeDAO {
 
     @Override
     public boolean create(Commande objet) {
-        java.sql.Connection connection = main.modele.Connection.connect();
-        try{
+        try {
+            java.sql.Connection connection = main.modele.Connection.getConnexion();
             String request = "INSERT INTO Commande(date_commande, id_client) VALUES(?, ?)";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setDate(1, Date.valueOf(objet.getDate()));
@@ -124,8 +124,8 @@ public class SQLCommandeDAO implements CommandeDAO {
     @Override
     public boolean update(Commande objet) {
         int id_com = objet.getId();
-        java.sql.Connection connection = main.modele.Connection.connect();
-        try{
+        try {
+            java.sql.Connection connection = main.modele.Connection.getConnexion();
             String request = "UPDATE Commande SET date_commande = ?, id_client = ? WHERE id_commande = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, String.valueOf(objet.getDate()));
@@ -143,10 +143,9 @@ public class SQLCommandeDAO implements CommandeDAO {
     }
 
     public boolean ligneCom(Commande objet){
-        java.sql.Connection connection = main.modele.Connection.connect();
-
         Statement statement = null;
         try {
+            java.sql.Connection connection = main.modele.Connection.getConnexion();
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             String query = "SELECT * FROM Commande";
             ResultSet resultSet = statement.executeQuery(query);
@@ -156,7 +155,8 @@ public class SQLCommandeDAO implements CommandeDAO {
             throwables.printStackTrace();
         }
 
-        try{
+        try {
+            java.sql.Connection connection = main.modele.Connection.getConnexion();
             Iterator iterator = objet.getProduits().entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry)iterator.next();
@@ -176,9 +176,8 @@ public class SQLCommandeDAO implements CommandeDAO {
     }
 
     public boolean clearLigneCom(Commande objet){
-        java.sql.Connection connection = main.modele.Connection.connect();
-
-        try{
+        try {
+            java.sql.Connection connection = main.modele.Connection.getConnexion();
             String request = "DELETE FROM Ligne_commande WHERE id_commande = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setInt(1, objet.getId());

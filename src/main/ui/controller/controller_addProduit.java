@@ -45,6 +45,8 @@ public class controller_addProduit extends util_isFloat implements Initializable
     private EPersistence choix;
     public void setupEnum(EPersistence choix) {
         this.choix = choix;
+        ArrayList<Categorie> cat = DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll();
+        cbxCategorie.getItems().addAll(cat);
     }
 
     private Produit produit;
@@ -58,9 +60,6 @@ public class controller_addProduit extends util_isFloat implements Initializable
         outputProduct.setText("");
 
         //populate the categories comboBox
-        ArrayList<Categorie> cat = DAOFactory.getDAOFactory(choix).getCategorieDAO().findAll();
-        cbxCategorie.getItems().addAll(cat);
-
     }
 
     @FXML

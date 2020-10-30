@@ -1,6 +1,7 @@
 package main.dao.SQLDAO;
 
 import main.dao.metiersDAO.ProduitDAO;
+import main.modele.Connection;
 import main.pojo.Categorie;
 import main.pojo.Produit;
 
@@ -26,8 +27,8 @@ public class SQLProduitDAO implements ProduitDAO {
     @Override
     public boolean delete(Produit objet) {
         int id = objet.getId();
-        java.sql.Connection connection = main.modele.Connection.connect();
         try {
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "DELETE FROM Produit WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setInt(1, id);
@@ -43,7 +44,6 @@ public class SQLProduitDAO implements ProduitDAO {
 
     @Override
     public Produit getById(int id) {
-        java.sql.Connection connection = main.modele.Connection.connect();
         Produit produit = null;
         String nom = null;
         String description = null;
@@ -51,8 +51,8 @@ public class SQLProduitDAO implements ProduitDAO {
         String visuel = null;
         Categorie categorie;
         int idCategory = 2;
-
         try {
+            java.sql.Connection connection = Connection.getConnexion();
             String rNom = "SELECT nom FROM Produit WHERE id_produit = ?";
             PreparedStatement psNom = connection.prepareStatement(rNom);
             psNom.setInt(1, id);
@@ -100,8 +100,8 @@ public class SQLProduitDAO implements ProduitDAO {
     @Override
     public ArrayList<Produit> findAll() {
         ArrayList<Produit> produits = new ArrayList<Produit>();
-        java.sql.Connection connection = main.modele.Connection.connect();
         try {
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "SELECT * FROM Produit";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(request);
@@ -130,7 +130,6 @@ public class SQLProduitDAO implements ProduitDAO {
     @Override
     public boolean create(Produit objet) {
         int id_category = 0;
-        java.sql.Connection connection = main.modele.Connection.connect();
         String nom = objet.getNom();
         String description = objet.getDescription();
         float tarif = objet.getTarif();
@@ -138,7 +137,8 @@ public class SQLProduitDAO implements ProduitDAO {
         Categorie categorie = objet.getCategory();
         if (categorie != null)
             id_category = categorie.getId();
-        try{
+        try {
+            java.sql.Connection connection = Connection.getConnexion();
             String rAdd = ("INSERT INTO Produit(nom, description, tarif, visuel, id_categorie) VALUES(?, ?, ?, ?, ?)");
             PreparedStatement ps = connection.prepareStatement(rAdd);
             ps.setString(1, nom);
@@ -159,8 +159,8 @@ public class SQLProduitDAO implements ProduitDAO {
     public boolean update(Produit objet) {
         //je pense qu'il ne récupère pas l'objet, il en cherche un autre
         int id_prod = objet.getId();
-        java.sql.Connection connection = main.modele.Connection.connect();
         try {
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "UPDATE Produit SET nom = ?, description = ?, tarif = ?, visuel = ?, id_categorie = ? WHERE id_produit = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, objet.getNom());

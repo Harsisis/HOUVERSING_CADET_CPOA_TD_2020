@@ -1,6 +1,7 @@
 package main.dao.SQLDAO;
 
 import main.dao.metiersDAO.CategorieDAO;
+import main.modele.Connection;
 import main.pojo.Categorie;
 
 import java.sql.PreparedStatement;
@@ -25,8 +26,8 @@ public class SQLCategorieDAO implements CategorieDAO {
     @Override
     public boolean delete(Categorie objet) {
         int id = objet.getId();
-        java.sql.Connection connection = main.modele.Connection.connect();
         try {
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "DELETE FROM Categorie WHERE id_categorie = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setInt(1, id);
@@ -42,11 +43,11 @@ public class SQLCategorieDAO implements CategorieDAO {
 
     @Override
     public Categorie getById(int id) {
-        java.sql.Connection connection = main.modele.Connection.connect();
         Categorie categorie = null;
         String titre = null;
         String visuel = null;
         try {
+            java.sql.Connection connection = Connection.getConnexion();
             String rTitre = "SELECT titre FROM Categorie WHERE id_categorie = ?";
             PreparedStatement psTitre = connection.prepareStatement(rTitre);
             psTitre.setInt(1, id);
@@ -72,8 +73,8 @@ public class SQLCategorieDAO implements CategorieDAO {
     @Override
     public ArrayList<Categorie> findAll() {
         ArrayList<Categorie> categories = new ArrayList<Categorie>();
-        java.sql.Connection connection = main.modele.Connection.connect();
         try {
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "SELECT * FROM Categorie";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(request);
@@ -94,8 +95,8 @@ public class SQLCategorieDAO implements CategorieDAO {
 
     @Override
     public boolean create(Categorie objet) {
-        java.sql.Connection connection = main.modele.Connection.connect();
-        try{
+        try {
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "INSERT INTO Categorie(titre, visuel) VALUES(?, ?)";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, objet.getTitre());
@@ -112,8 +113,8 @@ public class SQLCategorieDAO implements CategorieDAO {
     @Override
     public boolean update(Categorie objet) {
         int id_cat = objet.getId();
-        java.sql.Connection connection = main.modele.Connection.connect();
-        try{
+        try {
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "UPDATE Categorie SET titre = ?, visuel = ? WHERE id_categorie =  ?";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, objet.getTitre());

@@ -1,6 +1,7 @@
 package main.dao.SQLDAO;
 
 import main.dao.metiersDAO.ClientDAO;
+import main.modele.Connection;
 import main.pojo.Client;
 
 import java.sql.PreparedStatement;
@@ -25,8 +26,8 @@ public class SQLClientDAO implements ClientDAO {
     @Override
     public boolean delete(Client objet) {
         int id = objet.getId();
-        java.sql.Connection connection = main.modele.Connection.connect();
-        try{
+        try {
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "DELETE FROM Client WHERE id_client = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setInt(1, id);
@@ -42,7 +43,6 @@ public class SQLClientDAO implements ClientDAO {
 
     @Override
     public Client getById(int id) {
-        java.sql.Connection connection = main.modele.Connection.connect();
         Client client = null;
         String nom = null;
         String prenom = null;
@@ -53,8 +53,8 @@ public class SQLClientDAO implements ClientDAO {
         String codePostal = null;
         String ville = null;
         String pays = null;
-
         try {
+            java.sql.Connection connection = Connection.getConnexion();
             String rNom = "SELECT nom FROM Client WHERE id_client = ?";
             PreparedStatement psNom = connection.prepareStatement(rNom);
             psNom.setInt(1, id);
@@ -130,8 +130,8 @@ public class SQLClientDAO implements ClientDAO {
     @Override
     public ArrayList<Client> findAll() {
         ArrayList<Client> clients = new ArrayList<Client>();
-        java.sql.Connection connection = main.modele.Connection.connect();
         try {
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "SELECT * FROM Client";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(request);
@@ -158,7 +158,6 @@ public class SQLClientDAO implements ClientDAO {
 
     @Override
     public boolean create(Client objet) {
-        java.sql.Connection connection = main.modele.Connection.connect();
         String nom = objet.getNom();
         String prenom = objet.getPrenom();
         String identifiant = objet.getIdentifiant();
@@ -169,7 +168,8 @@ public class SQLClientDAO implements ClientDAO {
         String ville = objet.getAdrVille();
         String pays = objet.getAdrPays();
         //new ArrayList<Client>() = objet.getCommandeList();
-        try{
+        try {
+            java.sql.Connection connection = Connection.getConnexion();
             String rAdd = ("INSERT INTO Client(nom, prenom, identifiant, mot_de_passe, adr_numero, adr_voie, adr_code_postal, adr_ville, adr_pays) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
             PreparedStatement ps = connection.prepareStatement(rAdd);
             ps.setString(1, nom);
@@ -202,8 +202,8 @@ public class SQLClientDAO implements ClientDAO {
         String ville = objet.getAdrVille();
         String pays = objet.getAdrPays();
         int id_client = objet.getId();
-        java.sql.Connection connection = main.modele.Connection.connect();
         try {
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "UPDATE Client SET nom = ?, prenom = ?,identifiant = ?, mot_de_passe = ?, adr_numero = ?, adr_voie = ?, adr_code_postal = ?, adr_ville = ?, adr_pays = ? WHERE id_client = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, nom);

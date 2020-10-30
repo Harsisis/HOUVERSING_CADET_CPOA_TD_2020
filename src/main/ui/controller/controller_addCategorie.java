@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import main.dao.SQLDAO.SQLCategorieDAO;
+import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.pojo.Categorie;
 
@@ -83,7 +84,7 @@ public class controller_addCategorie implements Initializable {
 
         if(isCorrect){
             Categorie categorie = new Categorie(1, inputTitle.getText(), file.getName());
-            SQLCategorieDAO.getInstance().create(categorie);
+            DAOFactory.getDAOFactory(choix).getCategorieDAO().create(categorie);
             outputCategory.setText("La catégorie : " + categorie.toString() + " a bien été créé");
         }
     }
