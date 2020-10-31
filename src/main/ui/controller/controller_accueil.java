@@ -366,17 +366,6 @@ public class controller_accueil implements Initializable {
 
     @FXML
     void btnEdit_onClick(MouseEvent event) {
-        /*ok so this function looks like btnAdd_onClick(MouseEvent event)
-         * But we send 2 parameters to the object controller :
-         * persistance choix and the object
-         * In the other controller we can check at the initialization if the object is empty --> it means create a new one
-         * Else --> it means : i need to fill the textFields with the information of this object
-         *
-         * at the end when we call create() function we can check with an if previously created (during the empty test for the object)
-         * if we want to create a new one or update an old one
-         *
-         * Now we must fill the object with the one selected in the table view*/
-
         Scene scene = null;
         Stage stage = new Stage();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

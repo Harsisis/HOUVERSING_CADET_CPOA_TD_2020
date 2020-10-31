@@ -8,11 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
+import main.pojo.Categorie;
 import main.pojo.Client;
 import main.pojo.Commande;
 import main.pojo.Produit;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -42,6 +44,9 @@ public class controller_addCommande implements Initializable {
     private Label lblPrix;
 
     @FXML
+    private Label outputCommande;
+
+    @FXML
     private Button btnValiderCommande;
 
     @FXML
@@ -50,29 +55,24 @@ public class controller_addCommande implements Initializable {
     private EPersistence choix;
     public void setupEnum(EPersistence choix) {
         this.choix = choix;
+        ArrayList<Produit> prod = DAOFactory.getDAOFactory(choix).getProduitDAO().findAll();
+        cbxProduits.getItems().addAll(prod);
+        ArrayList<Client> client = DAOFactory.getDAOFactory(choix).getClientDAO().findAll();
+        cbxClient.getItems().addAll(client);
     }
 
-    Commande commande;
-    public void setupCommande(Commande commande) { this.commande = commande;}
+    Boolean update = false;
+    Commande commande = new Commande();
+    public void setupCommande(Commande commande) {
+        this.commande = commande;
+        update = true;
+    }
 
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    LocalDateTime now = LocalDateTime.now();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        //fill the comboBox
-//        ArrayList<Client> liClient = DAOFactory.getDAOFactory(EPersistence.MYSQL).getClientDAO().findAll();
-//        ArrayList<String> liClientStr = new ArrayList<>();
-//        liClient.forEach( client ->  liClientStr.add(client.toString()));
-//        cbxClient.setItems(FXCollections.observableArrayList(liClientStr));
-//
-//        ArrayList<Produit> liProduit = DAOFactory.getDAOFactory(EPersistence.MYSQL).getProduitDAO().findAll();
-//        ArrayList<String> liProdStr = new ArrayList<>();
-//        liProduit.forEach( produit ->  liProdStr.add(produit.toString()));
-//        cbxProduits.setItems(FXCollections.observableArrayList(liProdStr));
-
-
         //display the current date
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDateTime now = LocalDateTime.now();
         lblCurrentDate.setText(dtf.format(now));
 
     }
@@ -92,14 +92,37 @@ public class controller_addCommande implements Initializable {
             commande.addProduit(produit, qte);
         }
         String strProd = taProduit.getText();
-        taProduit.setText(strProd + "\n" + produit.toString() + " | " + qte);
+        taProduit.setText("- " + strProd + "\n" + produit.toString() + " | " + qte);
 
 
     }
 
     @FXML
     void btnValiderCommande_onClick(ActionEvent event) {
-        //check if no client is selcted and if no product has been added
+        boolean isCorrect = true;
+        //check if no client is selected and if no product has been added
+        if (!cbxClient.getValue().equals(null)){
 
-    }
+        }else{
+            isCorrect = false;
+        }
+
+        if (isCorrect){
+        String strFin;
+//            if (update == false){
+//                    commande = new Commande();
+//            }
+            commande.setClient(cbxClient.getValue());
+            commande.setDate(LocalDate.now());
+            if(update == true){
+                DAOFactory.getDAOFactory(choix).getCommandeDAO().update(commande);
+                strFin = " a bien été modifié";
+            }else {
+                DAOFactory.getDAOFactory(choix).getCommandeDAO().create(commande);
+                strFin = " a bien été créé";
+            }
+            outputCommande.setText("La commande : " + commande.toString() + strFin);
+        }
+
+}
 }

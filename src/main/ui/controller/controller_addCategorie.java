@@ -99,5 +99,7 @@ public class controller_addCategorie implements Initializable {
             }
             outputCategory.setText("La catégorie : " + categorie.toString() + strFin);
         }
+        inputTitle.setText("");
+        labelUpload.setText("");
     }
 }

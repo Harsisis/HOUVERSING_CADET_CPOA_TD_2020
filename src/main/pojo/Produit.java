@@ -72,7 +72,7 @@ public class Produit {
 
     @Override
     public String toString() {
-        return nom + " | " + description + " | " + tarif + " | " + visuel +
+        return nom + ", " + description + ", " + tarif + ", " + visuel +
                 "\nCatégorie : " + categorie;
     }
 

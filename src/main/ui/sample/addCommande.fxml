@@ -16,9 +16,9 @@
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.0" minWidth="10.0" prefWidth="32.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="109.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="172.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="32.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="172.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="212.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="27.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="131.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="4.0" prefWidth="14.0" />
         </columnConstraints>
         <rowConstraints>
@@ -38,11 +38,11 @@
         </rowConstraints>
          <children>
             <Label text="Client :" GridPane.columnIndex="1" />
-            <ComboBox fx:id="cbxClient" prefHeight="25.0" prefWidth="184.0" GridPane.columnIndex="2" />
+            <ComboBox fx:id="cbxClient" prefHeight="25.0" prefWidth="212.0" GridPane.columnIndex="2" />
             <Label prefHeight="33.0" prefWidth="103.0" text="Date de la &#10;commande :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="lblCurrentDate" text="current_date" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label text="Produit :" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox fx:id="cbxProduits" prefHeight="25.0" prefWidth="172.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <ComboBox fx:id="cbxProduits" prefHeight="25.0" prefWidth="212.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label text="Quantité :" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="lblQte" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Button fx:id="btnAjouterProdListe" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnAjouterProdListe_onClick" prefHeight="28.0" prefWidth="77.0" text="Ajouter" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="5" />
@@ -53,6 +53,7 @@
             <Label text="€" GridPane.columnIndex="4" GridPane.rowIndex="9" />
             <Label text="name" GridPane.columnIndex="4" />
             <TextArea fx:id="taProduit" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <Label fx:id="outputCommande" GridPane.columnIndex="2" GridPane.rowIndex="11" />
          </children>
       </GridPane>
     </children>

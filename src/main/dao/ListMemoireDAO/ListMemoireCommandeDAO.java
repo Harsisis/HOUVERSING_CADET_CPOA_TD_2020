@@ -3,10 +3,10 @@ package main.dao.ListMemoireDAO;
 import main.dao.metiersDAO.CommandeDAO;
 import main.pojo.Client;
 import main.pojo.Commande;
-import main.pojo.Produit;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListMemoireCommandeDAO implements CommandeDAO {
 
