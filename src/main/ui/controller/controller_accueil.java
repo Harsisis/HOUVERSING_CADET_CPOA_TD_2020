@@ -161,7 +161,7 @@ public class controller_accueil implements Initializable {
 
         //bouttons CRUD
         btnAdd.setDisable(true);
-        btnEdit.setDisable(false);
+        btnEdit.setDisable(true);
         btnSuppr.setDisable(true);
     }
 
@@ -203,6 +203,12 @@ public class controller_accueil implements Initializable {
         this.tableCommande.getColumns().setAll(colCommandeId, colCommandeDate, colCommandeClient);
     }
 
+    private void btnCrud() {
+        btnAdd.setDisable(false);
+        btnSuppr.setDisable(false);
+        btnEdit.setDisable(false);
+    }
+
     @FXML
     void showTableProduit(MouseEvent event) {
         refreshProduit();
@@ -211,8 +217,7 @@ public class controller_accueil implements Initializable {
         tableClient.setVisible(false);
         tableProduit.setVisible(true);
         visible = 1;
-        btnAdd.setDisable(false);
-        btnSuppr.setDisable(false);
+        btnCrud();
     }
 
     @FXML
@@ -223,8 +228,7 @@ public class controller_accueil implements Initializable {
         tableCommande.setVisible(false);
         tableCategorie.setVisible(true);
         visible = 2;
-        btnAdd.setDisable(false);
-        btnSuppr.setDisable(false);
+        btnCrud();
     }
 
     @FXML
@@ -235,8 +239,7 @@ public class controller_accueil implements Initializable {
         tableCategorie.setVisible(false);
         tableClient.setVisible(true);
         visible = 3;
-        btnAdd.setDisable(false);
-        btnSuppr.setDisable(false);
+        btnCrud();
     }
 
     @FXML
@@ -247,8 +250,7 @@ public class controller_accueil implements Initializable {
         tableProduit.setVisible(false);
         tableCommande.setVisible(true);
         visible = 4;
-        btnAdd.setDisable(false);
-        btnSuppr.setDisable(false);
+        btnCrud();
     }
 
     @FXML

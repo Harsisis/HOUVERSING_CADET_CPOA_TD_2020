@@ -75,6 +75,7 @@ public class controller_addCommande implements Initializable {
         //display the current date
         lblCurrentDate.setText(dtf.format(now));
         btnValiderCommande.setDisable(true);
+        lblPrix.setText("");
     }
 
     @FXML
