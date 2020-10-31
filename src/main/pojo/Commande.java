@@ -95,7 +95,7 @@ public class Commande {
 
     @Override
     public String toString() {
-        return "Commande{" +
+        return "\nCommande{" +
                 "id=" + id +
                 ", date=" + date +
                 ", client=" + client +

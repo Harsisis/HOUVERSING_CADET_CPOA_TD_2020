@@ -1,6 +1,7 @@
 package test.SQL;
 
 import main.dao.SQLDAO.SQLCategorieDAO;
+import main.modele.Connection;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.CategorieDAO;
@@ -20,12 +21,10 @@ public class TestSQLCategorie {
 
     private CategorieDAO dao;
     private EPersistence ePersistence = EPersistence.MYSQL;
-    private java.sql.Connection connection;
 
     @Before
     public void setUp() {
         dao = DAOFactory.getDAOFactory(ePersistence).getCategorieDAO();
-        connection = main.modele.Connection.connect();
         Assert.assertNotNull(dao);
         Assert.assertNotNull(dao.findAll());
     }
@@ -47,7 +46,7 @@ public class TestSQLCategorie {
         categorie.setTitre("test");
         categorie.setVisuel("test.png");
         Assert.assertTrue(dao.create(categorie));
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Categorie";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();
@@ -66,7 +65,7 @@ public class TestSQLCategorie {
         categorieA.setVisuel("Visuel A");
         //getting generated key
         String request = "INSERT INTO Categorie(titre, visuel) VALUES(?, ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement preparedStatement = Connection.getConnexion().prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, categorieA.getTitre());
         preparedStatement.setString(2, categorieA.getVisuel());
         preparedStatement.executeUpdate();
@@ -85,7 +84,7 @@ public class TestSQLCategorie {
         Assert.assertTrue(dao.update(categorieB));
         //verify
         Assert.assertEquals(categorieB,categorieA);
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Categorie";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();
@@ -103,7 +102,7 @@ public class TestSQLCategorie {
         categorie.setVisuel("test.png");
         dao.create(categorie);
         Assert.assertEquals(size + 1, dao.findAll().size());
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Categorie";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();
@@ -122,7 +121,7 @@ public class TestSQLCategorie {
         Categorie categorie = new Categorie();
         //getting generated key
         String request = "INSERT INTO Categorie(titre, visuel) VALUES(?, ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement preparedStatement = Connection.getConnexion().prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, "Test");
         preparedStatement.setString(2, "Test.png");
         preparedStatement.executeUpdate();
@@ -132,7 +131,7 @@ public class TestSQLCategorie {
         }
         categorie = dao.getById(id);
         Assert.assertNotNull(categorie);
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Categorie";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();

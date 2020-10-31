@@ -1,15 +1,16 @@
 package main.dao.SQLDAO;
 
 import main.dao.metiersDAO.CommandeDAO;
-import main.pojo.Client;
+import main.modele.Connection;
+import main.pojo.Categorie;
 import main.pojo.Commande;
 import main.pojo.Produit;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public class SQLCommandeDAO implements CommandeDAO {
     public boolean delete(Commande objet) {
         int id = objet.getId();
         try {
-            java.sql.Connection connection = main.modele.Connection.getConnexion();
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "DELETE FROM Commande WHERE id_commande = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setInt(1, id);
@@ -49,7 +50,7 @@ public class SQLCommandeDAO implements CommandeDAO {
         LocalDate date = null;
         String id_client = null;
         try {
-            java.sql.Connection connection = main.modele.Connection.getConnexion();
+            java.sql.Connection connection = Connection.getConnexion();
             String rDate = "SELECT date_commande FROM Commande WHERE id_commande = ?";
             PreparedStatement psDate = connection.prepareStatement(rDate);
             psDate.setInt(1, id);
@@ -77,28 +78,38 @@ public class SQLCommandeDAO implements CommandeDAO {
     public ArrayList<Commande> findAll() {
         ArrayList<Commande> commandes = new ArrayList<Commande>();
         try {
-            java.sql.Connection connection = main.modele.Connection.getConnexion();
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "SELECT * FROM Commande";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(request);
+            HashMap<Commande, Integer> commandeHashMap = new HashMap<Commande, Integer>();
             while (resultSet.next()) {
                 Commande commande = new Commande();
                 commande.setId(resultSet.getInt("id_commande"));
                 commande.setDate(LocalDate.parse(resultSet.getString("date_commande"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-
-                commande.setClient( SQLClientDAO.getInstance().getById(Integer.parseInt(resultSet.getString("id_client"))));
-                String requestProduit = "SELECT * FROM Ligne_commande WHERE id_commande = ?";
-                PreparedStatement preparedStatementProduit = connection.prepareStatement(requestProduit);
-                preparedStatementProduit.setInt(1, commande.getId());
-                ResultSet resultSetProduit = preparedStatementProduit.executeQuery();
-                if (resultSetProduit.next()) {
-                    commande.addProduit(SQLProduitDAO.getInstance().getById(resultSetProduit.getInt("id_produit")), resultSetProduit.getInt("quantite"));
-                }
+                commandeHashMap.put(commande, resultSet.getInt("id_client"));
                 commandes.add(commande);
             }
-            statement.close();
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
+            for (var entry : commandeHashMap.entrySet()) {
+                entry.getKey().setClient( SQLClientDAO.getInstance().getById(entry.getValue()));
+                String requestProduit = "SELECT * FROM Ligne_commande WHERE id_commande = ?";
+                PreparedStatement preparedStatementProduit = Connection.getConnexion().prepareStatement(requestProduit);
+                preparedStatementProduit.setInt(1, entry.getKey().getId());
+                ResultSet resultSetProduit = preparedStatementProduit.executeQuery();
+                HashMap<Integer, Integer> integerIntegerHashMap = new HashMap<>();
+                while (resultSetProduit.next()) {
+                    integerIntegerHashMap.put(resultSetProduit.getInt("id_produit"), resultSetProduit.getInt("quantite"));
+                }
+                HashMap<Produit, Integer> produitIntegerHashMap = new HashMap<>();
+                for (var entryProduit : integerIntegerHashMap.entrySet()) {
+                    produitIntegerHashMap.put(SQLProduitDAO.getInstance().getById(entryProduit.getKey()), entryProduit.getValue());
+                    entry.getKey().setProduits(produitIntegerHashMap);
+                }
+            }
+        }
+        catch (SQLException sqle) {
+            System.out.println(sqle);
+            sqle.printStackTrace();
         }
         return commandes;
     }
@@ -106,7 +117,7 @@ public class SQLCommandeDAO implements CommandeDAO {
     @Override
     public boolean create(Commande objet) {
         try {
-            java.sql.Connection connection = main.modele.Connection.getConnexion();
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "INSERT INTO Commande(date_commande, id_client) VALUES(?, ?)";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setDate(1, Date.valueOf(objet.getDate()));
@@ -125,7 +136,7 @@ public class SQLCommandeDAO implements CommandeDAO {
     public boolean update(Commande objet) {
         int id_com = objet.getId();
         try {
-            java.sql.Connection connection = main.modele.Connection.getConnexion();
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "UPDATE Commande SET date_commande = ?, id_client = ? WHERE id_commande = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setString(1, String.valueOf(objet.getDate()));
@@ -145,7 +156,7 @@ public class SQLCommandeDAO implements CommandeDAO {
     public boolean ligneCom(Commande objet){
         Statement statement = null;
         try {
-            java.sql.Connection connection = main.modele.Connection.getConnexion();
+            java.sql.Connection connection = Connection.getConnexion();
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             String query = "SELECT * FROM Commande";
             ResultSet resultSet = statement.executeQuery(query);
@@ -156,7 +167,7 @@ public class SQLCommandeDAO implements CommandeDAO {
         }
 
         try {
-            java.sql.Connection connection = main.modele.Connection.getConnexion();
+            java.sql.Connection connection = Connection.getConnexion();
             Iterator iterator = objet.getProduits().entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry)iterator.next();
@@ -177,7 +188,7 @@ public class SQLCommandeDAO implements CommandeDAO {
 
     public boolean clearLigneCom(Commande objet){
         try {
-            java.sql.Connection connection = main.modele.Connection.getConnexion();
+            java.sql.Connection connection = Connection.getConnexion();
             String request = "DELETE FROM Ligne_commande WHERE id_commande = ? ";
             PreparedStatement ps = connection.prepareStatement(request);
             ps.setInt(1, objet.getId());

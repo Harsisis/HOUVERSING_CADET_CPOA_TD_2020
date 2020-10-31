@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import main.ui.menuTD2;
+//import main.ui.menuTD2;
 
 public class Main extends Application {
 

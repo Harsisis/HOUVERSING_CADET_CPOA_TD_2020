@@ -2,6 +2,7 @@ package test.SQL;
 
 import main.dao.SQLDAO.SQLClientDAO;
 import main.dao.fabrique.DAOFactory;
+import main.modele.Connection;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.ClientDAO;
 import main.pojo.Client;
@@ -19,12 +20,10 @@ import static org.junit.Assert.assertEquals;
 public class TestSQLClient {
     private ClientDAO dao;
     private EPersistence ePersistence = EPersistence.MYSQL;
-    private java.sql.Connection connection;
 
     @Before
     public void setUp() {
         dao = DAOFactory.getDAOFactory(ePersistence).getClientDAO();
-        connection = main.modele.Connection.connect();
         Assert.assertNotNull(dao);
         Assert.assertNotNull(dao.findAll());
     }
@@ -53,7 +52,7 @@ public class TestSQLClient {
         client.setAdrVille("ville");
         client.setAdrPays("pays");
         Assert.assertTrue(dao.create(client));
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Client";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();
@@ -79,7 +78,7 @@ public class TestSQLClient {
         clientA.setAdrPays("pays");
         //getting generated key
         String request = ("INSERT INTO Client(nom, prenom, identifiant, mot_de_passe, adr_numero, adr_voie, adr_code_postal, adr_ville, adr_pays) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        PreparedStatement preparedStatement = connection.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement preparedStatement = Connection.getConnexion().prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, clientA.getNom());
         preparedStatement.setString(2, clientA.getPrenom());
         preparedStatement.setString(3, clientA.getIdentifiant());
@@ -107,7 +106,7 @@ public class TestSQLClient {
         //Assert.assertTrue(dao.update(clientB));
         //verify
         Assert.assertEquals(clientB,clientA);
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Client";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();
@@ -132,7 +131,7 @@ public class TestSQLClient {
         client.setAdrPays("test");
         dao.create(client);
         Assert.assertEquals(size + 1, dao.findAll().size());
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Client";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();
@@ -151,7 +150,7 @@ public class TestSQLClient {
         Client client = new Client();
         //getting generated key
         String request = ("INSERT INTO Client(nom, prenom, identifiant, mot_de_passe, adr_numero, adr_voie, adr_code_postal, adr_ville, adr_pays) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        PreparedStatement preparedStatement = connection.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement preparedStatement = Connection.getConnexion().prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, "Test");
         preparedStatement.setString(2, "Test.png");
         preparedStatement.setString(3, "Test");
@@ -168,7 +167,7 @@ public class TestSQLClient {
         }
         client = dao.getById(id);
         Assert.assertNotNull(client);
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Client";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();

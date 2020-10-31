@@ -1,5 +1,6 @@
 package main.dao.IDAO;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IDAO<T> {
@@ -11,5 +12,5 @@ public interface IDAO<T> {
 
     public abstract T getById(int id);
 
-    public abstract ArrayList<T> findAll();
+    public abstract ArrayList<T> findAll() throws SQLException;
 }

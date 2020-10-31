@@ -3,6 +3,7 @@ package test.SQL;
 import main.dao.SQLDAO.SQLCategorieDAO;
 import main.dao.SQLDAO.SQLProduitDAO;
 import main.dao.fabrique.DAOFactory;
+import main.modele.Connection;
 import main.dao.fabrique.EPersistence;
 import main.dao.metiersDAO.ProduitDAO;
 import main.pojo.Produit;
@@ -21,12 +22,10 @@ public class TestSQLProduit {
 
     private ProduitDAO dao;
     private EPersistence ePersistence = EPersistence.MYSQL;
-    private java.sql.Connection connection;
 
     @Before
     public void setUp() {
         dao = DAOFactory.getDAOFactory(ePersistence).getProduitDAO();
-        connection = main.modele.Connection.connect();
         Assert.assertNotNull(dao);
         Assert.assertNotNull(dao.findAll());
     }
@@ -51,7 +50,7 @@ public class TestSQLProduit {
         produit.setTarif(10f);
         produit.setCategory(SQLCategorieDAO.getInstance().getById(1));
         Assert.assertTrue(dao.create(produit));
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Produit";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();
@@ -68,7 +67,7 @@ public class TestSQLProduit {
         Produit produitA = new Produit();
         //getting generated key
         String request = ("INSERT INTO Produit(nom, description, tarif, visuel, id_categorie) VALUES(?, ?, ?, ?, ?)");
-        PreparedStatement preparedStatement = connection.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement preparedStatement = Connection.getConnexion().prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, "nom");
         preparedStatement.setString(2, "description");
         preparedStatement.setFloat(3, 10f);
@@ -90,7 +89,7 @@ public class TestSQLProduit {
         Assert.assertTrue(dao.update(produitB));
         //verify
         Assert.assertEquals(produitB,produitA);
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Produit";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();
@@ -111,7 +110,7 @@ public class TestSQLProduit {
         produit.setCategory(SQLCategorieDAO.getInstance().getById(1));
         Assert.assertTrue(dao.create(produit));
         Assert.assertEquals(size + 1, dao.findAll().size());
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Produit";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();
@@ -130,7 +129,7 @@ public class TestSQLProduit {
         Produit produit = new Produit();
         //getting generated key
         String request = ("INSERT INTO Produit(nom, description, tarif, visuel, id_categorie) VALUES(?, ?, ?, ?, ?)");
-        PreparedStatement preparedStatement = connection.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement preparedStatement = Connection.getConnexion().prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, "nom");
         preparedStatement.setString(2, "description");
         preparedStatement.setFloat(3, 10f);
@@ -143,7 +142,7 @@ public class TestSQLProduit {
         }
         produit = dao.getById(id);
         Assert.assertNotNull(produit);
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         String query = "SELECT * FROM Produit";
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.last();
