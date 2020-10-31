@@ -92,9 +92,9 @@ public class controller_addCommande implements Initializable {
             commande.addProduit(produit, qte);
         }
         String strProd = taProduit.getText();
-        taProduit.setText("- " + strProd + "\n" + produit.toString() + " | " + qte);
+        taProduit.setText(strProd + "\n- " + produit.toString() + " | " + qte);
 
-
+        lblPrix.setText(String.valueOf(commande.getMontantTotal()));
     }
 
     @FXML
@@ -109,9 +109,6 @@ public class controller_addCommande implements Initializable {
 
         if (isCorrect){
         String strFin;
-//            if (update == false){
-//                    commande = new Commande();
-//            }
             commande.setClient(cbxClient.getValue());
             commande.setDate(LocalDate.now());
             if(update == true){
