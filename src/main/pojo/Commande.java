@@ -19,9 +19,9 @@ public class Commande {
 
     // Ligne de commande : liste des produits.
     // Une Commande contient '1 ou n' produits.
-    private Map<Produit, Integer> produits;
+    private HashMap<Produit, Integer> produits;
 
-    public Commande(int id, LocalDate date, Client client, Map<Produit, Integer> produits) {
+    public Commande(int id, LocalDate date, Client client, HashMap<Produit, Integer> produits) {
         this.id = id;
         this.date = date;
         this.client = client;
@@ -29,7 +29,7 @@ public class Commande {
     }
 
     public Commande(int id, LocalDate date, Client client) {
-        Map<Produit, Integer> produits = new HashMap<Produit, Integer>();
+        HashMap<Produit, Integer> produits = new HashMap<Produit, Integer>();
         this.id = id;
         this.date = date;
         this.client = client;
@@ -39,7 +39,7 @@ public class Commande {
     public Commande() {
     }
 
-    public void setProduits(Map<Produit, Integer> produits) {
+    public void setProduits(HashMap<Produit, Integer> produits) {
         this.produits = produits;
     }
 
@@ -47,7 +47,7 @@ public class Commande {
     public Double getMontantTotal() {
         // Parcours de la table des produits ...ligne de commande.
         Double resultat = 0d;
-        for (Map.Entry<Produit, Integer> entry : produits.entrySet()) {
+        for (var entry : produits.entrySet()) {
             // Pour chaque ligne de commande je récupère la clé (produit) et la valeur
             // (quantité).
             Produit produit = entry.getKey();
