@@ -47,19 +47,19 @@ public class TestSQLCommande {
         System.out.println(commandes);
         System.out.println(size);
         int id;
-//        Commande commande = new Commande();
-//        commande.setClient(SQLClientDAO.getInstance().getById(1));
-//        commande.setDate(LocalDate.now());
-//        Produit produit = SQLProduitDAO.getInstance().getById(1);
-//        commande.addProduit(produit, 1);
-//        Assert.assertTrue(dao.create(commande));
-//        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-//        String query = "SELECT * FROM Commande";
-//        ResultSet resultSet = statement.executeQuery(query);
-//        resultSet.last();
-//        id = resultSet.getInt("id_commande");
-//        dao.delete(dao.getById(id));
-//        Assert.assertEquals(size, dao.findAll().size());
+        Commande commande = new Commande();
+        commande.setClient(SQLClientDAO.getInstance().getById(1));
+        commande.setDate(LocalDate.now());
+        Produit produit = SQLProduitDAO.getInstance().getById(1);
+        commande.addProduit(produit, 1);
+        Assert.assertTrue(dao.create(commande));
+        Statement statement = Connection.getConnexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        String query = "SELECT * FROM Commande";
+        ResultSet resultSet = statement.executeQuery(query);
+        resultSet.last();
+        id = resultSet.getInt("id_commande");
+        dao.delete(dao.getById(id));
+        Assert.assertEquals(size, dao.findAll().size());
     }
 
     @Test

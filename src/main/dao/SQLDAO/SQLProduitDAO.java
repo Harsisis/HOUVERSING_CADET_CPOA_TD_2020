@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SQLProduitDAO implements ProduitDAO {
     private static SQLProduitDAO instance;
@@ -105,6 +106,7 @@ public class SQLProduitDAO implements ProduitDAO {
             String request = "SELECT * FROM Produit";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(request);
+            HashMap<Produit, Integer> produitIntegerHashMap = new HashMap<>();
             while (rs.next()) {
                 Produit produit = new Produit();
                 produit.setId(rs.getInt("id_produit"));
@@ -113,14 +115,12 @@ public class SQLProduitDAO implements ProduitDAO {
                 produit.setTarif(rs.getFloat("tarif"));
                 produit.setVisuel(rs.getString("visuel"));
 
-                int idCategorie = rs.getInt("id_categorie");
-                Categorie categorie = SQLCategorieDAO.getInstance().getById(idCategorie);
-
-                produit.setCategory(categorie);
-
+                produitIntegerHashMap.put(produit, rs.getInt("id_categorie"));
                 produits.add(produit);
             }
-            statement.close();
+            for (var entry : produitIntegerHashMap.entrySet()) {
+                entry.getKey().setCategory(SQLCategorieDAO.getInstance().getById(entry.getValue()));
+            }
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }
