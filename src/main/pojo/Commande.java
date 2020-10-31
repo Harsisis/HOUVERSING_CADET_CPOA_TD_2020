@@ -62,7 +62,12 @@ public class Commande {
         if (produits == null) {
             produits = new HashMap<>();
         }
-        this.produits.put(produit, quantite);
+        if (produits.containsKey(produit)){
+            this.produits.put(produit, produits.get(produit)+quantite);
+        }
+        else {
+            this.produits.put(produit, quantite);
+        }
     }
 
     public int getId() {
