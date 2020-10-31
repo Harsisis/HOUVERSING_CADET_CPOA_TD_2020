@@ -74,12 +74,12 @@ public class controller_addCommande implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //display the current date
         lblCurrentDate.setText(dtf.format(now));
-
+        btnValiderCommande.setDisable(true);
     }
 
     @FXML
     void btnAjouterProdListe_onClick(ActionEvent event) {
-        //get the product from the combox and the quantity from the textField --> add a row on the list
+        btnValiderCommande.setDisable(false);
         Produit produit = cbxProduits.getValue();
         boolean correct = true;
         int qte = 0;
@@ -100,10 +100,8 @@ public class controller_addCommande implements Initializable {
     @FXML
     void btnValiderCommande_onClick(ActionEvent event) {
         boolean isCorrect = true;
-        //check if no client is selected and if no product has been added
-        if (!cbxClient.getValue().equals(null)){
-
-        }else{
+        //check if no client is selected
+        if (cbxClient.getValue().equals(null)){
             isCorrect = false;
         }
 
