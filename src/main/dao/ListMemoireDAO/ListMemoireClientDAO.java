@@ -56,7 +56,6 @@ public class ListMemoireClientDAO implements ClientDAO {
             objet.setId(objet.getId() + 1);
         }
         this.donnees.add(objet);
-        System.out.println(this.donnees);
         return true;
     }
 

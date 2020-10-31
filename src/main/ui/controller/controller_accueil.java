@@ -384,7 +384,7 @@ public class controller_accueil implements Initializable {
         try {
             switch (visible){
                 case 1:
-                    Produit produit = new Produit();
+                    Produit produit = tableProduit.getSelectionModel().getSelectedItem();
                     FXMLLoader fxmlLoaderProduit = new FXMLLoader();
                     Parent rootProduit;
                     //PRODUIT
@@ -414,7 +414,7 @@ public class controller_accueil implements Initializable {
                     refreshCategorie();
                     break;
                 case 3:
-                    Client client = new Client();
+                    Client client = tableClient.getSelectionModel().getSelectedItem();
                     FXMLLoader fxmlLoaderClient = new FXMLLoader();
                     Parent rootClient;
                     //CLIENT
@@ -429,7 +429,7 @@ public class controller_accueil implements Initializable {
                     refreshClient();
                     break;
                 case 4:
-                    Commande commande = new Commande();
+                    Commande commande = tableCommande.getSelectionModel().getSelectedItem();
                     FXMLLoader fxmlLoaderCommande = new FXMLLoader();
                     Parent rootCommande;
                     //COMMANDE

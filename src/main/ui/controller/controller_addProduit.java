@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import main.dao.SQLDAO.SQLCategorieDAO;
 import main.dao.SQLDAO.SQLProduitDAO;
 import main.dao.fabrique.DAOFactory;
@@ -13,6 +15,7 @@ import main.pojo.Categorie;
 import main.pojo.Produit;
 import main.ui.util.util_isFloat;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -33,6 +36,8 @@ public class controller_addProduit extends util_isFloat implements Initializable
     //output label
     @FXML
     private Label outputProduct;
+    @FXML
+    private Label labelUpload;
 
     //labels for prompt error
     @FXML
@@ -41,6 +46,8 @@ public class controller_addProduit extends util_isFloat implements Initializable
     private Label errorName;
     @FXML
     private Label errorDesc;
+    @FXML
+    private Label errorFichier;
 
     private EPersistence choix;
     public void setupEnum(EPersistence choix) {
@@ -49,8 +56,16 @@ public class controller_addProduit extends util_isFloat implements Initializable
         cbxCategorie.getItems().addAll(cat);
     }
 
+    Boolean update = false;
     private Produit produit;
-    public void setupProduit(Produit produit) {this.produit = produit;}
+    public void setupProduit(Produit produit) {
+        this.produit = produit;
+        labelUpload.setText(produit.getVisuel());
+        inputPrice.setText(String.valueOf(produit.getTarif()));
+        inputDesc.setText(produit.getDescription());
+        inputName.setText(produit.getNom());
+        update = true;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,6 +75,21 @@ public class controller_addProduit extends util_isFloat implements Initializable
         outputProduct.setText("");
 
         //populate the categories comboBox
+    }
+
+    File file;
+    @FXML
+    void uploadFile(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG", "*.PNG");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG);
+
+        //Show open file dialog
+        file = fileChooser.showOpenDialog(null);
+
+        labelUpload.setText(file.getName());
     }
 
     @FXML
@@ -93,14 +123,33 @@ public class controller_addProduit extends util_isFloat implements Initializable
             errorDesc.setVisible(false);
         }
 
+        if (file == null){
+            errorFichier.setVisible(true);
+            isCorrect = false;
+        }
+        else{
+            errorFichier.setVisible(false);
+        }
+
         //if check is ok create product
         if (isCorrect){
-            //create object product
-            Produit produit = new Produit(1, nom_prod, desc_prod, tarif_prod, "visuel", cbxCategorie.getValue());
-            //insert the object in the database
-            DAOFactory.getDAOFactory(choix).getProduitDAO().create(produit);
-            //display in display label the newest product with toString()
-            outputProduct.setText("Le produit : " + produit.toString() + "\n a bien été créé");
+            String strFin;
+            if (update == false){
+                produit = new Produit();
+            }
+            produit.setTarif(Float.parseFloat(inputPrice.getText()));
+            produit.setDescription(inputDesc.getText());
+            produit.setNom(inputName.getText());
+            produit.setVisuel(file.getName());
+            produit.setCategory(cbxCategorie.getValue());
+            if(update == true){
+                DAOFactory.getDAOFactory(choix).getProduitDAO().update(produit);
+                strFin = " a bien été modifié";
+            }else {
+                DAOFactory.getDAOFactory(choix).getProduitDAO().create(produit);
+                strFin = " a bien été créé";
+            }
+            outputProduct.setText("Le produit : " + produit.toString() + strFin);
             //empty fields
             inputName.setText("");
             inputPrice.setText("");

@@ -75,7 +75,7 @@
                 </GridPane>
                 <FlowPane alignment="CENTER" prefHeight="55.0" prefWidth="374.0">
                     <children>
-                        <Button id="add_product" alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" onAction="#onClickCreateClient" text="Ajouter" />
+                        <Button id="add_product" alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" onAction="#onClickCreateClient" text="Valider" />
                     </children>
                 </FlowPane>
                 <FlowPane alignment="CENTER" prefHeight="153.0" prefWidth="374.0" rowValignment="TOP">

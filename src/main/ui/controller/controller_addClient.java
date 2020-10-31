@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import main.dao.SQLDAO.SQLClientDAO;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
+import main.pojo.Categorie;
 import main.pojo.Client;
 
 import java.io.IOException;
@@ -67,6 +68,8 @@ public class controller_addClient implements Initializable {
 
     private Client client;
 
+    private Boolean update = false;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //empty the fields
@@ -98,7 +101,21 @@ public class controller_addClient implements Initializable {
         this.choix = choix;
     }
 
-    public void setupClient(Client client) {this.client = client;}
+
+    public void setupClient(Client client) {
+        this.client = client;
+        inputName.setText(client.getPrenom());
+        inputSurname.setText(client.getNom());
+        inputIdent.setText(client.getIdentifiant());
+        inputPassword.setText(client.getMdp());
+        inputAdrNumber.setText(client.getAdrNumero());
+        inputAdrRue.setText(client.getAdrVoie());
+        inputAdrVille.setText(client.getAdrVille());
+        inputAdrCp.setText(client.getAdrCP());
+        cbxCountry.setValue(client.getAdrPays());
+
+        update = true;
+    }
 
     @FXML
     void onClickCreateClient(ActionEvent event) {
@@ -153,13 +170,29 @@ public class controller_addClient implements Initializable {
             errorAdr.setVisible(false);
         }
         //if check is ok create client
-        if (isCorrect){
-            //create object product
-            Client client = new Client(1, nom_client, prenom_client, ident_client, mdp_client, no_adrCl, rue_adrCl, cp_adrCL, ville_adrCl, cbxCountry.getValue().toString());
-            //insert the object in the database or memoryListe
-            DAOFactory.getDAOFactory(choix).getClientDAO().create(client);
-            //display in display label the newest product with toString()
-            outputClient.setText("Le client : " + client.toString() + "\n a bien été créé");
+        if (isCorrect) {
+            String strFin;
+            if (update == false) {
+                client = new Client();
+            }
+            client.setNom(inputSurname.getText());
+            client.setPrenom(inputName.getText());
+            client.setIdentifiant(inputIdent.getText());
+            client.setMdp(inputPassword.getText());
+            client.setAdrNumero(inputAdrNumber.getText());
+            client.setAdrVoie(inputAdrRue.getText());
+            client.setAdrVille(inputAdrVille.getText());
+            client.setAdrPays(cbxCountry.getValue().toString());
+            client.setAdrCP(inputAdrCp.getText());
+
+            if (update == true) {
+                DAOFactory.getDAOFactory(choix).getClientDAO().update(client);
+                strFin = " a bien été modifié";
+            } else {
+                DAOFactory.getDAOFactory(choix).getClientDAO().create(client);
+                strFin = " a bien été créé";
+            }
+            outputClient.setText("Le client : " + client.toString() + strFin);
             //empty the fields
             emptyFields();
         }

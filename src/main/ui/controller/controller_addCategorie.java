@@ -18,16 +18,12 @@ import java.util.ResourceBundle;
 public class controller_addCategorie implements Initializable {
     @FXML
     private TextField inputTitle;
-
     @FXML
     private Label outputCategory;
-
     @FXML
     private Label labelUpload;
-
     @FXML
     private Label errorTitre;
-
     @FXML
     private Label errorFichier;
 
@@ -35,10 +31,13 @@ public class controller_addCategorie implements Initializable {
     public void setupEnum(EPersistence choix) {
         this.choix = choix;
     }
+
     private Categorie categorie;
     Boolean update = false;
     public void setupCateg(Categorie categorie) {
         this.categorie = categorie;
+        inputTitle.setText(categorie.getTitre());
+        labelUpload.setText(categorie.getVisuel());
         update = true;
     }
 
@@ -47,15 +46,6 @@ public class controller_addCategorie implements Initializable {
         inputTitle.setText("");
         errorTitre.setVisible(false);
         errorFichier.setVisible(false);
-
-        if(update == true){
-            //populate textFields
-            inputTitle.setText(categorie.getTitre());
-            labelUpload.setText(categorie.getVisuel());
-        }
-        if(categorie.equals(null)){
-            inputTitle.setText("march po");
-        }
     }
 
     File file;
@@ -94,13 +84,20 @@ public class controller_addCategorie implements Initializable {
         }
 
         if(isCorrect){
-            categorie = new Categorie(1, inputTitle.getText(), file.getName());
+            String strFin;
+            if (update == false){
+                categorie = new Categorie();
+            }
+            categorie.setTitre(inputTitle.getText());
+            categorie.setVisuel(file.getName());
             if(update == true){
                 DAOFactory.getDAOFactory(choix).getCategorieDAO().update(categorie);
+                strFin = " a bien été modifié";
             }else {
                 DAOFactory.getDAOFactory(choix).getCategorieDAO().create(categorie);
+                strFin = " a bien été créé";
             }
-            outputCategory.setText("La catégorie : " + categorie.toString() + " a bien été créé");
+            outputCategory.setText("La catégorie : " + categorie.toString() + strFin);
         }
     }
 }
