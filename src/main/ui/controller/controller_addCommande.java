@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.InputMethodEvent;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
 import main.pojo.Categorie;
@@ -96,27 +97,43 @@ public class controller_addCommande implements Initializable {
 
     @FXML
     void cbxClient_onAction(ActionEvent event) {
-        btnValiderCommande.setDisable(false);
+        if (update){
+            btnValiderCommande.setDisable(false);
+        }
         lblNom.setText(cbxClient.getSelectionModel().getSelectedItem().getNom() + " " + cbxClient.getSelectionModel().getSelectedItem().getPrenom());
+    }
+
+    Boolean produitCh = false;
+    @FXML
+    void cbxProduits_onAction(ActionEvent event) {
+        produitCh = true;
+    }
+
+    Boolean produitQte = false;
+    @FXML
+    void lblQte_onChange(InputMethodEvent event) {
+        produitQte = true;
     }
 
     @FXML
     void btnAjouterProdListe_onClick(ActionEvent event) {
-        btnValiderCommande.setDisable(false);
-        Produit produit = cbxProduits.getValue();
-        boolean correct = true;
-        int qte = 0;
-        try{
-            qte = Integer.parseInt(lblQte.getText());
-        }catch (NumberFormatException e){
-            correct = false;
+        if (produitCh && produitQte){
+            btnValiderCommande.setDisable(false);
+            Produit produit = cbxProduits.getValue();
+            boolean correct = true;
+            int qte = 0;
+            try{
+                qte = Integer.parseInt(lblQte.getText());
+            }catch (NumberFormatException e){
+                correct = false;
+            }
+            if (correct){
+                commande.addProduit(produit, qte);
+            }
+            strProd = taProduit.getText();
+            taProduit.setText(strProd + "\n- " + produit.toString() + " | " + qte);
+            this.lblPrix.setText(String.valueOf(commande.getMontantTotal()));
         }
-        if (correct){
-            commande.addProduit(produit, qte);
-        }
-        strProd = taProduit.getText();
-        taProduit.setText(strProd + "\n- " + produit.toString() + " | " + qte);
-        this.lblPrix.setText(String.valueOf(commande.getMontantTotal()));
     }
 
     @FXML
