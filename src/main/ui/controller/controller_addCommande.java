@@ -63,8 +63,18 @@ public class controller_addCommande implements Initializable {
 
     Boolean update = false;
     Commande commande = new Commande();
+    String strProd;
     public void setupCommande(Commande commande) {
         this.commande = commande;
+        cbxClient.setValue(commande.getClient());
+        for (Produit prod: commande.getProduits().keySet()){
+            String key = prod.toString();
+            String value = commande.getProduits().get(prod).toString();
+            strProd = (strProd + "\n- " + key + " | " + value);
+        }
+        taProduit.setText(strProd);
+        lblPrix.setText(String.valueOf(commande.getMontantTotal()));
+        lblCurrentDate.setText(String.valueOf(commande.getDate()));
         update = true;
     }
 
@@ -74,7 +84,10 @@ public class controller_addCommande implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //display the current date
         lblCurrentDate.setText(dtf.format(now));
-        btnValiderCommande.setDisable(true);
+        if (!update){
+            btnValiderCommande.setDisable(true);
+        }else
+            btnValiderCommande.setDisable(false);
         lblPrix.setText("");
     }
 
@@ -92,7 +105,7 @@ public class controller_addCommande implements Initializable {
         if (correct){
             commande.addProduit(produit, qte);
         }
-        String strProd = taProduit.getText();
+        strProd = taProduit.getText();
         taProduit.setText(strProd + "\n- " + produit.toString() + " | " + qte);
         System.out.println(commande.getProduits());
         this.lblPrix.setText(String.valueOf(commande.getMontantTotal()));
@@ -109,11 +122,11 @@ public class controller_addCommande implements Initializable {
         if (isCorrect){
         String strFin;
             commande.setClient(cbxClient.getValue());
-            commande.setDate(LocalDate.now());
             if(update == true){
                 DAOFactory.getDAOFactory(choix).getCommandeDAO().update(commande);
                 strFin = " a bien été modifié";
             }else {
+                commande.setDate(LocalDate.now());
                 DAOFactory.getDAOFactory(choix).getCommandeDAO().create(commande);
                 strFin = " a bien été créé";
             }
