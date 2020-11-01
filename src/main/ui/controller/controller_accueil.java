@@ -31,25 +31,24 @@ public class controller_accueil implements Initializable {
     //boutons CRUD
     @FXML
     private Button btnAdd;
-
     @FXML
     private Button btnSuppr;
-
     @FXML
     private Button btnEdit;
+    @FXML
+    private TextField inputFilter;
+    @FXML
+    private Label lblRechercher;
 
     int visible = 0;
 
     //radio bouttons Epersistance
     @FXML
     private RadioButton rbDatab;
-
     @FXML
     private RadioButton rbListeM;
-
     @FXML
     private Button btnPersistance;
-
     private ToggleGroup persistanceToggleGroup;
 
     public static EPersistence choix;
@@ -155,6 +154,9 @@ public class controller_accueil implements Initializable {
         btnProduit.setDisable(true);
         btnClient.setDisable(true);
 
+        //search button for
+        searchButtonHide();
+
         createTable();
         //definition radio group
         persistanceToggleGroup = new ToggleGroup();
@@ -167,6 +169,16 @@ public class controller_accueil implements Initializable {
         btnSuppr.setDisable(true);
 
         INSTANCE = this;
+    }
+
+    private void searchButtonDisplay() {
+        inputFilter.setVisible(true);
+        lblRechercher.setVisible(true);
+    }
+
+    private void searchButtonHide() {
+        inputFilter.setVisible(false);
+        lblRechercher.setVisible(false);
     }
 
     public static controller_accueil getInstance() {
@@ -224,6 +236,8 @@ public class controller_accueil implements Initializable {
         tableCommande.setVisible(false);
         tableClient.setVisible(false);
         tableProduit.setVisible(true);
+
+        searchButtonDisplay();
         visible = 1;
         btnCrud();
     }
@@ -235,6 +249,8 @@ public class controller_accueil implements Initializable {
         tableClient.setVisible(false);
         tableCommande.setVisible(false);
         tableCategorie.setVisible(true);
+
+        searchButtonHide();
         visible = 2;
         btnCrud();
     }
@@ -246,6 +262,8 @@ public class controller_accueil implements Initializable {
         tableProduit.setVisible(false);
         tableCategorie.setVisible(false);
         tableClient.setVisible(true);
+
+        searchButtonDisplay();
         visible = 3;
         btnCrud();
     }
@@ -257,6 +275,8 @@ public class controller_accueil implements Initializable {
         tableCategorie.setVisible(false);
         tableProduit.setVisible(false);
         tableCommande.setVisible(true);
+
+        searchButtonDisplay();
         visible = 4;
         btnCrud();
     }
@@ -615,4 +635,5 @@ public class controller_accueil implements Initializable {
             btnSuppr.setDisable(true);
         }
     }
+
 }
