@@ -45,9 +45,13 @@ public class controller_accueil implements Initializable {
     @FXML
     private Button btnEdit;
     @FXML
-    private TextField inputFilter;
+    private TextField inputFilterClient;
     @FXML
     private Label lblRechercher;
+    @FXML
+    private TextField inputFilterProd;
+    @FXML
+    private TextField inputFilterCommande;
 
     int visible = 0;
 
@@ -155,6 +159,11 @@ public class controller_accueil implements Initializable {
 
     private static controller_accueil INSTANCE;
 
+    ArrayList<Client> bufferClient;
+    ArrayList<Produit> bufferProduit;
+    ArrayList<Categorie> bufferCategorie;
+    ArrayList<Commande> bufferCommande;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //disable, wait for the persistance
@@ -172,6 +181,12 @@ public class controller_accueil implements Initializable {
         this.rbDatab.setToggleGroup(persistanceToggleGroup);
         this.rbListeM.setToggleGroup(persistanceToggleGroup);
 
+        //initialize list for filter
+        bufferClient = new ArrayList<>();
+        bufferProduit = new ArrayList<>();
+        bufferCategorie = new ArrayList<>();
+        bufferCommande = new ArrayList<>();
+
         //bouttons CRUD
         btnAdd.setDisable(true);
         btnEdit.setDisable(true);
@@ -180,13 +195,10 @@ public class controller_accueil implements Initializable {
         INSTANCE = this;
     }
 
-    private void searchButtonDisplay() {
-        inputFilter.setVisible(true);
-        lblRechercher.setVisible(true);
-    }
-
     private void searchButtonHide() {
-        inputFilter.setVisible(false);
+        inputFilterClient.setVisible(false);
+        inputFilterCommande.setVisible(false);
+        inputFilterProd.setVisible(false);
         lblRechercher.setVisible(false);
     }
 
@@ -246,7 +258,10 @@ public class controller_accueil implements Initializable {
         tableClient.setVisible(false);
         tableProduit.setVisible(true);
 
-        searchButtonDisplay();
+        inputFilterClient.setVisible(false);
+        inputFilterCommande.setVisible(false);
+        inputFilterProd.setVisible(true);
+        lblRechercher.setVisible(true);
         visible = 1;
         btnCrud();
     }
@@ -272,7 +287,10 @@ public class controller_accueil implements Initializable {
         tableCategorie.setVisible(false);
         tableClient.setVisible(true);
 
-        searchButtonDisplay();
+        inputFilterClient.setVisible(true);
+        inputFilterCommande.setVisible(true);
+        inputFilterProd.setVisible(true);
+        lblRechercher.setVisible(true);
         visible = 3;
         btnCrud();
     }
@@ -285,7 +303,10 @@ public class controller_accueil implements Initializable {
         tableProduit.setVisible(false);
         tableCommande.setVisible(true);
 
-        searchButtonDisplay();
+        inputFilterClient.setVisible(false);
+        inputFilterCommande.setVisible(true);
+        inputFilterProd.setVisible(false);
+        lblRechercher.setVisible(true);
         visible = 4;
         btnCrud();
     }
@@ -296,12 +317,9 @@ public class controller_accueil implements Initializable {
         btnCategorie.setDisable(false);
         btnProduit.setDisable(false);
         btnClient.setDisable(false);
-        if (persistanceToggleGroup.getSelectedToggle().equals(rbDatab)){
-            choix = EPersistence.MYSQL;
-        }
-        else {
-            choix = EPersistence.LISTEMEMORY;
-        }
+
+        if (persistanceToggleGroup.getSelectedToggle().equals(rbDatab)){choix = EPersistence.MYSQL;}
+        else {choix = EPersistence.LISTEMEMORY;}
 
         daoFactory = DAOFactory.getDAOFactory(choix);
         refreshCategorie();
@@ -566,11 +584,6 @@ public class controller_accueil implements Initializable {
         }
     }
 
-    //tools
-    private void deleteTableData(TableView table) {
-        table.getItems().clear();
-    }
-
     //functions boolean
     private boolean containsClient(Client client, ArrayList<Commande> listCommande) {
         boolean res = false;
@@ -609,25 +622,31 @@ public class controller_accueil implements Initializable {
 
     //refresh table
     public void refreshClient() {
-        deleteTableData(tableClient);
         this.tableClient.getItems().addAll(daoFactory.getClientDAO().findAll());
-        tableClient.getSelectionModel().clearSelection();
+        bufferClient.clear();
+        bufferClient = daoFactory.getClientDAO().findAll();
+        this.tableClient.getSelectionModel().clearSelection();
+        applyClientSearch();
     }
 
     public void refreshCommande() {
-        deleteTableData(tableCommande);
+        tableCommande.getItems().clear();
         this.tableCommande.getItems().addAll(daoFactory.getCommandeDAO().findAll());
+        bufferCommande.clear();
+        bufferCommande.addAll(daoFactory.getCommandeDAO().findAll());
         tableCommande.getSelectionModel().clearSelection();
     }
 
     public void refreshProduit() {
-        deleteTableData(tableProduit);
         this.tableProduit.getItems().addAll(daoFactory.getProduitDAO().findAll());
+        bufferProduit.clear();
+        bufferProduit.addAll(daoFactory.getProduitDAO().findAll());
         this.tableProduit.getSelectionModel().clearSelection();
+        applyProductSearch();
     }
 
     public void refreshCategorie() {
-        deleteTableData(tableCategorie);
+        tableCategorie.getItems().clear();
         this.tableCategorie.getItems().addAll(daoFactory.getCategorieDAO().findAll());
         this.tableCategorie.getSelectionModel().clearSelection();
     }
@@ -646,42 +665,30 @@ public class controller_accueil implements Initializable {
     }
 
     @FXML
-    void inputFilter_onKeyTyped(KeyEvent event) {
-        inputFilter.getText();
-        addTextFilter(daoFactory.getProduitDAO().findAll(), inputFilter, tableProduit);
+    void inputFilterClient_onAction(ActionEvent event) {
+
     }
 
-    public static <T> void addTextFilter(ArrayList<T> list, TextField filterField, TableView<T> table) {
-
-        ObservableList<T> observableList = FXCollections.observableList(list);
-
-        final List<TableColumn<T, ?>> columns = table.getColumns();
-
-        FilteredList<T> filteredData = new FilteredList(observableList);
-        filteredData.predicateProperty().bind(Bindings.createObjectBinding(() -> {
-            String text = filterField.getText();
-
-            if (text == null || text.isEmpty()) {
-                return null;
-            }
-            final String filterText = text.toLowerCase();
-
-            return o -> {
-                for (TableColumn<T, ?> col : columns) {
-                    ObservableValue<?> observable = col.getCellObservableValue(o);
-                    if (observable != null) {
-                        Object value = observable.getValue();
-                        if (value != null && value.toString().toLowerCase().equals(filterText)) {
-                            return true;
-                        }
-                    }
+    void applyClientSearch() {
+        tableClient.getItems().clear();
+        for (var client: bufferClient) {
+                if (client.getNom().toLowerCase().contains(inputFilterClient.getText().toLowerCase()) || client.getPrenom().toLowerCase().contains(inputFilterClient.getText().toLowerCase())){
+                    tableClient.getItems().add(client);
                 }
-                return false;
-            };
-        }, filterField.textProperty()));
+        }
+    }
 
-        SortedList<T> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(table.comparatorProperty());
-        table.setItems(sortedData);
+    void applyProductSearch() {
+        tableProduit.getItems().clear();
+        for (var prod: bufferProduit) {
+            try{
+                if (prod.getNom().toLowerCase().contains(inputFilterProd.getText().toLowerCase()) || Double.compare(prod.getTarif(), Double.parseDouble(inputFilterProd.getText())) < 1 ){
+                    tableProduit.getItems().add(prod);
+                }
+            }
+            catch (NumberFormatException e) {
+
+            }
+        }
     }
 }

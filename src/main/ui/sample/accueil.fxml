@@ -91,8 +91,10 @@
                                     <Button fx:id="btnAdd" mnemonicParsing="false" onMousePressed="#btnAdd_onClick" text="Ajouter" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Button fx:id="btnSuppr" mnemonicParsing="false" onMouseClicked="#btnSuppr_onClick" text="Supprimer" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Button fx:id="btnEdit" mnemonicParsing="false" onMouseClicked="#btnEdit_onClick" text="Modifier" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <TextField fx:id="inputFilter" onKeyTyped="#inputFilter_onKeyTyped" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <TextField fx:id="inputFilterClient" onAction="#applyClientSearch" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                     <Label fx:id="lblRechercher" text="Rechercher :" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <TextField fx:id="inputFilterProd" onAction="#applyProductSearch" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <TextField fx:id="inputFilterCommande" onAction="#inputFilterCommande_onAction" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                  </children>
                               </GridPane>
                            </children>
