@@ -1,9 +1,12 @@
-# HOUVERSING_CADET_CPOA_TD1_2020
+# HOUVERSING_CADET_CPOA_TD_2020
 
-Cours de CPOA avec Mr Joyeux.
+Projet de CPOA avec Mr Joyeux.
 <br> Lien Trello : https://trello.com/b/sobuT7Ss/cpoa
 
 Répartition :
+  - 49% Gauthier
+  - 51% Irma
+  - répartition uniforme des têches, Irma plus sur le back-end et Gauthier plus sur le front-end
 
 Fonctionnalitées implémentées :
   - choisir entre BDD et Liste mémoire
@@ -16,5 +19,5 @@ Fonctionnalitées implémentées :
   - calcul du prix total d'une commande dans l'ajout ou la modification de celle-ci
   - filtrer les produits (tarif, nom), clients (nom, prénom), commandes (nom, prénom du client)
 
-Fonctionalitées non implémentées :
+Fonctionalitée non implémentée :
   - filtrer les commandes par un produit
