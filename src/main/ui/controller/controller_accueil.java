@@ -288,8 +288,8 @@ public class controller_accueil implements Initializable {
         tableClient.setVisible(true);
 
         inputFilterClient.setVisible(true);
-        inputFilterCommande.setVisible(true);
-        inputFilterProd.setVisible(true);
+        inputFilterCommande.setVisible(false);
+        inputFilterProd.setVisible(false);
         lblRechercher.setVisible(true);
         visible = 3;
         btnCrud();
