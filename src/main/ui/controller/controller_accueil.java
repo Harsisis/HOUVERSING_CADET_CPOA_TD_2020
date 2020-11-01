@@ -1,6 +1,13 @@
 package main.ui.controller;
 
 import javafx.application.Platform;
+import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -641,5 +648,40 @@ public class controller_accueil implements Initializable {
     @FXML
     void inputFilter_onKeyTyped(KeyEvent event) {
         inputFilter.getText();
+        addTextFilter(daoFactory.getProduitDAO().findAll(), inputFilter, tableProduit);
+    }
+
+    public static <T> void addTextFilter(ArrayList<T> list, TextField filterField, TableView<T> table) {
+
+        ObservableList<T> observableList = FXCollections.observableList(list);
+
+        final List<TableColumn<T, ?>> columns = table.getColumns();
+
+        FilteredList<T> filteredData = new FilteredList(observableList);
+        filteredData.predicateProperty().bind(Bindings.createObjectBinding(() -> {
+            String text = filterField.getText();
+
+            if (text == null || text.isEmpty()) {
+                return null;
+            }
+            final String filterText = text.toLowerCase();
+
+            return o -> {
+                for (TableColumn<T, ?> col : columns) {
+                    ObservableValue<?> observable = col.getCellObservableValue(o);
+                    if (observable != null) {
+                        Object value = observable.getValue();
+                        if (value != null && value.toString().toLowerCase().equals(filterText)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            };
+        }, filterField.textProperty()));
+
+        SortedList<T> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(table.comparatorProperty());
+        table.setItems(sortedData);
     }
 }
