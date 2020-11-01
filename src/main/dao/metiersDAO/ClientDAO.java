@@ -2,7 +2,6 @@ package main.dao.metiersDAO;
 
 import main.dao.IDAO.IDAO;
 import main.pojo.Client;
-import main.pojo.Commande;
 
 import java.util.ArrayList;
 
