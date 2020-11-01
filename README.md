@@ -12,5 +12,7 @@ Fonctionnalitées implémentées :
   - supprimer des clients/ produits/ catégories/ commandes en BDD et Liste mémoire
   - modifier des clients/ produits/ catégories/ commandes en BDD et Liste mémoire
   - rafraichissement des tables à chaque création/modification/suppression d'un objet
+  - sélection d'un visuel dans l'explorateur de fichier
+  - calcul du prix total d'une commande dans l'ajout ou la modification de celle-ci
 
 Fonctionalitées non implémentées :
