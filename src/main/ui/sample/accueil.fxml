@@ -105,7 +105,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="438.0">
                <children>
-                  <TableView fx:id="tableProduit" prefHeight="672.0" prefWidth="926.0">
+                  <TableView fx:id="tableProduit" onMouseClicked="#clickItem" prefHeight="672.0" prefWidth="926.0">
                     <columns>
                       <TableColumn fx:id="colProdId" prefWidth="25.0" text="id" />
                       <TableColumn fx:id="colProdNom" prefWidth="149.0" text="nom" />
@@ -115,14 +115,14 @@
                         <TableColumn fx:id="colProdIdCat" prefWidth="137.0" text="categorie" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="tableCategorie" prefHeight="672.0" prefWidth="926.0">
+                  <TableView fx:id="tableCategorie" onMouseClicked="#clickItem" prefHeight="672.0" prefWidth="926.0">
                     <columns>
                       <TableColumn fx:id="colCatId" prefWidth="60.0" text="id" />
                       <TableColumn fx:id="colCatTitre" prefWidth="312.0" text="titre" />
                         <TableColumn fx:id="colCatVisuel" prefWidth="553.0" text="visuel" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="tableClient" prefHeight="672.0" prefWidth="926.0">
+                  <TableView fx:id="tableClient" onMouseClicked="#clickItem" prefHeight="672.0" prefWidth="926.0">
                     <columns>
                       <TableColumn fx:id="colClientId" prefWidth="26.0" text="id" />
                       <TableColumn fx:id="colClientNom" prefWidth="168.0" text="nom" />
@@ -134,7 +134,7 @@
                         <TableColumn fx:id="colClientPays" prefWidth="131.0" text="pays" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="tableCommande" prefHeight="672.0" prefWidth="926.0">
+                  <TableView fx:id="tableCommande" onMouseClicked="#clickItem" prefHeight="672.0" prefWidth="926.0">
                     <columns>
                       <TableColumn fx:id="colCommandeId" prefWidth="41.0" text="id" />
                       <TableColumn fx:id="colCommandeDate" prefWidth="190.0" text="date" />

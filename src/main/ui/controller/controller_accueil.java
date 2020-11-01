@@ -213,8 +213,8 @@ public class controller_accueil implements Initializable {
 
     private void btnCrud() {
         btnAdd.setDisable(false);
-        btnSuppr.setDisable(false);
-        btnEdit.setDisable(false);
+        btnEdit.setDisable(true);
+        btnSuppr.setDisable(true);
     }
 
     @FXML
@@ -601,5 +601,18 @@ public class controller_accueil implements Initializable {
         deleteTableData(tableCategorie);
         this.tableCategorie.getItems().addAll(daoFactory.getCategorieDAO().findAll());
         this.tableCategorie.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    public void clickItem(MouseEvent event)
+    {
+        if (event.getClickCount() == 1) {
+            btnEdit.setDisable(false);
+            btnSuppr.setDisable(false);
+        }
+        else {
+            btnEdit.setDisable(true);
+            btnSuppr.setDisable(true);
+        }
     }
 }
