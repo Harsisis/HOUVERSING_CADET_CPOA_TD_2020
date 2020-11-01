@@ -39,7 +39,7 @@
         </rowConstraints>
          <children>
             <Label text="Client :" GridPane.columnIndex="1" />
-            <ComboBox fx:id="cbxClient" prefHeight="25.0" prefWidth="212.0" GridPane.columnIndex="2" />
+            <ComboBox fx:id="cbxClient" onAction="#cbxClient_onAction" prefHeight="25.0" prefWidth="212.0" GridPane.columnIndex="2" />
             <Label prefHeight="33.0" prefWidth="103.0" text="Date de la &#10;commande :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="lblCurrentDate" text="current_date" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label text="Produit :" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -54,6 +54,7 @@
             <Label text="€" GridPane.columnIndex="4" GridPane.rowIndex="10" />
             <TextArea fx:id="taProduit" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
             <Label fx:id="outputCommande" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+            <Label fx:id="lblNom" GridPane.columnIndex="4" />
          </children>
       </GridPane>
     </children>

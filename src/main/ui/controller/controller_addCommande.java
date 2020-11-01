@@ -47,6 +47,9 @@ public class controller_addCommande implements Initializable {
     private Label outputCommande;
 
     @FXML
+    private Label lblNom;
+
+    @FXML
     private Button btnValiderCommande;
 
     @FXML
@@ -89,6 +92,12 @@ public class controller_addCommande implements Initializable {
         }else
             btnValiderCommande.setDisable(false);
         lblPrix.setText("");
+    }
+
+    @FXML
+    void cbxClient_onAction(ActionEvent event) {
+        btnValiderCommande.setDisable(false);
+        lblNom.setText(cbxClient.getSelectionModel().getSelectedItem().getNom() + " " + cbxClient.getSelectionModel().getSelectedItem().getPrenom());
     }
 
     @FXML
