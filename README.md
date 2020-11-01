@@ -14,5 +14,7 @@ Fonctionnalitées implémentées :
   - rafraichissement des tables à chaque création/modification/suppression d'un objet
   - sélection d'un visuel dans l'explorateur de fichier
   - calcul du prix total d'une commande dans l'ajout ou la modification de celle-ci
+  - filtrer les produits (tarif, nom), clients (nom, prénom), commandes (nom, prénom du client)
 
 Fonctionalitées non implémentées :
+  - filtrer les commandes par un produit
