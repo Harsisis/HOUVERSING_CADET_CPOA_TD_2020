@@ -107,7 +107,6 @@ public class controller_addCommande implements Initializable {
         }
         strProd = taProduit.getText();
         taProduit.setText(strProd + "\n- " + produit.toString() + " | " + qte);
-        System.out.println(commande.getProduits());
         this.lblPrix.setText(String.valueOf(commande.getMontantTotal()));
     }
 

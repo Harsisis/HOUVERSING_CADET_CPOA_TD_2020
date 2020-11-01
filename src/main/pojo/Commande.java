@@ -100,12 +100,8 @@ public class Commande {
 
     @Override
     public String toString() {
-        return "\nCommande{" +
-                "id=" + id +
-                ", date=" + date +
-                ", client=" + client +
-                ", produits=" + produits +
-                '}';
+        return id + ", " + date + ", " + client +
+                "\nProduits : " + produits;
     }
 
     @Override
