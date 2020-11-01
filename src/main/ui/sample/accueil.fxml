@@ -94,7 +94,7 @@
                                     <TextField fx:id="inputFilterClient" onAction="#applyClientSearch" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                     <Label fx:id="lblRechercher" text="Rechercher :" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                     <TextField fx:id="inputFilterProd" onAction="#applyProductSearch" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                    <TextField fx:id="inputFilterCommande" onAction="#inputFilterCommande_onAction" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <TextField fx:id="inputFilterCommande" onAction="#applyCommandeSearch" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                  </children>
                               </GridPane>
                            </children>

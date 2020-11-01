@@ -630,11 +630,11 @@ public class controller_accueil implements Initializable {
     }
 
     public void refreshCommande() {
-        tableCommande.getItems().clear();
         this.tableCommande.getItems().addAll(daoFactory.getCommandeDAO().findAll());
         bufferCommande.clear();
         bufferCommande.addAll(daoFactory.getCommandeDAO().findAll());
-        tableCommande.getSelectionModel().clearSelection();
+        this.tableCommande.getSelectionModel().clearSelection();
+        applyCommandeSearch();
     }
 
     public void refreshProduit() {
@@ -665,19 +665,33 @@ public class controller_accueil implements Initializable {
     }
 
     @FXML
-    void inputFilterClient_onAction(ActionEvent event) {
+    void applyCommandeSearch() {
+        tableCommande.getItems().clear();
+        for (var commande: bufferCommande) {
+            if (commande.getClient().getNom().toLowerCase().contains(inputFilterCommande.getText().toLowerCase()) || commande.getClient().getPrenom().toLowerCase().contains(inputFilterCommande.getText().toLowerCase())){
+                tableCommande.getItems().add(commande);
+            }
+            else if (inputFilterCommande.getText() == "") {
+                tableCommande.getItems().add(commande);
+            }
+        }
 
     }
 
+    @FXML
     void applyClientSearch() {
         tableClient.getItems().clear();
         for (var client: bufferClient) {
                 if (client.getNom().toLowerCase().contains(inputFilterClient.getText().toLowerCase()) || client.getPrenom().toLowerCase().contains(inputFilterClient.getText().toLowerCase())){
                     tableClient.getItems().add(client);
                 }
+                else if (inputFilterClient.getText() == "") {
+                    tableClient.getItems().add(client);
+                }
         }
     }
 
+    @FXML
     void applyProductSearch() {
         tableProduit.getItems().clear();
         for (var prod: bufferProduit) {
