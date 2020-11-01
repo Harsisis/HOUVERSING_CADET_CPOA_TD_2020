@@ -2,7 +2,6 @@ package main.dao.SQLDAO;
 
 import main.dao.metiersDAO.CommandeDAO;
 import main.modele.Connection;
-import main.pojo.Categorie;
 import main.pojo.Commande;
 import main.pojo.Produit;
 

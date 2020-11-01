@@ -142,7 +142,7 @@ public class controller_addCommande implements Initializable {
         }
 
         if (isCorrect){
-        String strFin;
+            String strFin;
             commande.setClient(cbxClient.getValue());
             if(update == true){
                 DAOFactory.getDAOFactory(choix).getCommandeDAO().update(commande);
@@ -157,5 +157,5 @@ public class controller_addCommande implements Initializable {
             outputCommande.setText("La commande : " + commande.toString() + strFin);
         }
 
-}
+    }
 }

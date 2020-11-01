@@ -1,8 +1,7 @@
 package main.modele;
 
-import main.dao.SQLDAO.SQLCategorieDAO;
-
-import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 public class Connection{
     private static Connection instance;
     private java.sql.Connection connection;

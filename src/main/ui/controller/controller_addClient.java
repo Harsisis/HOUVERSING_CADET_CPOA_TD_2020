@@ -1,28 +1,20 @@
 package main.ui.controller;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-import main.dao.SQLDAO.SQLClientDAO;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import main.dao.fabrique.DAOFactory;
 import main.dao.fabrique.EPersistence;
-import main.pojo.Categorie;
 import main.pojo.Client;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class controller_addClient implements Initializable {
 
