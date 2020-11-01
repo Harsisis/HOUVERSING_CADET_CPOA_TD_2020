@@ -17,6 +17,7 @@ import main.pojo.Produit;
 import main.ui.util.util_isFloat;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -80,16 +81,21 @@ public class controller_addProduit extends util_isFloat implements Initializable
     File file;
     @FXML
     void uploadFile(MouseEvent event) {
-        FileChooser fileChooser = new FileChooser();
+        try {
+            FileChooser fileChooser = new FileChooser();
 
-        //Set extension filter
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG", "*.PNG");
-        fileChooser.getExtensionFilters().addAll(extFilterJPG);
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG", "*.PNG");
+            fileChooser.getExtensionFilters().addAll(extFilterJPG);
 
-        //Show open file dialog
-        file = fileChooser.showOpenDialog(null);
+            //Show open file dialog
+            file = fileChooser.showOpenDialog(null);
 
-        labelUpload.setText(file.getName());
+            labelUpload.setText(file.getName());
+        }
+        catch (NullPointerException e) {
+            labelUpload.setText("");
+        }
     }
 
     @FXML
