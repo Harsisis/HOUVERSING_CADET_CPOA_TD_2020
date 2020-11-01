@@ -61,7 +61,6 @@ public class controller_addProduit extends util_isFloat implements Initializable
     private Produit produit;
     public void setupProduit(Produit produit) {
         this.produit = produit;
-        labelUpload.setText(produit.getVisuel());
         inputPrice.setText(String.valueOf(produit.getTarif()));
         inputDesc.setText(produit.getDescription());
         inputName.setText(produit.getNom());

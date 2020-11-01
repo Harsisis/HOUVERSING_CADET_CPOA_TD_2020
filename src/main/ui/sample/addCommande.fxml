@@ -43,9 +43,9 @@
             <Label prefHeight="33.0" prefWidth="103.0" text="Date de la &#10;commande :" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="lblCurrentDate" text="current_date" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label text="Produit :" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox fx:id="cbxProduits" onAction="#cbxProduits_onAction" prefHeight="25.0" prefWidth="212.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <ComboBox fx:id="cbxProduits" prefHeight="25.0" prefWidth="212.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label text="Quantité :" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="lblQte" onInputMethodTextChanged="#lblQte_onChange" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <TextField fx:id="lblQte" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <Button fx:id="btnAjouterProdListe" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnAjouterProdListe_onClick" prefHeight="28.0" prefWidth="77.0" text="Ajouter" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="6" />
             <Label prefHeight="39.0" prefWidth="102.0" text="Produit(s) &#10;commandé(s) :" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Label fx:id="lblPrix" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="prix" GridPane.columnIndex="3" GridPane.rowIndex="10" />

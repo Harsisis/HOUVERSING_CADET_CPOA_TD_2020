@@ -37,7 +37,6 @@ public class controller_addCategorie implements Initializable {
     public void setupCateg(Categorie categorie) {
         this.categorie = categorie;
         inputTitle.setText(categorie.getTitre());
-        labelUpload.setText(categorie.getVisuel());
         update = true;
     }
 
