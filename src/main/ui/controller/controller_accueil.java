@@ -145,6 +145,8 @@ public class controller_accueil implements Initializable {
 
     private static DAOFactory daoFactory;
 
+    private static controller_accueil INSTANCE;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //disable, wait for the persistance
@@ -163,6 +165,12 @@ public class controller_accueil implements Initializable {
         btnAdd.setDisable(true);
         btnEdit.setDisable(true);
         btnSuppr.setDisable(true);
+
+        INSTANCE = this;
+    }
+
+    public static controller_accueil getInstance() {
+        return INSTANCE;
     }
 
     private void createTable(){
@@ -571,25 +579,25 @@ public class controller_accueil implements Initializable {
     }
 
     //refresh table
-    private void refreshClient() {
+    public void refreshClient() {
         deleteTableData(tableClient);
         this.tableClient.getItems().addAll(daoFactory.getClientDAO().findAll());
         tableClient.getSelectionModel().clearSelection();
     }
 
-    private void refreshCommande() {
+    public void refreshCommande() {
         deleteTableData(tableCommande);
         this.tableCommande.getItems().addAll(daoFactory.getCommandeDAO().findAll());
         tableCommande.getSelectionModel().clearSelection();
     }
 
-    private void refreshProduit() {
+    public void refreshProduit() {
         deleteTableData(tableProduit);
         this.tableProduit.getItems().addAll(daoFactory.getProduitDAO().findAll());
         this.tableProduit.getSelectionModel().clearSelection();
     }
 
-    private void refreshCategorie() {
+    public void refreshCategorie() {
         deleteTableData(tableCategorie);
         this.tableCategorie.getItems().addAll(daoFactory.getCategorieDAO().findAll());
         this.tableCategorie.getSelectionModel().clearSelection();

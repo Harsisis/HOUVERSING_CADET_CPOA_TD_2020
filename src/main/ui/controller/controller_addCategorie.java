@@ -1,7 +1,10 @@
 package main.ui.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -12,6 +15,7 @@ import main.dao.fabrique.EPersistence;
 import main.pojo.Categorie;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -64,7 +68,7 @@ public class controller_addCategorie implements Initializable {
     }
 
     @FXML
-    void CreateCategory(MouseEvent event) {
+    void CreateCategory(MouseEvent event) throws IOException {
         boolean isCorrect = true;
         //read textfields to setup variables
         if (inputTitle.getText() == ""){
@@ -83,19 +87,21 @@ public class controller_addCategorie implements Initializable {
             errorFichier.setVisible(false);
         }
 
-        if(isCorrect){
+        if(isCorrect) {
             String strFin;
-            if (update == false){
+            if (update == false) {
                 categorie = new Categorie();
             }
             categorie.setTitre(inputTitle.getText());
             categorie.setVisuel(file.getName());
-            if(update == true){
+            if (update == true) {
                 DAOFactory.getDAOFactory(choix).getCategorieDAO().update(categorie);
                 strFin = " a bien été modifié";
-            }else {
+                controller_accueil.getInstance().refreshCategorie();
+            } else {
                 DAOFactory.getDAOFactory(choix).getCategorieDAO().create(categorie);
                 strFin = " a bien été créé";
+                controller_accueil.getInstance().refreshCategorie();
             }
             outputCategory.setText("La catégorie : " + categorie.toString() + strFin);
         }

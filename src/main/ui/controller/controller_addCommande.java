@@ -150,10 +150,12 @@ public class controller_addCommande implements Initializable {
             if(update == true){
                 DAOFactory.getDAOFactory(choix).getCommandeDAO().update(commande);
                 strFin = " a bien été modifié";
+                controller_accueil.getInstance().refreshCommande();
             }else {
                 commande.setDate(LocalDate.now());
                 DAOFactory.getDAOFactory(choix).getCommandeDAO().create(commande);
                 strFin = " a bien été créé";
+                controller_accueil.getInstance().refreshCommande();
             }
             outputCommande.setText("La commande : " + commande.toString() + strFin);
         }

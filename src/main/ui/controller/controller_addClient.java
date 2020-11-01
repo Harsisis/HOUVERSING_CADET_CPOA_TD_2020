@@ -188,9 +188,11 @@ public class controller_addClient implements Initializable {
             if (update == true) {
                 DAOFactory.getDAOFactory(choix).getClientDAO().update(client);
                 strFin = " a bien été modifié";
+                controller_accueil.getInstance().refreshClient();
             } else {
                 DAOFactory.getDAOFactory(choix).getClientDAO().create(client);
                 strFin = " a bien été créé";
+                controller_accueil.getInstance().refreshClient();
             }
             outputClient.setText("Le client : " + client.toString() + strFin);
             //empty the fields

@@ -146,9 +146,11 @@ public class controller_addProduit extends util_isFloat implements Initializable
             if(update == true){
                 DAOFactory.getDAOFactory(choix).getProduitDAO().update(produit);
                 strFin = " a bien été modifié";
+                controller_accueil.getInstance().refreshProduit();
             }else {
                 DAOFactory.getDAOFactory(choix).getProduitDAO().create(produit);
                 strFin = " a bien été créé";
+                controller_accueil.getInstance().refreshProduit();
             }
             outputProduct.setText("Le produit : " + produit.toString() + strFin);
             //empty fields
