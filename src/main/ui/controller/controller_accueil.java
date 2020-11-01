@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import main.dao.fabrique.DAOFactory;
@@ -636,4 +638,8 @@ public class controller_accueil implements Initializable {
         }
     }
 
+    @FXML
+    void inputFilter_onKeyTyped(KeyEvent event) {
+        inputFilter.getText();
+    }
 }
